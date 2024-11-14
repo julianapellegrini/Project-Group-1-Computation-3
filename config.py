@@ -7,6 +7,16 @@ deep_black = (19, 20, 20)  # Almost black for background
 grey = (59, 60, 60)  # Dark grey for alternate buttons
 white = (254, 255, 255)  # White for readable text
 glowing_light_red = (239, 128, 128)  # Light red for brighter text
+blue = (0, 0, 255)
+forest_green = (34, 139, 34)
+red = (255, 0, 0)
 
 # SCREEN RESOLUTION
-resolution = (720, 720) # height/width
+resolution = (720, 720)  # height/width
+width, height = resolution[0], resolution[1]
+fps = 60  # frames per second
+
+# SIZES
+player_size = (50, 100)
+enemy_size = 40
+bullet_size = 10
