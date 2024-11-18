@@ -1,6 +1,6 @@
 import pygame
 
-
+#123
 
 # Function to draw a stick figure with a construction hat
 def draw_stick_figure_with_hat(screen, x, y):
