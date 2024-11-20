@@ -103,7 +103,6 @@ def execute_game():
                 if enemy.health <= 0:
                     enemy.kill()
 
-
         pygame.display.flip()
 
     # the main while game loop has terminated and the game ends
