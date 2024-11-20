@@ -20,10 +20,14 @@ def interface():
     rules_text = icefont.render("rules", True, white)
     options_text = icefont.render("options", True, white)
     credits_text = icefont.render("credits", True, white)
-    title_text = cooperblackfont.render("Computation III - Project", True, bice_blue)
 
     # main interface loop (will run until the user quits)
     while True:
+
+        # displaying the screen:
+        background = pygame.image.load('images/ice-background.jpg')
+        background = pygame.transform.scale(background, (resolution[0], resolution[1]))
+        screen.blit(background, (0, 0))
 
         # getting the mouse position (future need)
         mouse = pygame.mouse.get_pos()
@@ -59,10 +63,6 @@ def interface():
                 if 90 <= mouse[0] <= 230 and 480 <= mouse[1] <= 540:
                     under_construction()
 
-
-        # filling the screen
-        screen.fill(deep_black)
-
         # wilderness explorer button
         pygame.draw.rect(screen, dark_red, [90, 240, 540, 60])
         wilderness_rect = wilderness_text.get_rect(center=(90 + 540 // 2, 240 + 60 // 2)) # text centered in the button
@@ -87,9 +87,6 @@ def interface():
         pygame.draw.rect(screen, grey, [450, 480, 140, 60])
         credits_rect = credits_text.get_rect(center=(450 + 140 // 2, 480 + 60 // 2))  # text centered in the button
         screen.blit(credits_text, credits_rect)
-
-        # showing the title of the project
-        screen.blit(title_text, (55, 0))
 
         # update the display so that the loop changes will appear
         pygame.display.update()
@@ -132,7 +129,9 @@ def under_construction():
                     interface()
 
         # displaying the screen:
-        screen.fill(deep_black)
+        background = pygame.image.load('images/ice-background.jpg')
+        background = pygame.transform.scale(background, (resolution[0], resolution[1]))
+        screen.blit(background, (0, 0))
 
         # displaying the main UNDER CONSTRUCTION text
         construction_rect = construction_text.get_rect(center=(720 // 2, 300))
@@ -152,6 +151,7 @@ def under_construction():
 
         # finally, as always, updating our screen
         pygame.display.update()
+
 
 def credits_():
 
@@ -186,7 +186,9 @@ def credits_():
                     interface()
 
         # displaying my screen
-        screen.fill(deep_black)
+        background = pygame.image.load('images/ice-background.jpg')
+        background = pygame.transform.scale(background, (resolution[0], resolution[1]))
+        screen.blit(background, (0, 0))
 
         # displaying our texts
         screen.blit(augusto_text, (0, 0))
