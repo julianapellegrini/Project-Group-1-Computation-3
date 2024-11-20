@@ -1,25 +1,26 @@
+import pygame
 from utils import *  # no need to import pygame because the import is in utils
 from config import *  # importing colors and the like
 from game import execute_game
 
-
 def interface():
+
     # initiating pygame
-    pygame.init()  # calling pygame
+    pygame.init() # calling pygame
     # creating the screen at the set resolution
-    screen = pygame.display.set_mode(resolution)  # show the user something
+    screen = pygame.display.set_mode(resolution) # show the user something
 
     # setting the fonts
-    corbelfont = pygame.font.SysFont("Corbel", 50)
-    comicsansfont = pygame.font.SysFont("Comic Sans MS", 50)
+    icefont = pygame.font.SysFont("Chiller", 50)
+    cooperblackfont = pygame.font.SysFont("Cooper Black", 50)
 
     # render the text (will be used in the game button)
-    wilderness_text = corbelfont.render("Wilderness Explorer", True, white)
-    quit_text = corbelfont.render("quit", True, white)
-    rules_text = corbelfont.render("rules", True, white)
-    options_text = corbelfont.render("options", True, white)
-    credits_text = corbelfont.render("credits", True, white)
-    title_text = comicsansfont.render("Computation III - Project", True, glowing_light_red)
+    wilderness_text = cooperblackfont.render("Wilderness Explorer", True, light_blue)
+    quit_text = icefont.render("quit", True, white)
+    rules_text = icefont.render("rules", True, white)
+    options_text = icefont.render("options", True, white)
+    credits_text = icefont.render("credits", True, white)
+    title_text = cooperblackfont.render("Computation III - Project", True, bice_blue)
 
     # main interface loop (will run until the user quits)
     while True:
@@ -58,12 +59,13 @@ def interface():
                 if 90 <= mouse[0] <= 230 and 480 <= mouse[1] <= 540:
                     under_construction()
 
+
         # filling the screen
         screen.fill(deep_black)
 
         # wilderness explorer button
         pygame.draw.rect(screen, dark_red, [90, 240, 540, 60])
-        wilderness_rect = wilderness_text.get_rect(center=(90 + 540 // 2, 240 + 60 // 2))  # text centered in the button
+        wilderness_rect = wilderness_text.get_rect(center=(90 + 540 // 2, 240 + 60 // 2)) # text centered in the button
         screen.blit(wilderness_text, wilderness_rect)
 
         # rules button
@@ -92,9 +94,9 @@ def interface():
         # update the display so that the loop changes will appear
         pygame.display.update()
 
-
 # Under construction screen
 def under_construction():
+
     # creating the screen at 720x720 pixels
     screen = pygame.display.set_mode(resolution)
 
@@ -145,14 +147,14 @@ def under_construction():
         draw_normal_stick_figure(screen, normal_x_position, normal_y_position)
         draw_stick_figure_with_hat(screen, bob_x_position, bob_y_position)
 
-        screen.blit(first_speech, (normal_x_position - 60, normal_y_position - 80))
+        screen.blit(first_speech, (normal_x_position - 60, normal_y_position -80))
         screen.blit(bob_speech, (bob_x_position - 60, bob_y_position - 80))
 
         # finally, as always, updating our screen
         pygame.display.update()
 
-
 def credits_():
+
     # basic settings #
 
     screen = pygame.display.set_mode(resolution)
@@ -199,7 +201,6 @@ def credits_():
 
         # updating the display
         pygame.display.update()
-
 
 def rules_():
     print("Displaying rules...")
