@@ -3,8 +3,23 @@ import math
 import pygame
 from player import Player
 from enemy import Enemy
+from shed import shed
 
-def execute_game():
+def game_loop():
+    # creating the player for the game:
+    player = Player()
+
+    # by default i start the game in the main area
+    current_state = "main"
+
+    # "endless" game loop:
+    while True:
+        if current_state == "main":
+            current_state = execute_game(player)
+        elif current_state == "shed":
+            current_state = shed(player)
+
+def execute_game(player):
 
     # setup:
 
@@ -77,6 +92,10 @@ def execute_game():
         # updating the bullets and enemy groups
         bullets.update()
         enemies.update(player)
+
+        # checking if the player moved off-screen from the right to the next area
+        if player.rect.right >= width:
+            return "shed"
 
         # drawing the bullet sprites on the screen
         player_group.draw(screen)
