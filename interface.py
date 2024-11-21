@@ -92,9 +92,8 @@ def interface():
         # update the display so that the loop changes will appear
         pygame.display.update()
 
+
 # Under construction screen
-
-
 def credits_():
 
     # basic settings #
