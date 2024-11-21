@@ -16,10 +16,10 @@ def interface():
 
     # render the text (will be used in the game button)
     wilderness_text = cooperblackfont.render("Wilderness Explorer", True, light_blue)
-    quit_text = icefont.render("quit", True, white)
-    rules_text = icefont.render("rules", True, white)
-    options_text = icefont.render("options", True, white)
-    credits_text = icefont.render("credits", True, white)
+    quit_text = icefont.render("quit", True, royal_blue)
+    rules_text = icefont.render("rules", True, royal_blue)
+    options_text = icefont.render("options", True, royal_blue)
+    credits_text = icefont.render("credits", True, royal_blue)
 
     # main interface loop (will run until the user quits)
     while True:
