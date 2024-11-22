@@ -1,158 +1,69 @@
 from utils import *  # no need to import pygame because the import is in utils
 from config import *  # importing colors and the like
-from game import execute_game
+from utils import under_construction
+from game import game_loop
+from button import Button
 
 
 def interface():
+
     # initiating pygame
-    pygame.init()  # calling pygame
+    pygame.init() # calling pygame
     # creating the screen at the set resolution
-    screen = pygame.display.set_mode(resolution)  # show the user something
+    screen = pygame.display.set_mode(resolution)    # show the user something
 
-    # setting the fonts
-    corbelfont = pygame.font.SysFont("Corbel", 50)
-    comicsansfont = pygame.font.SysFont("Comic Sans MS", 50)
+    # Loading the same image for the buttons
+    button_sprite = "images/ice-banner.png"
+    wood_banner = "images/wood-banner.png"
 
-    # render the text (will be used in the game button)
-    wilderness_text = corbelfont.render("Wilderness Explorer", True, white)
-    quit_text = corbelfont.render("quit", True, white)
-    rules_text = corbelfont.render("rules", True, white)
-    options_text = corbelfont.render("options", True, white)
-    credits_text = corbelfont.render("credits", True, white)
-    title_text = comicsansfont.render("Computation III - Project", True, glowing_light_red)
+    # Initialize buttons with the correct parameters
+    wilderness_button = Button(90, 100, 540, 300, "Wilderness Explorer", royal_blue, "Cooper Black", 40, image=wood_banner)
+    rules_button = Button(260, 300, 200, 100, "Rules", None, "chiller", 30, image=button_sprite)
+    options_button = Button(260, 370, 200, 100, "Options", None, "chiller", 35, image=button_sprite)
+    credits_button = Button(260, 450, 200, 100, "Credits", None, "chiller", 40, image=button_sprite)
+    quit_button = Button(260, 520, 200, 100, "Quit", None, "chiller", 45, image=button_sprite)
 
-    # main interface loop (will run until the user quits)
     while True:
+        # Displaying the screen
+        background = pygame.image.load('images/ice-background.jpg')
+        background = pygame.transform.scale(background, (resolution[0], resolution[1]))
+        screen.blit(background, (0, 0))
 
-        # getting the mouse position (future need)
+        # Get mouse position
         mouse = pygame.mouse.get_pos()
 
-        # event detection (future work)
+        # Event handling
         for ev in pygame.event.get():
-            # seeing if the user hits the red x button
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
-            # quit button
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 450 <= mouse[0] <= 590 and 600 <= mouse[1] <= 660:
-                    pygame.quit()
+            if wilderness_button.is_clicked(mouse, ev):
+                wilderness_explorer()
+            if rules_button.is_clicked(mouse, ev):
+                under_construction()
+            if options_button.is_clicked(mouse, ev):
+                under_construction()
+            if quit_button.is_clicked(mouse, ev):
+                pygame.quit()
+            if credits_button.is_clicked(mouse, ev):
+                credits_()
 
-            # credits button
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 450 <= mouse[0] < 590 and 480 <= mouse[1] < 540:
-                    credits_()
+        # Draw buttons
+        wilderness_button.draw(screen, mouse)
+        rules_button.draw(screen, mouse)
+        options_button.draw(screen, mouse)
+        quit_button.draw(screen, mouse)
+        credits_button.draw(screen, mouse)
 
-            # wilderness game button
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 90 <= mouse[0] <= 630 and 240 <= mouse[1] <= 300:
-                    wilderness_explorer()
-
-            # options button
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 90 <= mouse[0] <= 230 and 600 <= mouse[1] <= 660:
-                    under_construction()
-
-            # rules button
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 90 <= mouse[0] <= 230 and 480 <= mouse[1] <= 540:
-                    under_construction()
-
-        # filling the screen
-        screen.fill(deep_black)
-
-        # wilderness explorer button
-        pygame.draw.rect(screen, dark_red, [90, 240, 540, 60])
-        wilderness_rect = wilderness_text.get_rect(center=(90 + 540 // 2, 240 + 60 // 2))  # text centered in the button
-        screen.blit(wilderness_text, wilderness_rect)
-
-        # rules button
-        pygame.draw.rect(screen, grey, [90, 480, 140, 60])
-        rules_rect = rules_text.get_rect(center=(90 + 140 // 2, 480 + 60 // 2))  # text centered in the button
-        screen.blit(rules_text, rules_rect)
-
-        # options button
-        pygame.draw.rect(screen, grey, [90, 600, 140, 60])
-        options_rect = options_text.get_rect(center=(90 + 140 // 2, 600 + 60 // 2))  # text centered in the button
-        screen.blit(options_text, options_rect)
-
-        # quit button
-        pygame.draw.rect(screen, grey, [450, 600, 140, 60])
-        quit_rect = quit_text.get_rect(center=(450 + 140 // 2, 600 + 60 // 2))  # text centered in the button
-        screen.blit(quit_text, quit_rect)
-
-        # credits button
-        pygame.draw.rect(screen, grey, [450, 480, 140, 60])
-        credits_rect = credits_text.get_rect(center=(450 + 140 // 2, 480 + 60 // 2))  # text centered in the button
-        screen.blit(credits_text, credits_rect)
-
-        # showing the title of the project
-        screen.blit(title_text, (55, 0))
-
-        # update the display so that the loop changes will appear
+        # Update the display
         pygame.display.update()
 
 
 # Under construction screen
-def under_construction():
-    # creating the screen at 720x720 pixels
-    screen = pygame.display.set_mode(resolution)
-
-    # setting up the fonts
-    corbelfont = pygame.font.SysFont("Corbel", 50)
-    conversation_font = pygame.font.SysFont("Arial", 30)
-
-    # setting my texts:
-    back_text = corbelfont.render("back", True, white)
-    construction_text = corbelfont.render("UNDER CONSTRUCTION", True, white)
-    first_speech = conversation_font.render("Can we fix it?", True, white)
-    bob_speech = conversation_font.render("Probably not...", True, white)
-
-    # setting up the "images" positions
-    bob_x_position = 460
-    bob_y_position = 450
-
-    normal_x_position = 260
-    normal_y_position = 450
-
-    # same old, same old while True loop
-
-    while True:
-        # getting the mouse position
-        mouse = pygame.mouse.get_pos()
-
-        for ev in pygame.event.get():
-            if ev.type == pygame.QUIT:
-                pygame.quit()
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                # checking if the back button was clicked
-                if 450 <= mouse[0] <= 590 and 600 <= mouse[1] <= 660:
-                    interface()
-
-        # displaying the screen:
-        screen.fill(deep_black)
-
-        # displaying the main UNDER CONSTRUCTION text
-        construction_rect = construction_text.get_rect(center=(720 // 2, 300))
-        screen.blit(construction_text, construction_rect)
-
-        # drawing the back button
-        pygame.draw.rect(screen, dark_red, [450, 600, 140, 60])
-        back_rect = back_text.get_rect(center=(450 + 140 // 2, 600 + 60 // 2))
-        screen.blit(back_text, back_rect)
-
-        # stick figures text and "images"
-        draw_normal_stick_figure(screen, normal_x_position, normal_y_position)
-        draw_stick_figure_with_hat(screen, bob_x_position, bob_y_position)
-
-        screen.blit(first_speech, (normal_x_position - 60, normal_y_position - 80))
-        screen.blit(bob_speech, (bob_x_position - 60, bob_y_position - 80))
-
-        # finally, as always, updating our screen
-        pygame.display.update()
 
 
 def credits_():
+
     # basic settings #
 
     screen = pygame.display.set_mode(resolution)
@@ -184,7 +95,9 @@ def credits_():
                     interface()
 
         # displaying my screen
-        screen.fill(deep_black)
+        background = pygame.image.load('images/ice-background.jpg')
+        background = pygame.transform.scale(background, (resolution[0], resolution[1]))
+        screen.blit(background, (0, 0))
 
         # displaying our texts
         screen.blit(augusto_text, (0, 0))
@@ -205,5 +118,18 @@ def rules_():
     print("Displaying rules...")
 
 
+def ice_button(x, y, d1, d2):
+    screen = pygame.display.set_mode(resolution)
+
+    # Load the image
+    ice = pygame.image.load("images/ice-banner.png")
+
+    # Resize the image to fit the dimensions received as input
+    resized_image = pygame.transform.scale(ice, (d1, d2))
+
+    # Draw the image on the screen at position received as input
+    screen.blit(resized_image, (x, y))
+
+
 def wilderness_explorer():
-    execute_game()
+    game_loop()
