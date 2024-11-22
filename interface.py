@@ -40,7 +40,7 @@ def interface():
             if wilderness_button.is_clicked(mouse, ev):
                 wilderness_explorer()
             if rules_button.is_clicked(mouse, ev):
-                under_construction()
+                rules_()
             if options_button.is_clicked(mouse, ev):
                 under_construction()
             if quit_button.is_clicked(mouse, ev):
@@ -54,6 +54,11 @@ def interface():
         options_button.draw(screen, mouse)
         quit_button.draw(screen, mouse)
         credits_button.draw(screen, mouse)
+
+        # if the mouse hovers over the button, scale up
+        for button in [wilderness_button, rules_button, options_button, quit_button, credits_button]:
+            if mouse == button.is_hovered(mouse):
+                wilderness_button = scale_up(screen, wilderness_button)
 
         # Update the display
         pygame.display.update()
