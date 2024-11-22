@@ -2,6 +2,7 @@ from utils import *  # no need to import pygame because the import is in utils
 from config import *  # importing colors and the like
 from utils import under_construction
 from game import game_loop
+from button import Button
 
 
 def interface():
@@ -9,88 +10,54 @@ def interface():
     # initiating pygame
     pygame.init() # calling pygame
     # creating the screen at the set resolution
-    screen = pygame.display.set_mode(resolution) # show the user something
+    screen = pygame.display.set_mode(resolution)    # show the user something
 
-    # setting the fonts
-    icefont = pygame.font.SysFont("Chiller", 50)
-    cooperblackfont = pygame.font.SysFont("Cooper Black", 50)
+    # Loading the same image for the buttons
+    button_sprite = "images/ice-banner.png"
+    wood_banner = "images/wood-banner.png"
 
-    # render the text (will be used in the game button)
-    wilderness_text = cooperblackfont.render("Wilderness Explorer", True, light_blue)
-    quit_text = icefont.render("quit", True, royal_blue)
-    rules_text = icefont.render("rules", True, royal_blue)
-    options_text = icefont.render("options", True, royal_blue)
-    credits_text = icefont.render("credits", True, royal_blue)
+    # Initialize buttons with the correct parameters
+    wilderness_button = Button(90, 100, 540, 300, "Wilderness Explorer", royal_blue, "Cooper Black", 40, image=wood_banner)
+    rules_button = Button(260, 300, 200, 100, "Rules", None, "chiller", 30, image=button_sprite)
+    options_button = Button(260, 370, 200, 100, "Options", None, "chiller", 35, image=button_sprite)
+    credits_button = Button(260, 450, 200, 100, "Credits", None, "chiller", 40, image=button_sprite)
+    quit_button = Button(260, 520, 200, 100, "Quit", None, "chiller", 45, image=button_sprite)
 
-    # main interface loop (will run until the user quits)
     while True:
-
-        # displaying the screen:
+        # Displaying the screen
         background = pygame.image.load('images/ice-background.jpg')
         background = pygame.transform.scale(background, (resolution[0], resolution[1]))
         screen.blit(background, (0, 0))
 
-        # getting the mouse position (future need)
+        # Get mouse position
         mouse = pygame.mouse.get_pos()
 
-        # event detection (future work)
+        # Event handling
         for ev in pygame.event.get():
-            # seeing if the user hits the red x button
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
-            # quit button
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 450 <= mouse[0] <= 590 and 600 <= mouse[1] <= 660:
-                    pygame.quit()
+            if wilderness_button.is_clicked(mouse, ev):
+                wilderness_explorer()
+            if rules_button.is_clicked(mouse, ev):
+                under_construction()
+            if options_button.is_clicked(mouse, ev):
+                under_construction()
+            if quit_button.is_clicked(mouse, ev):
+                pygame.quit()
+            if credits_button.is_clicked(mouse, ev):
+                credits_()
 
-            # credits button
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 450 <= mouse[0] < 590 and 480 <= mouse[1] < 540:
-                    credits_()
+        # Draw buttons
+        wilderness_button.draw(screen, mouse)
+        rules_button.draw(screen, mouse)
+        options_button.draw(screen, mouse)
+        quit_button.draw(screen, mouse)
+        credits_button.draw(screen, mouse)
 
-            # wilderness game button
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 90 <= mouse[0] <= 630 and 240 <= mouse[1] <= 300:
-                    wilderness_explorer()
-
-            # options button
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 90 <= mouse[0] <= 230 and 600 <= mouse[1] <= 660:
-                    under_construction()
-
-            # rules button
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 90 <= mouse[0] <= 230 and 480 <= mouse[1] <= 540:
-                    under_construction()
-
-        # wilderness explorer button
-        pygame.draw.rect(screen, dark_red, [90, 240, 540, 60])
-        wilderness_rect = wilderness_text.get_rect(center=(90 + 540 // 2, 240 + 60 // 2)) # text centered in the button
-        screen.blit(wilderness_text, wilderness_rect)
-
-        # rules button
-        pygame.draw.rect(screen, grey, [90, 480, 140, 60])
-        rules_rect = rules_text.get_rect(center=(90 + 140 // 2, 480 + 60 // 2))  # text centered in the button
-        screen.blit(rules_text, rules_rect)
-
-        # options button
-        pygame.draw.rect(screen, grey, [90, 600, 140, 60])
-        options_rect = options_text.get_rect(center=(90 + 140 // 2, 600 + 60 // 2))  # text centered in the button
-        screen.blit(options_text, options_rect)
-
-        # quit button
-        pygame.draw.rect(screen, grey, [450, 600, 140, 60])
-        quit_rect = quit_text.get_rect(center=(450 + 140 // 2, 600 + 60 // 2))  # text centered in the button
-        screen.blit(quit_text, quit_rect)
-
-        # credits button
-        pygame.draw.rect(screen, grey, [450, 480, 140, 60])
-        credits_rect = credits_text.get_rect(center=(450 + 140 // 2, 480 + 60 // 2))  # text centered in the button
-        screen.blit(credits_text, credits_rect)
-
-        # update the display so that the loop changes will appear
+        # Update the display
         pygame.display.update()
+
 
 # Under construction screen
 
@@ -146,8 +113,22 @@ def credits_():
         # updating the display
         pygame.display.update()
 
+
 def rules_():
     print("Displaying rules...")
+
+
+def ice_button(x, y, d1, d2):
+    screen = pygame.display.set_mode(resolution)
+
+    # Load the image
+    ice = pygame.image.load("images/ice-banner.png")
+
+    # Resize the image to fit the dimensions received as input
+    resized_image = pygame.transform.scale(ice, (d1, d2))
+
+    # Draw the image on the screen at position received as input
+    screen.blit(resized_image, (x, y))
 
 
 def wilderness_explorer():
