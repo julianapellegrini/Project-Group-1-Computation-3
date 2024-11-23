@@ -39,5 +39,8 @@ class Enemy(pygame.sprite.Sprite):
         direction = math.atan2(dy, dx)
 
         # moving the enemy towards the player --> like bullet
-        self.rect.x += int(self.speed * math.cos(direction))
-        self.rect.y += int(self.speed * math.sin(direction))
+        self.rect.x += self.speed * math.cos(direction)
+        self.rect.y += self.speed * math.sin(direction)
+
+        self.rect.x = int(self.rect.x)
+        self.rect.y = int(self.rect.y)

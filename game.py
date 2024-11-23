@@ -5,6 +5,7 @@ from player import Player
 from enemy import Enemy
 from shed import shed
 
+
 def game_loop():
     # creating the player for the game:
     player = Player()
@@ -18,6 +19,7 @@ def game_loop():
             current_state = execute_game(player)
         elif current_state == "shed":
             current_state = shed(player)
+
 
 def execute_game(player):
 
