@@ -17,7 +17,7 @@ def interface():
     wood_banner = "images/wood-banner.png"
 
     # Initialize buttons with the correct parameters
-    wilderness_button = Button(90, 100, 540, 300, "Wilderness Explorer", royal_blue, "Cooper Black", 40, image=wood_banner)
+    wilderness_button = Button(90, 100, 540, 200, "Wilderness Explorer", royal_blue, "Cooper Black", 40, image=wood_banner)
     rules_button = Button(260, 300, 200, 100, "Rules", None, "chiller", 30, image=button_sprite)
     options_button = Button(260, 370, 200, 100, "Options", None, "chiller", 35, image=button_sprite)
     credits_button = Button(260, 450, 200, 100, "Credits", None, "chiller", 40, image=button_sprite)
