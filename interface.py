@@ -15,12 +15,13 @@ def interface():
 
     # loading music file
     pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
+    pygame.mixer.music.load("audio/button-hover.wav")
 
     # playing the music infinitely
     pygame.mixer.music.play(loops=-1)
 
     # creating the screen at the set resolution
-    screen = pygame.display.set_mode(resolution)    # show the user something
+    screen = pygame.display.set_mode(resolution)
 
     # Loading the same image for the buttons
     button_sprite = "images/ice-banner.png"
@@ -53,6 +54,7 @@ def interface():
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
+            # button is clicked
             if play_button.is_clicked(mouse, ev):
                 wilderness_explorer()
             if rules_button.is_clicked(mouse, ev):
@@ -63,6 +65,32 @@ def interface():
                 pygame.quit()
             if credits_button.is_clicked(mouse, ev):
                 credits_()
+
+            # hover over button
+            if play_button.is_hovered(mouse):
+                play_button.scale_up()
+            else:
+                play_button.scale_down()
+
+            if rules_button.is_hovered(mouse):
+                rules_button.scale_up()
+            else:
+                rules_button.scale_down()
+
+            if options_button.is_hovered(mouse):
+                options_button.scale_up()
+            else:
+                options_button.scale_down()
+
+            if credits_button.is_hovered(mouse):
+                credits_button.scale_up()
+            else:
+                credits_button.scale_down()
+
+            if quit_button.is_hovered(mouse):
+                quit_button.scale_up()
+            else:
+                quit_button.scale_down()
 
         # Draw buttons
         # wilderness_button.draw(screen, mouse)

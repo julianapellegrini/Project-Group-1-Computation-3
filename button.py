@@ -16,6 +16,8 @@ class Button:
         self.scaled_font = pygame.font.SysFont(self.font, self.font_size)  # Use the font passed as an argument
         self.outline = outline
         self.outline_color = outline_color
+        self.is_scaled = False
+        self.original_size = (self.x, self.y, self.width, self.height)
 
     def draw(self, screen, mouse):
 
@@ -57,4 +59,24 @@ class Button:
         list1 = [(text_surface1, text_rect1), (text_surface2, text_rect2), (text_surface3, text_rect3), (text_surface4, text_rect4)]
         return list1
 
+    def scale_up(self):
+        if not self.is_scaled:  # Only scale up if not already scaled
+            # increase in size
+            new_width = self.width * 1.1
+            new_height = self.height * 1.1
 
+            # adjust x and y to keep the button centered
+            self.x -= (new_width - self.width) / 2
+            self.y -= (new_height - self.height) / 2
+
+            # scaling up the button
+            self.width = new_width
+            self.height = new_height
+
+            self.is_scaled = True
+
+    def scale_down(self):
+        if self.is_scaled:
+            # reset to original size and position
+            self.x, self.y, self.width, self.height = self.original_size
+            self.is_scaled = False
