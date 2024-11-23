@@ -5,7 +5,6 @@ from player import Player
 from enemy import Enemy
 from shed import shed
 
-
 def game_loop():
     # creating the player for the game:
     player = Player()
@@ -68,6 +67,7 @@ def execute_game(player):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+
 
         # automatically shoot bullets from the player
         player.shoot(bullets)

@@ -71,9 +71,10 @@ def credits_():
     comicsansfont = pygame.font.SysFont("Comic Sans MS", 25)
 
     # creating the rendered texts for the credits
-    augusto_text = comicsansfont.render("Augusto Santos, ajrsantos@novaims.unl.pt", True, white)
-    diogo_text = comicsansfont.render("Diogo Rastreio, drasteiro@novaims.unl.pt", True, white)
-    liah_text = comicsansfont.render("Liah Rosenfeld, lrosenfeld@novaims.unl.pt", True, white)
+    madi_text = comicsansfont.render("Madalena Duarte", True, royal_blue)
+    juliana_text = comicsansfont.render("Juliana Reis", True, royal_blue)
+    julia_text = comicsansfont.render("Júlia Vidal", True, royal_blue)
+    andre_text = comicsansfont.render("André Calheiros", True, royal_blue)
 
     # main loop to detect user input and displaying the credits page
 
@@ -98,9 +99,10 @@ def credits_():
         screen.blit(background, (0, 0))
 
         # displaying our texts
-        screen.blit(augusto_text, (0, 0))
-        screen.blit(diogo_text, (0, 25))
-        screen.blit(liah_text, (0, 50))
+        screen.blit(madi_text, (0, 0))
+        screen.blit(juliana_text, (0, 25))
+        screen.blit(julia_text, (0, 50))
+        screen.blit(andre_text, (0, 75))
 
         # drawing and displaying the back button
         pygame.draw.rect(screen, dark_red, [450, 600, 140, 60])
