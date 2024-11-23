@@ -15,7 +15,7 @@ def interface():
 
     # loading music file
     pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
-    pygame.mixer.music.load("audio/button-hover.wav")
+    #pygame.mixer.music.load("audio/button-hover.wav")
 
     # playing the music infinitely
     pygame.mixer.music.play(loops=-1)
