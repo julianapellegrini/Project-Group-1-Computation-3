@@ -3,7 +3,7 @@ from config import *
 
 
 class Button:
-    def __init__(self, x, y, width, height, text, color, font, font_size, image=None):
+    def __init__(self, x, y, width, height, text, color, font, font_size, outline, outline_color, image=None):
         self.x = x
         self.y = y
         self.width = width
@@ -14,13 +14,20 @@ class Button:
         self.font_size = font_size
         self.image = image
         self.scaled_font = pygame.font.SysFont(self.font, self.font_size)  # Use the font passed as an argument
+        self.outline = outline
+        self.outline_color = outline_color
 
     def draw(self, screen, mouse):
-        # Optionally use the image
+
         if self.image:
             button_image = pygame.image.load(self.image)
             button_image = pygame.transform.scale(button_image, (self.width, self.height))
             screen.blit(button_image, (self.x, self.y))
+
+        if self.outline:
+            list1 = self.outline_()
+            for i in list1:
+                screen.blit(i[0], i[1])
 
         # Draw the text with the scaled font
         text_surface = self.scaled_font.render(self.text, True, self.color)
@@ -32,4 +39,22 @@ class Button:
 
     def is_clicked(self, mouse_pos, event):
         return self.is_hovered(mouse_pos) and event.type == pygame.MOUSEBUTTONDOWN
+
+    def outline_(self):
+
+        text_surface1 = self.scaled_font.render(self.text, True, self.outline_color)
+        text_rect1 = text_surface1.get_rect(center=((self.x + self.width // 2) - 1, self.y + self.height // 2))
+
+        text_surface2 = self.scaled_font.render(self.text, True, self.outline_color)
+        text_rect2 = text_surface2.get_rect(center=((self.x + self.width // 2) + 1, self.y + self.height // 2))
+
+        text_surface3 = self.scaled_font.render(self.text, True, self.outline_color)
+        text_rect3 = text_surface3.get_rect(center=(self.x + self.width // 2, (self.y + self.height // 2)+1))
+
+        text_surface4 = self.scaled_font.render(self.text, True, self.outline_color)
+        text_rect4 = text_surface4.get_rect(center=(self.x + self.width // 2, (self.y + self.height // 2) - 1))
+
+        list1 = [(text_surface1, text_rect1), (text_surface2, text_rect2), (text_surface3, text_rect3), (text_surface4, text_rect4)]
+        return list1
+
 

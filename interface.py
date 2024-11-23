@@ -8,7 +8,7 @@ from button import Button
 def interface():
 
     # initiating pygame
-    pygame.init() # calling pygame
+    pygame.init()   # calling pygame
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)    # show the user something
 
@@ -17,17 +17,23 @@ def interface():
     wood_banner = "images/wood-banner.png"
 
     # Initialize buttons with the correct parameters
-    wilderness_button = Button(90, 100, 540, 200, "Wilderness Explorer", royal_blue, "Cooper Black", 40, image=wood_banner)
-    rules_button = Button(260, 300, 200, 100, "Rules", None, "chiller", 30, image=button_sprite)
-    options_button = Button(260, 370, 200, 100, "Options", None, "chiller", 35, image=button_sprite)
-    credits_button = Button(260, 450, 200, 100, "Credits", None, "chiller", 40, image=button_sprite)
-    quit_button = Button(260, 520, 200, 100, "Quit", None, "chiller", 45, image=button_sprite)
+    # wilderness_button = Button(90, 40, 550, 100, "Wilderness Explorer", royal_blue, "Cooper Black", 40, True, bice_blue, image=wood_banner)
+    play_button = Button(230, 230, 260, 100, "Play", bice_blue, "chiller", 55, True, royal_blue, image=button_sprite)
+    rules_button = Button(285, 350, 150, 60, "Rules", None, "chiller", 35, True, bice_blue, image=button_sprite)
+    options_button = Button(285, 430, 150, 60, "Options", None, "chiller", 35, True, bice_blue, image=button_sprite)
+    credits_button = Button(285, 510, 150, 60, "Credits", None, "chiller", 40, True, bice_blue, image=button_sprite)
+    quit_button = Button(285, 590, 150, 60, "Quit", None, "chiller", 45, True, bice_blue, image=button_sprite)
 
     while True:
         # Displaying the screen
         background = pygame.image.load('images/ice-background.jpg')
         background = pygame.transform.scale(background, (resolution[0], resolution[1]))
         screen.blit(background, (0, 0))
+
+        # LOGO:
+        title = pygame.image.load(wood_banner)
+        title = pygame.transform.scale(title, (450, 120))
+        screen.blit(title, (135, 40))
 
         # Get mouse position
         mouse = pygame.mouse.get_pos()
@@ -37,7 +43,7 @@ def interface():
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
-            if wilderness_button.is_clicked(mouse, ev):
+            if play_button.is_clicked(mouse, ev):
                 wilderness_explorer()
             if rules_button.is_clicked(mouse, ev):
                 under_construction()
@@ -49,7 +55,8 @@ def interface():
                 credits_()
 
         # Draw buttons
-        wilderness_button.draw(screen, mouse)
+        # wilderness_button.draw(screen, mouse)
+        play_button.draw(screen, mouse)
         rules_button.draw(screen, mouse)
         options_button.draw(screen, mouse)
         quit_button.draw(screen, mouse)
