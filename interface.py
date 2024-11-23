@@ -9,6 +9,16 @@ def interface():
 
     # initiating pygame
     pygame.init()   # calling pygame
+
+    # initiating mixer aka what plays the music
+    pygame.mixer.init()
+
+    # loading music file
+    pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
+
+    # playing the music infinitely
+    pygame.mixer.music.play(loops=-1)
+
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)    # show the user something
 
