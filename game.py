@@ -124,6 +124,27 @@ def execute_game(player):
                 if enemy.health <= 0:
                     enemy.kill()
 
+        # checking for collisions between player and enemies
+        for enemy in enemies:
+            collided_player = pygame.sprite.spritecollide(player, enemies, False)
+            for enemy in collided_player:
+                player.health -= 0.3
+
+                #OR
+                #player.health -= 20
+                #enemy.kill()
+
+                if player.health <= 0:
+                    player.kill()
+                    pygame.quit()
+                
+            
+        # Draw the player's health bar
+        player.draw_health_bar(screen)
+        #Draw enemy health bar
+        for enemy in enemies:
+            enemy.draw_health_bar(screen)
+
         pygame.display.flip()
 
     # the main while game loop has terminated and the game ends
