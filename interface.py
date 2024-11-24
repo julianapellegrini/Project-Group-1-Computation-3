@@ -127,7 +127,7 @@ def credits_():
 
             if back_button.is_clicked(mouse, ev):
                 select_sound()
-                interface()
+                return
 
             # Clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
@@ -169,7 +169,7 @@ def rules_():
 
             if back_button.is_clicked(mouse, ev):
                 select_sound()
-                interface()
+                return
 
             # Clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)

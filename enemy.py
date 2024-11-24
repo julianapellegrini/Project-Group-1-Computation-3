@@ -46,7 +46,6 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x = int(self.rect.x)
         self.rect.y = int(self.rect.y)
 
-
     def draw_health_bar(self, surface):
         # Define the size and position of the health bar
         bar_width = self.rect.width
