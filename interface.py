@@ -107,54 +107,42 @@ def interface():
 
 # Under construction screen
 def credits_():
-
-    # basic settings #
-
+    # loading the rules screen
     screen = pygame.display.set_mode(resolution)
+    background = pygame.image.load('images/credits.png')
+    screen.blit(background, (0, 0))
 
-    # creating the fonts:
-    corbelfont = pygame.font.SysFont("Corbel", 50)
-    comicsansfont = pygame.font.SysFont("Comic Sans MS", 25)
-
-    # creating the rendered texts for the credits
-    madi_text = comicsansfont.render("Madalena Duarte", True, royal_blue)
-    juliana_text = comicsansfont.render("Juliana Reis", True, royal_blue)
-    julia_text = comicsansfont.render("Júlia Vidal", True, royal_blue)
-    andre_text = comicsansfont.render("André Calheiros", True, royal_blue)
-
-    # main loop to detect user input and displaying the credits page
+    # setting up the back button
+    back_button = Button(550, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
 
     while True:
+
         # getting the position of the user's mouse
         mouse = pygame.mouse.get_pos()
 
-        for ev in pygame.event.get():
 
-            # allow the user to quit on (x)
+        for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
-            # checking if the user clicked the back button
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 450 <= mouse[0] <= 590 and 600 <= mouse[1] <= 660:
-                    interface()
+            if back_button.is_clicked(mouse, ev):
+                select_sound()
+                interface()
 
-        # displaying my screen
-        background = pygame.image.load('images/ice-background.jpg')
-        background = pygame.transform.scale(background, (resolution[0], resolution[1]))
-        screen.blit(background, (0, 0))
+            # Clear the button's previous position
+            previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
+            screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
 
-        # displaying our texts
-        screen.blit(madi_text, (0, 0))
-        screen.blit(juliana_text, (0, 25))
-        screen.blit(julia_text, (0, 50))
-        screen.blit(andre_text, (0, 75))
+            # Update and draw the button
+            if back_button.is_hovered(mouse):
+                back_button.scale_up()
+            else:
+                back_button.scale_down()
 
-        # drawing and displaying the back button
-        pygame.draw.rect(screen, dark_red, [450, 600, 140, 60])
-        back_text = corbelfont.render("back", True, white)
-        back_rect = back_text.get_rect(center=(450 + 140 // 2, 600 + 60 // 2))
-        screen.blit(back_text, back_rect)
+            back_button.draw(screen, mouse)  # Draw the button after updating
+
+        # drawing the back button
+        back_button.draw(screen, mouse)
 
         # updating the display
         pygame.display.update()
