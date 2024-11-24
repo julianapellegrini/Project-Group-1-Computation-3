@@ -58,7 +58,7 @@ def interface():
             if play_button.is_clicked(mouse, ev):
                 wilderness_explorer()
             if rules_button.is_clicked(mouse, ev):
-                under_construction()
+                rules_()
             if options_button.is_clicked(mouse, ev):
                 under_construction()
             if quit_button.is_clicked(mouse, ev):
@@ -160,7 +160,37 @@ def credits_():
 
 
 def rules_():
-    print("Displaying rules...")
+    # loading the rules screen
+    screen = pygame.display.set_mode(resolution)
+    background = pygame.image.load('images/rules.png')
+    screen.blit(background, (0, 0))
+
+    # setting up the back button
+    back_button = Button(550, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
+
+    while True:
+
+        # getting the position of the user's mouse
+        mouse = pygame.mouse.get_pos()
+
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+
+            if back_button.is_clicked(mouse, ev):
+                interface()
+
+            if back_button.is_hovered(mouse):
+                back_button.scale_up()
+            else:
+                back_button.scale_down()
+
+        # drawing the back button
+        back_button.draw(screen, mouse)
+
+        # updating the display
+        pygame.display.update()
+
 
 
 def ice_button(x, y, d1, d2):
