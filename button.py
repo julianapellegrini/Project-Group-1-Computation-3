@@ -2,6 +2,13 @@ import pygame
 from config import *
 
 
+def select_sound():
+    # playing sound
+    hover_sound = pygame.mixer.Sound("audio/button-select.mp3")
+    hover_sound.set_volume(0.2)
+    hover_sound.play()
+
+
 class Button:
     def __init__(self, x, y, width, height, text, color, font, font_size, outline, outline_color, image=None):
         self.x = x
@@ -74,8 +81,8 @@ class Button:
             self.height = new_height
 
             # playing sound
-            hover_sound = pygame.mixer.Sound("audio/button-hovered.mp3")
-            hover_sound.set_volume(0.2)
+            hover_sound = pygame.mixer.Sound("audio/hover.mp3")
+            hover_sound.set_volume(0.3)
             hover_sound.play()
 
             self.is_scaled = True
@@ -85,3 +92,4 @@ class Button:
             # reset to original size and position
             self.x, self.y, self.width, self.height = self.original_size
             self.is_scaled = False
+

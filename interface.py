@@ -2,16 +2,13 @@ from utils import *  # no need to import pygame because the import is in utils
 from config import *  # importing colors and the like
 from utils import under_construction
 from game import game_loop
-from button import Button
+from button import Button, select_sound
 
 
 def interface():
 
     # initiating pygame
     pygame.init()   # calling pygame
-
-    # initiating mixer aka what plays the music
-    pygame.mixer.init()
 
     # loading music file
     pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
@@ -28,7 +25,6 @@ def interface():
     wood_banner = "images/wood-banner.png"
 
     # Initialize buttons with the correct parameters
-    # wilderness_button = Button(90, 40, 550, 100, "Wilderness Explorer", royal_blue, "Cooper Black", 40, True, bice_blue, image=wood_banner)
     play_button = Button(230, 230, 260, 100, "Play", bice_blue, "chiller", 55, True, royal_blue, image=button_sprite)
     rules_button = Button(285, 350, 150, 60, "Rules", None, "chiller", 35, True, bice_blue, image=button_sprite)
     options_button = Button(285, 430, 150, 60, "Options", None, "chiller", 35, True, bice_blue, image=button_sprite)
@@ -56,14 +52,19 @@ def interface():
 
             # button is clicked
             if play_button.is_clicked(mouse, ev):
+                select_sound()
                 wilderness_explorer()
             if rules_button.is_clicked(mouse, ev):
+                select_sound()
                 rules_()
             if options_button.is_clicked(mouse, ev):
+                select_sound()
                 under_construction()
             if quit_button.is_clicked(mouse, ev):
+                select_sound()
                 pygame.quit()
             if credits_button.is_clicked(mouse, ev):
+                select_sound()
                 credits_()
 
             # hover over button
@@ -179,6 +180,7 @@ def rules_():
                 pygame.quit()
 
             if back_button.is_clicked(mouse, ev):
+                select_sound()
                 interface()
 
             # Clear the button's previous position
