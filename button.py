@@ -73,6 +73,11 @@ class Button:
             self.width = new_width
             self.height = new_height
 
+            # playing sound
+            hover_sound = pygame.mixer.Sound("audio/button-hovered.mp3")
+            hover_sound.set_volume(0.2)
+            hover_sound.play()
+
             self.is_scaled = True
 
     def scale_down(self):
