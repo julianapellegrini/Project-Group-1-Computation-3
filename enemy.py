@@ -9,9 +9,9 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self,max_health=10):
         super().__init__()
         # creating a surface for the enemy
-        self.image = pygame.Surface(enemy_size)
-        # filling the surface with chosen enemy color
-        self.image.fill(red)
+        self.image = pygame.image.load('images/seal1.png')
+        self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
+
         # getting rectangle for positioning
         self.rect = self.image.get_rect()
 
