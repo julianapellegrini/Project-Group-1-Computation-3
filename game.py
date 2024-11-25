@@ -9,15 +9,23 @@ from powerup import PowerUp
 from invincibility import Invincibility
 from despawner import DeSpawner
 
+#initializd pygame
+pygame.init()
+
 # Define the probability of power-up appearance
-POWERUP_PROBABILITY = 0.01
+invincibility_probability = 0.7
 
 # Initialize power-ups
-invincibility_powerup = Invincibility(duration=5000, image_path='powerup_images/invincibility.png')  # 5 seconds
-despawner_powerup = DeSpawner(duration=5000, reduction_factor=0.5)  # 5 seconds, 50% reduction
+invincibility_powerup = Invincibility(duration=10000, image_path='powerup_images/invincibility.png')  # 10 seconds
+
 
 # Initial spawn rate for power ups
 spawn_rate = 1.0
+
+# Set up a timer event for every 5 seconds (5000 milliseconds)
+invincibility_event = pygame.USEREVENT + 1
+pygame.time.set_timer(invincibility_event, 5000)
+invincibility_deactivation_event = pygame.USEREVENT + 2
 
 
 
@@ -84,10 +92,16 @@ def execute_game(player):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-            elif event.type == pygame.USEREVENT + 1:
+            # Check for power-up appearance
+            elif event.type == invincibility_event:
+                if random.random() < invincibility_probability:
+                    powerup_type = invincibility_powerup
+                    powerup_type.rect.topleft = (random.randint(0, 800), random.randint(0, 600))  # Random position
+                    powerup_type.affect_player(screen,player)
+            #Handling invincibility deactivation
+            elif event.type == invincibility_deactivation_event:
                 spawn_rate = invincibility_powerup.deactivate(player, spawn_rate)
-            elif event.type == pygame.USEREVENT + 2:
-                spawn_rate = despawner_powerup.deactivate(player, spawn_rate)
+
 
 
         # automatically shoot bullets from the player
@@ -166,40 +180,22 @@ def execute_game(player):
         for enemy in enemies:
             enemy.draw_health_bar(screen)
 
-        # Check for power-up appearance
-        if random.random() < POWERUP_PROBABILITY:
-            powerup_type = random.choice([invincibility_powerup, despawner_powerup])
-            powerup_type.affect_player(player)
-            spawn_rate = powerup_type.affect_game(spawn_rate)
+        # Draw power-ups
+        
 
-        # Handle power-up deactivation
-        for event in pygame.event.get():
-            if event.type == pygame.USEREVENT + 1:
-                spawn_rate = invincibility_powerup.deactivate(player, spawn_rate)
-            elif event.type == pygame.USEREVENT + 2:
-                spawn_rate = despawner_powerup.deactivate(player, spawn_rate)#
-
-
-        # Check for power-up appearance
-        if random.random() < POWERUP_PROBABILITY:
-            powerup_type = random.choice([invincibility_powerup, despawner_powerup])
-            powerup_type.rect.topleft = (random.randint(0, 800), random.randint(0, 600))  # Random position
-            powerup_type.affect_player(player)
-            spawn_rate = powerup_type.affect_game(spawn_rate)
-
+        
         # Check for collisions between player and invincibility power-up
         if invincibility_powerup.active and pygame.sprite.collide_rect(player, invincibility_powerup):
-            invincibility_powerup.affect_player(player)
+            invincibility_powerup.affect_player(screen,player)
 
-        # Draw power-ups
-        if invincibility_powerup.active:
-            invincibility_powerup.draw(screen)
+
 
         # Update player
         player.update()
 
         # Draw player
         screen.blit(player.image, player.rect.topleft)
+
         
 
 

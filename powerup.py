@@ -16,7 +16,7 @@ class PowerUp(ABC):
         pass
 
     @abstractmethod
-    def deactivate(self, player, spawn_rate):
+    def deactivate(self, player):
         pass
 
     @abstractmethod
