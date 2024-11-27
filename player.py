@@ -52,20 +52,48 @@ class Player(pygame.sprite.Sprite):
 
         bullets --> pygame group where I will add bullets
         """
-        # cooldown ==> how many frames I need until I can shoot again
-        if self.bullet_cooldown <= 0:
-            # defining the directions in which the bullets will fly
-            # these 4 directions are, in order, right, left, up, down
-            for angle in [0, math.pi, math.pi / 2, 3 * math.pi / 2]:
-                # creating a bullet for each angle
-                # I will use self.rect.centerx to make the x position of the bullet the same as the
-                # x position of the player, thus making the bullet come out of them
-                # finally, the direction of the bullet is the angle
-                bullet = Bullet(self.rect.centerx, self.rect.centery, angle)
-                # adding  the bullet to the bullets pygame group
-                bullets.add(bullet)
+        
+        if self.alive():
+            # cooldown ==> how many frames I need until I can shoot again
+            if self.bullet_cooldown <= 0:
+                # defining the directions in which the bullets will fly
+                # these 4 directions are, in order, right, left, up, down
+                for angle in [0, math.pi, math.pi / 2, 3 * math.pi / 2]:
+                    # creating a bullet for each angle
+                    # I will use self.rect.centerx to make the x position of the bullet the same as the
+                    # x position of the player, thus making the bullet come out of them
+                    # finally, the direction of the bullet is the angle
+                    bullet = Bullet(self.rect.centerx, self.rect.centery, angle)
+                    # adding  the bullet to the bullets pygame group
+                    bullets.add(bullet)
 
-            # resetting the cooldown
-            self.bullet_cooldown = fps
+                # resetting the cooldown
+                self.bullet_cooldown = fps
 
-        self.bullet_cooldown -= 1
+            self.bullet_cooldown -= 1
+
+
+    def draw_health_bar(self, surface):
+        # Define the size and position of the health bar
+        bar_width = self.rect.width
+        bar_height = 10  # Increase the height of the health bar
+        bar_x = self.rect.x
+        bar_y = self.rect.y - bar_height - 5  # Adjust the position
+
+        # Ensure health does not go below 0
+        health = max(self.health, 0)
+
+        # Calculate the health ratio
+        health_ratio = health / 100
+
+        # Draw the background of the health bar
+        pygame.draw.rect(surface, (255, 0, 0), (bar_x, bar_y, bar_width, bar_height), border_radius=5)
+
+        # Draw the foreground of the health bar
+        pygame.draw.rect(surface, (0, 255, 0), (bar_x, bar_y, bar_width * health_ratio, bar_height), border_radius=5)
+
+        # Add the health ratio text in the middle of the health bar
+        font = pygame.font.Font(None, 18)
+        text = font.render(f'{int(health)}%', True, (255, 255, 255))
+        text_rect = text.get_rect(center=(bar_x + bar_width // 2, bar_y + bar_height // 2))
+        surface.blit(text, text_rect)

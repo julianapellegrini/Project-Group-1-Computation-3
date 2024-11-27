@@ -6,12 +6,12 @@ import math
 
 class Enemy(pygame.sprite.Sprite):
 
-    def __init__(self):
+    def __init__(self,max_health=10):
         super().__init__()
         # creating a surface for the enemy
-        self.image = pygame.Surface(enemy_size)
-        # filling the surface with chosen enemy color
-        self.image.fill(red)
+        self.image = pygame.image.load('images/seal1.png')
+        self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
+
         # getting rectangle for positioning
         self.rect = self.image.get_rect()
 
@@ -23,7 +23,8 @@ class Enemy(pygame.sprite.Sprite):
         self.speed = random.randint(1, 3)
 
         # set the healthbar
-        self.health = 10
+        self.health = max_health
+        self.max_health = max_health
 
     def update(self, player):
         """
@@ -44,3 +45,29 @@ class Enemy(pygame.sprite.Sprite):
 
         self.rect.x = int(self.rect.x)
         self.rect.y = int(self.rect.y)
+
+    def draw_health_bar(self, surface):
+        # Define the size and position of the health bar
+        bar_width = self.rect.width
+        bar_height = 10  # Increase the height of the health bar
+        bar_x = self.rect.x
+        bar_y = self.rect.y - bar_height - 5  # Adjust the position
+
+        # Ensure health does not go below 0
+        health = max(self.health, 0)
+
+        # Calculate the health ratio
+        health_ratio = health / self.max_health
+
+        # Draw the background of the health bar
+        pygame.draw.rect(surface, (255, 0, 0), (bar_x, bar_y, bar_width, bar_height), border_radius=5)
+
+        # Draw the foreground of the health bar
+        pygame.draw.rect(surface, (0, 255, 0), (bar_x, bar_y, bar_width * health_ratio, bar_height), border_radius=5)
+
+        # Add the health percentage text in the middle of the health bar
+        font = pygame.font.Font(None, 18)
+        health_percentage = int(health_ratio * 100)
+        text = font.render(f'{health_percentage}%', True, (255, 255, 255))
+        text_rect = text.get_rect(center=(bar_x + bar_width // 2, bar_y + bar_height // 2))
+        surface.blit(text, text_rect)

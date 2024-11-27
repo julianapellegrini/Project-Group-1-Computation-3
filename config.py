@@ -25,6 +25,6 @@ width, height = resolution[0], resolution[1]
 fps = 60
 
 # SIZES
-player_size = (50, 100)
+player_size = (50, 50)
 enemy_size = (40, 40)
 bullet_size = 10

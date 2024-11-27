@@ -82,7 +82,7 @@ def under_construction():
                     return
 
         # displaying the screen:
-        background = pygame.image.load('images/ice-background.jpg')
+        background = pygame.image.load('images/winter2.png')
         background = pygame.transform.scale(background, (resolution[0], resolution[1]))
         screen.blit(background, (0, 0))
 
