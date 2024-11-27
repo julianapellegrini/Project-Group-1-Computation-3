@@ -28,3 +28,5 @@ fps = 60
 player_size = (50, 50)
 enemy_size = (40, 40)
 bullet_size = 10
+
+# Depois apaguem isso#
