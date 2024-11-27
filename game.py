@@ -4,6 +4,33 @@ import pygame
 from player import Player
 from enemy import Enemy
 from shed import shed
+<<<<<<< Updated upstream
+=======
+import random
+from powerup import PowerUp
+from invincibility import Invincibility
+from despawner import DeSpawner
+
+#initializd pygame
+pygame.init()
+
+# Define the probability of power-up appearance
+invincibility_probability = 0.7
+
+# Initialize power-ups
+invincibility_powerup = Invincibility(duration=10000)  # 10 seconds
+
+
+# Initial spawn rate for power ups
+spawn_rate = 1.0
+
+# Set up a timer event for every 5 seconds (5000 milliseconds)
+invincibility_event = pygame.USEREVENT + 1
+pygame.time.set_timer(invincibility_event, 5000)
+invincibility_deactivation_event = pygame.USEREVENT + 2
+
+
+>>>>>>> Stashed changes
 
 
 def game_loop():
