@@ -21,7 +21,7 @@ def interface():
 
     # Loading the same image for the buttons
     button_sprite = "images/ice-banner.png"
-    wood_banner = "images/wood-banner.png"
+    #wood_banner = "images/wood-banner.png"
 
     # Calculate the center x-coordinate
     center_x = resolution[0] // 2
@@ -39,14 +39,14 @@ def interface():
 
     while True:
         # Displaying the screen
-        background = pygame.image.load('images/winter2.png')
+        background = pygame.image.load('images/menu.png')
         background = pygame.transform.scale(background, (resolution[0], resolution[1]))
         screen.blit(background, (0, 0))
 
         # LOGO:
-        title = pygame.image.load(wood_banner)
-        title = pygame.transform.scale(title, (450, 120))
-        screen.blit(title, (center_x - 225, 40))
+        #title = pygame.image.load(wood_banner)
+        #title = pygame.transform.scale(title, (450, 120))
+        #screen.blit(title, (center_x - 225, 40))
 
         # Get mouse position
         mouse = pygame.mouse.get_pos()
@@ -115,11 +115,11 @@ def interface():
 def credits_():
     # loading the rules screen
     screen = pygame.display.set_mode(resolution)
-    background = pygame.image.load('images/credits.png')
+    background = pygame.image.load('images/credits2.png')
     screen.blit(background, (0, 0))
 
     # setting up the back button
-    back_button = Button(550, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
+    back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
 
     while True:
 
@@ -156,11 +156,11 @@ def credits_():
 def rules_():
     # loading the rules screen
     screen = pygame.display.set_mode(resolution)
-    background = pygame.image.load('images/rules.png')
+    background = pygame.image.load('images/rules2.png')
     screen.blit(background, (0, 0))
 
     # setting up the back button
-    back_button = Button(550, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
+    back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
 
     while True:
 
