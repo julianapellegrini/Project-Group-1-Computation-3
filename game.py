@@ -9,25 +9,21 @@ from powerup import PowerUp
 from invincibility import Invincibility
 from despawner import DeSpawner
 
-#initializing pygame
+# initializing pygame
 pygame.init()
 
-#Settings of the powerups
+# Settings of the powerups
 POWERUP_DURATION = 10000  # 10 seconds in milliseconds
 POWERUP_EVENT = pygame.USEREVENT + 1
 
 invincibility_probability = 0.7
 
 # Initialize power-ups
-invincibility_powerup = Invincibility()  
-
+invincibility_powerup = Invincibility()
 
 # Set up a timer event for every 5 seconds (5000 milliseconds)
 invincibility_event = pygame.USEREVENT + 2
 pygame.time.set_timer(invincibility_event, 5000)
-
-
-
 
 
 def game_loop():
@@ -46,7 +42,6 @@ def game_loop():
 
 
 def execute_game(player):
-
     # setup:
 
     # setting up the background:
@@ -89,7 +84,7 @@ def execute_game(player):
         clock.tick(fps)
 
         # setting up the background
-        screen.blit(background, (0,0))
+        screen.blit(background, (0, 0))
 
         # handling events:
         for event in pygame.event.get():
@@ -99,16 +94,14 @@ def execute_game(player):
             elif event.type == invincibility_event:
                 if random.random() < invincibility_probability:
                     powerup_type = invincibility_powerup
-                    powerup_type.draw(screen,player)
+                    powerup_type.draw(screen, player)
                     pygame.time.set_timer(POWERUP_EVENT, POWERUP_DURATION)
-            #Handling powerup deactivation
+            # Handling powerup deactivation
             elif event.type == POWERUP_EVENT:
                 powerup_type = None
                 powerup_type.deactivate(player)
                 pygame.time.set_timer(POWERUP_EVENT, 0)  # Stop the timer
-                    
-            
-            
+
         # automatically shoot bullets from the player
         player.shoot(bullets)
 
@@ -170,41 +163,31 @@ def execute_game(player):
             for enemy in collided_player:
                 player.health -= 0.3
 
-                #OR
-                #player.health -= 20
-                #enemy.kill()
+                # OR
+                # player.health -= 20
+                # enemy.kill()
 
                 if player.health <= 0:
                     player.kill()
                     pygame.quit()
-                
-            
+
         # Draw the player's health bar
         player.draw_health_bar(screen)
-        #Draw enemy health bar
+        # Draw enemy health bar
         for enemy in enemies:
             enemy.draw_health_bar(screen)
 
-        
         # Check for collisions between player and powerups
         for powerup in powerups:
             collided_powerups = pygame.sprite.spritecollide(player, powerups, False)
             for powerup in collided_powerups:
                 powerup.affect_player(screen, player)
-                
-        
-
-
 
         # Update player
         player.update()
 
         # Draw player
         screen.blit(player.image, player.rect.topleft)
-
-        
-
-
 
         pygame.display.flip()
 

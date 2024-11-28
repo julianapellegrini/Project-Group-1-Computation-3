@@ -4,6 +4,7 @@ import pygame
 import math
 from bullet import Bullet
 
+
 # making Player a child of the Sprite class
 class Player(pygame.sprite.Sprite):
 
@@ -52,7 +53,7 @@ class Player(pygame.sprite.Sprite):
 
         bullets --> pygame group where I will add bullets
         """
-        
+
         if self.alive():
             # cooldown ==> how many frames I need until I can shoot again
             if self.bullet_cooldown <= 0:
@@ -71,7 +72,6 @@ class Player(pygame.sprite.Sprite):
                 self.bullet_cooldown = fps
 
             self.bullet_cooldown -= 1
-
 
     def draw_health_bar(self, surface):
         # Define the size and position of the health bar

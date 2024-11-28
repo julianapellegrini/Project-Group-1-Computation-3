@@ -20,7 +20,7 @@ bice_blue = (14, 107, 168)
 light_blue = (166, 225, 250)
 
 # SCREEN RESOLUTION
-resolution = (720, 720) # height/width
+resolution = (1200, 720) # height/width
 width, height = resolution[0], resolution[1]
 fps = 60
 

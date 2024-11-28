@@ -8,7 +8,6 @@ import random
 from powerup import PowerUp
 
 
-
 class DeSpawner(PowerUp):
     def __init__(self, duration, reduction_factor, image_path):
         super().__init__(image_path)

@@ -3,7 +3,6 @@ import pygame
 from config import resolution, white, dark_red
 
 
-
 # Function to draw a stick figure with a construction hat
 def draw_stick_figure_with_hat(screen, x, y):
     # head
@@ -46,7 +45,6 @@ def draw_normal_stick_figure(screen, x, y):
 
 
 def under_construction():
-
     # creating the screen at 720x720 pixels
     screen = pygame.display.set_mode(resolution)
 
@@ -99,7 +97,7 @@ def under_construction():
         draw_normal_stick_figure(screen, normal_x_position, normal_y_position)
         draw_stick_figure_with_hat(screen, bob_x_position, bob_y_position)
 
-        screen.blit(first_speech, (normal_x_position - 60, normal_y_position -80))
+        screen.blit(first_speech, (normal_x_position - 60, normal_y_position - 80))
         screen.blit(bob_speech, (bob_x_position - 60, bob_y_position - 80))
 
         # finally, as always, updating our screen

@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import pygame
 
+
 class PowerUp(ABC):
 
     @abstractmethod
@@ -18,4 +19,3 @@ class PowerUp(ABC):
     @abstractmethod
     def draw(self, surface):
         pass
-

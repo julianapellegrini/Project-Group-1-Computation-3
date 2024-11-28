@@ -6,9 +6,8 @@ from button import Button, select_sound
 
 
 def interface():
-
     # initiating pygame
-    pygame.init()   # calling pygame
+    pygame.init()  # calling pygame
 
     # loading music file
     pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
@@ -24,12 +23,19 @@ def interface():
     button_sprite = "images/ice-banner.png"
     wood_banner = "images/wood-banner.png"
 
+    # Calculate the center x-coordinate
+    center_x = resolution[0] // 2
+
     # Initialize buttons with the correct parameters
-    play_button = Button(230, 230, 260, 100, "Play", bice_blue, "chiller", 55, True, royal_blue, image=button_sprite)
-    rules_button = Button(285, 350, 150, 60, "Rules", None, "chiller", 35, True, bice_blue, image=button_sprite)
-    options_button = Button(285, 430, 150, 60, "Options", None, "chiller", 35, True, bice_blue, image=button_sprite)
-    credits_button = Button(285, 510, 150, 60, "Credits", None, "chiller", 40, True, bice_blue, image=button_sprite)
-    quit_button = Button(285, 590, 150, 60, "Quit", None, "chiller", 45, True, bice_blue, image=button_sprite)
+    play_button = Button(center_x - 130, 230, 260, 100, "Play", bice_blue, "chiller", 55, True, royal_blue,
+                         image=button_sprite)
+    rules_button = Button(center_x - 75, 350, 150, 60, "Rules", None, "chiller", 35, True, bice_blue,
+                          image=button_sprite)
+    options_button = Button(center_x - 75, 430, 150, 60, "Options", None, "chiller", 35, True, bice_blue,
+                            image=button_sprite)
+    credits_button = Button(center_x - 75, 510, 150, 60, "Credits", None, "chiller", 40, True, bice_blue,
+                            image=button_sprite)
+    quit_button = Button(center_x - 75, 590, 150, 60, "Quit", None, "chiller", 45, True, bice_blue, image=button_sprite)
 
     while True:
         # Displaying the screen
@@ -40,7 +46,7 @@ def interface():
         # LOGO:
         title = pygame.image.load(wood_banner)
         title = pygame.transform.scale(title, (450, 120))
-        screen.blit(title, (135, 40))
+        screen.blit(title, (center_x - 225, 40))
 
         # Get mouse position
         mouse = pygame.mouse.get_pos()
@@ -120,7 +126,6 @@ def credits_():
         # getting the position of the user's mouse
         mouse = pygame.mouse.get_pos()
 
-
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
@@ -162,7 +167,6 @@ def rules_():
         # getting the position of the user's mouse
         mouse = pygame.mouse.get_pos()
 
-
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
@@ -188,7 +192,6 @@ def rules_():
 
         # updating the display
         pygame.display.update()
-
 
 
 def ice_button(x, y, d1, d2):
