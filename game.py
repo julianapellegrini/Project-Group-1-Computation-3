@@ -9,23 +9,23 @@ from powerup import PowerUp
 from invincibility import Invincibility
 from despawner import DeSpawner
 
-#initializd pygame
+#initializing pygame
 pygame.init()
 
-# Define the probability of power-up appearance
+#Settings of the powerups
+POWERUP_DURATION = 10000  # 10 seconds in milliseconds
+POWERUP_EVENT = pygame.USEREVENT + 1
+
 invincibility_probability = 0.7
 
 # Initialize power-ups
-invincibility_powerup = Invincibility(duration=10000, image_path='powerup_images/invincibility.png')  # 10 seconds
+invincibility_powerup = Invincibility()  
 
-
-# Initial spawn rate for power ups
-spawn_rate = 1.0
 
 # Set up a timer event for every 5 seconds (5000 milliseconds)
-invincibility_event = pygame.USEREVENT + 1
+invincibility_event = pygame.USEREVENT + 2
 pygame.time.set_timer(invincibility_event, 5000)
-invincibility_deactivation_event = pygame.USEREVENT + 2
+
 
 
 
@@ -73,6 +73,9 @@ def execute_game(player):
     # creating an enemy group
     enemies = pygame.sprite.Group()
 
+    # creating a powerup group
+    powerups = pygame.sprite.Group()
+
     # before starting our main loop, setup the enemy cooldown
     enemy_cooldown = 0
 
@@ -96,14 +99,16 @@ def execute_game(player):
             elif event.type == invincibility_event:
                 if random.random() < invincibility_probability:
                     powerup_type = invincibility_powerup
-                    powerup_type.rect.topleft = (random.randint(0, 800), random.randint(0, 600))  # Random position
-                    powerup_type.affect_player(screen,player)
-            #Handling invincibility deactivation
-            elif event.type == invincibility_deactivation_event:
-                spawn_rate = invincibility_powerup.deactivate(player, spawn_rate)
-
-
-
+                    powerup_type.draw(screen,player)
+                    pygame.time.set_timer(POWERUP_EVENT, POWERUP_DURATION)
+            #Handling powerup deactivation
+            elif event.type == POWERUP_EVENT:
+                powerup_type = None
+                powerup_type.deactivate(player)
+                pygame.time.set_timer(POWERUP_EVENT, 0)  # Stop the timer
+                    
+            
+            
         # automatically shoot bullets from the player
         player.shoot(bullets)
 
@@ -180,13 +185,14 @@ def execute_game(player):
         for enemy in enemies:
             enemy.draw_health_bar(screen)
 
-        # Draw power-ups
         
-
+        # Check for collisions between player and powerups
+        for powerup in powerups:
+            collided_powerups = pygame.sprite.spritecollide(player, powerups, False)
+            for powerup in collided_powerups:
+                powerup.affect_player(screen, player)
+                
         
-        # Check for collisions between player and invincibility power-up
-        if invincibility_powerup.active and pygame.sprite.collide_rect(player, invincibility_powerup):
-            invincibility_powerup.affect_player(screen,player)
 
 
 
