@@ -4,14 +4,38 @@ import pygame
 from player import Player
 from enemy import Enemy
 from shed import shed
+<<<<<<< Updated upstream
+=======
+import random
+from powerup import PowerUp
+from invincibility import Invincibility
+from despawner import DeSpawner
+from map import map_layout
+
+# initializing pygame
+pygame.init()
+
+# Settings of the powerups
+POWERUP_DURATION = 10000  # 10 seconds in milliseconds
+POWERUP_EVENT = pygame.USEREVENT + 1
+
+invincibility_probability = 0.7
+
+# Initialize power-ups
+invincibility_powerup = Invincibility()
+
+# Set up a timer event for every 5 seconds (5000 milliseconds)
+invincibility_event = pygame.USEREVENT + 2
+pygame.time.set_timer(invincibility_event, 5000)
+>>>>>>> Stashed changes
 
 
 def game_loop():
     # creating the player for the game:
     player = Player()
 
-    # by default i start the game in the main area
-    current_state = "main"
+    # by default i start the game in the map area
+    current_state = "map"
 
     # "endless" game loop:
     while True:
@@ -19,6 +43,9 @@ def game_loop():
             current_state = execute_game(player)
         elif current_state == "shed":
             current_state = shed(player)
+
+        elif current_state == "map":
+            current_state = map_layout()
 
 
 def execute_game(player):
@@ -96,8 +123,8 @@ def execute_game(player):
         enemies.update(player)
 
         # checking if the player moved off-screen from the right to the next area
-        if player.rect.right >= width:
-            return "shed"
+        #if player.rect.right >= width:
+         #   return "shed"
 
         # drawing the bullet sprites on the screen
         player_group.draw(screen)

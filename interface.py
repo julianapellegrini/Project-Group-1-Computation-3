@@ -2,7 +2,12 @@ from utils import *  # no need to import pygame because the import is in utils
 from config import *  # importing colors and the like
 from utils import under_construction
 from game import game_loop
+<<<<<<< Updated upstream
 from button import Button
+=======
+from button import Button, select_sound
+from map import map_layout
+>>>>>>> Stashed changes
 
 
 def interface():
