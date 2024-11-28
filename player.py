@@ -1,3 +1,5 @@
+
+
 from utils import *
 from config import *
 import pygame
@@ -28,7 +30,7 @@ class Player(pygame.sprite.Sprite):
 
         # GAMEPLAY VARIABLES
 
-        self.speed = 5
+        self.speed = 3
         self.health = 100
         self.bullet_cooldown = 0
 
@@ -97,3 +99,4 @@ class Player(pygame.sprite.Sprite):
         text = font.render(f'{int(health)}%', True, (255, 255, 255))
         text_rect = text.get_rect(center=(bar_x + bar_width // 2, bar_y + bar_height // 2))
         surface.blit(text, text_rect)
+

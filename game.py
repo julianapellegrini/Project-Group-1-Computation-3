@@ -1,3 +1,5 @@
+
+
 from config import *
 import math
 import pygame
@@ -13,17 +15,15 @@ from despawner import DeSpawner
 pygame.init()
 
 # Settings of the powerups
-POWERUP_DURATION = 10000  # 10 seconds in milliseconds
-POWERUP_EVENT = pygame.USEREVENT + 1
-
-invincibility_probability = 0.7
-
+POWERUP_ICON_DURATION = 5000  # 5 seconds in milliseconds
+POWERUP_ICON_EVENT = pygame.USEREVENT + 1
+pygame.time.set_timer(POWERUP_ICON_EVENT, POWERUP_ICON_DURATION)  # Set up a timer event for every 10 seconds (10000 milliseconds)
+invincibility_probability = 1 #FOR TESTING PURPOSES
+#POWERUP_DEACTIVATION_EVENT = pygame.USEREVENT + 2
 # Initialize power-ups
 invincibility_powerup = Invincibility()
 
-# Set up a timer event for every 5 seconds (5000 milliseconds)
-invincibility_event = pygame.USEREVENT + 2
-pygame.time.set_timer(invincibility_event, 5000)
+
 
 
 def game_loop():
@@ -91,16 +91,12 @@ def execute_game(player):
             if event.type == pygame.QUIT:
                 pygame.quit()
             # Check for power-up appearance
-            elif event.type == invincibility_event:
-                if random.random() < invincibility_probability:
+            elif event.type == POWERUP_ICON_EVENT:
+                prob = random.random()
+                if prob < invincibility_probability:
                     powerup_type = invincibility_powerup
-                    powerup_type.draw(screen, player)
-                    pygame.time.set_timer(POWERUP_EVENT, POWERUP_DURATION)
-            # Handling powerup deactivation
-            elif event.type == POWERUP_EVENT:
-                powerup_type = None
-                powerup_type.deactivate(player)
-                pygame.time.set_timer(POWERUP_EVENT, 0)  # Stop the timer
+                    powerup_type.draw(screen)
+                    
 
         # automatically shoot bullets from the player
         player.shoot(bullets)
@@ -177,12 +173,7 @@ def execute_game(player):
         for enemy in enemies:
             enemy.draw_health_bar(screen)
 
-        # Check for collisions between player and powerups
-        for powerup in powerups:
-            collided_powerups = pygame.sprite.spritecollide(player, powerups, False)
-            for powerup in collided_powerups:
-                powerup.affect_player(screen, player)
-
+        
         # Update player
         player.update()
 
@@ -193,3 +184,4 @@ def execute_game(player):
 
     # the main while game loop has terminated and the game ends
     pygame.quit()
+

@@ -2,12 +2,9 @@ from utils import *  # no need to import pygame because the import is in utils
 from config import *  # importing colors and the like
 from utils import under_construction
 from game import game_loop
-<<<<<<< HEAD
 from button import Button
 from map import map_layout
-=======
 from button import Button, select_sound
->>>>>>> parent of ba15aa6 (Merge branch 'madi')
 
 
 def interface():

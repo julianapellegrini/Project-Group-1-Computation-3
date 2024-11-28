@@ -1,3 +1,5 @@
+
+
 from config import *
 import math
 import pygame
@@ -28,18 +30,18 @@ class Invincibility(PowerUp):
         self.active = True
         if self.active:
             # Position the power-up image around the player
-            self.rect.center = player.rect.center
+            self.image_rect.center = player.rect.center
             surface.blit(self.image, self.rect.topleft)
 
     def affect_game(self):
-        return  # No change to spawn rate
+        return  # No change to game
 
     def deactivate(self, player):
         player.invincible = False
         self.active = False
         return
 
-    def draw(self, surface, player):
+    def draw(self, surface):
         # Define map boundaries
         map_width, map_height = surface.get_size()
 
@@ -52,3 +54,4 @@ class Invincibility(PowerUp):
 
         # Draw the power-up at the new position
         surface.blit(self.icon, self.icon_rect.topleft)
+
