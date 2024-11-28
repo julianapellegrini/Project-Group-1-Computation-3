@@ -14,9 +14,18 @@ from despawner import DeSpawner
 #initializd pygame
 pygame.init()
 
+<<<<<<< Updated upstream
 # Define the probability of power-up appearance
 invincibility_probability = 0.7
 
+=======
+# Settings of the powerups
+POWERUP_ICON_DURATION = 5000  # 5 seconds in milliseconds
+POWERUP_ICON_EVENT = pygame.USEREVENT + 1
+pygame.time.set_timer(POWERUP_ICON_EVENT, POWERUP_ICON_DURATION)  # Set up a timer event for every 10 seconds (10000 milliseconds)
+invincibility_probability = 1 #FOR TESTING PURPOSES
+#POWERUP_DEACTIVATION_EVENT = pygame.USEREVENT + 2
+>>>>>>> Stashed changes
 # Initialize power-ups
 invincibility_powerup = Invincibility(duration=10000)  # 10 seconds
 
@@ -24,11 +33,15 @@ invincibility_powerup = Invincibility(duration=10000)  # 10 seconds
 # Initial spawn rate for power ups
 spawn_rate = 1.0
 
+<<<<<<< Updated upstream
 # Set up a timer event for every 5 seconds (5000 milliseconds)
 invincibility_event = pygame.USEREVENT + 1
 pygame.time.set_timer(invincibility_event, 5000)
 invincibility_deactivation_event = pygame.USEREVENT + 2
 
+
+>>>>>>> Stashed changes
+=======
 
 >>>>>>> Stashed changes
 
@@ -95,6 +108,16 @@ def execute_game(player):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+<<<<<<< Updated upstream
+=======
+            # Check for power-up appearance
+            elif event.type == POWERUP_ICON_EVENT:
+                prob = random.random()
+                if prob < invincibility_probability:
+                    powerup_type = invincibility_powerup
+                    powerup_type.draw(screen)
+                    
+>>>>>>> Stashed changes
 
         # automatically shoot bullets from the player
         player.shoot(bullets)
@@ -151,6 +174,36 @@ def execute_game(player):
                 if enemy.health <= 0:
                     enemy.kill()
 
+<<<<<<< Updated upstream
+=======
+        # checking for collisions between player and enemies
+        for enemy in enemies:
+            collided_player = pygame.sprite.spritecollide(player, enemies, False)
+            for enemy in collided_player:
+                player.health -= 0.3
+
+                # OR
+                # player.health -= 20
+                # enemy.kill()
+
+                if player.health <= 0:
+                    player.kill()
+                    pygame.quit()
+
+        # Draw the player's health bar
+        player.draw_health_bar(screen)
+        # Draw enemy health bar
+        for enemy in enemies:
+            enemy.draw_health_bar(screen)
+
+        
+        # Update player
+        player.update()
+
+        # Draw player
+        screen.blit(player.image, player.rect.topleft)
+
+>>>>>>> Stashed changes
         pygame.display.flip()
 
     # the main while game loop has terminated and the game ends

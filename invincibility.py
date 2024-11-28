@@ -27,9 +27,14 @@ class Invincibility(PowerUp):
         self.active = True
         if player:
             # Position the power-up image around the player
-            self.rect.center = player.rect.center
+            self.image_rect.center = player.rect.center
             surface.blit(self.image, self.rect.topleft)
 
+<<<<<<< Updated upstream
+=======
+    def affect_game(self):
+        return  # No change to game
+>>>>>>> Stashed changes
 
     def affect_game(self, spawn_rate):
         return spawn_rate  # No change to spawn rate
@@ -37,9 +42,15 @@ class Invincibility(PowerUp):
     def deactivate(self, player, spawn_rate):
         player.invincible = False
         self.active = False
+<<<<<<< Updated upstream
         return spawn_rate
     
     def draw(self, surface,player):
+=======
+        return
+
+    def draw(self, surface):
+>>>>>>> Stashed changes
         # Define map boundaries
         map_width, map_height = surface.get_size()
         
