@@ -11,12 +11,6 @@ def interface():
     # initiating pygame
     pygame.init()  # calling pygame
 
-    # loading music file
-    pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
-    pygame.mixer.music.set_volume(0.3)
-
-    # playing the music infinitely
-    pygame.mixer.music.play(loops=-1)
 
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
@@ -163,6 +157,8 @@ def rules_():
 
     # setting up the back button
     back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
+    power_button = Button(1000, 550, 150, 60, "Powerups", pink, "chiller", 35, True, bice_blue,
+                         image="images/ice-banner.png")
 
     while True:
 
@@ -175,7 +171,63 @@ def rules_():
 
             if back_button.is_clicked(mouse, ev):
                 select_sound()
-                return
+                interface()
+
+            if power_button.is_clicked(mouse, ev):
+                select_sound()
+                power_desc()
+
+            # Clear the button's previous position
+            previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
+            screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
+
+            previous_rect = pygame.Rect(power_button.x, power_button.y, power_button.width, power_button.height)
+            screen.blit(background, previous_rect, previous_rect)
+
+            # Update and draw the button
+            if back_button.is_hovered(mouse):
+                back_button.scale_up()
+            else:
+                back_button.scale_down()
+
+            if power_button.is_hovered(mouse):
+                power_button.scale_up()
+            else:
+                power_button.scale_down()
+
+            back_button.draw(screen, mouse)     # Draw the button after updating
+            power_button.draw(screen, mouse)
+
+        # drawing the back button
+        back_button.draw(screen, mouse)
+        power_button.draw(screen, mouse)
+
+        # updating the display
+        pygame.display.update()
+
+
+def power_desc():
+    # loading the rules screen
+    screen = pygame.display.set_mode(resolution)
+    background = pygame.image.load('images/powerups_desc.png')
+    screen.blit(background, (0, 0))
+
+    # setting up the back button
+    back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
+
+
+    while True:
+
+        # getting the position of the user's mouse
+        mouse = pygame.mouse.get_pos()
+
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+
+            if back_button.is_clicked(mouse, ev):
+                select_sound()
+                rules_()
 
             # Clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)

@@ -9,12 +9,10 @@ def shop_layout():
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
 
-    # path for the images of the buttons
-    button_sprite = "images/ice-banner.png"
 
     # setting up the back button
     back_button = Button(950, 600, 200, 100, "Back", None, "chiller", 45, True, bice_blue,
-                         image=button_sprite)
+                         image="images/ice-banner.png")
 
     while True:
 
