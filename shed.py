@@ -7,7 +7,7 @@ from button import Button, select_sound
 
 def shed():
     # setting up the background and the screen
-    background = pygame.image.load("images/temporary-igloo.jpg")
+    background = pygame.image.load("images/igloo_bar.png")
 
     # scaling the background image into our selected resolution
     background = pygame.transform.scale(background, resolution)

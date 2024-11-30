@@ -196,18 +196,5 @@ def rules_():
         pygame.display.update()
 
 
-def ice_button(x, y, d1, d2):
-    screen = pygame.display.set_mode(resolution)
-
-    # Load the image
-    ice = pygame.image.load("images/ice-banner.png")
-
-    # Resize the image to fit the dimensions received as input
-    resized_image = pygame.transform.scale(ice, (d1, d2))
-
-    # Draw the image on the screen at position received as input
-    screen.blit(resized_image, (x, y))
-
-
 def wilderness_explorer():
     game_loop()
