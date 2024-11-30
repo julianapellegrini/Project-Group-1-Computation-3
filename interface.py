@@ -61,7 +61,7 @@ def interface():
             # button is clicked
             if play_button.is_clicked(mouse, ev):
                 select_sound()
-                wilderness_explorer()
+                map_layout()
             if rules_button.is_clicked(mouse, ev):
                 select_sound()
                 rules_()

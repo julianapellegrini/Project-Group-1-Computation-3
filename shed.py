@@ -2,11 +2,12 @@ import pygame
 
 from config import *
 from utils import *
+from button import Button, select_sound
 
 
-def shed(player):
+def shed():
     # setting up the background and the screen
-    background = pygame.image.load("images/inside-igloo.png")
+    background = pygame.image.load("images/temporary-igloo.jpg")
 
     # scaling the background image into our selected resolution
     background = pygame.transform.scale(background, resolution)
@@ -17,55 +18,42 @@ def shed(player):
     # setting up the clock for fps
     clock = pygame.time.Clock()
 
-    # since i left the previous area from the right, here i begin on the left
-    player.rect.left = 0
-
-    # creating the player group and adding the player to it
-    player_group = pygame.sprite.Group()
-    player_group.add(player)
-
-    # setting up the shed area as a special area in the shed map location
-    special_area =  pygame.Rect(530, 30, 140, 140)
-
-    # normal ,main game loop
-    # this is our base implementation and u are allowed to change this
+    # setting up the back button
+    back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue,
+                         image="images/ice-banner.png")
 
     running = True
 
     while running:
         clock.tick(fps)
-        # displaying the farm background on the entirety of the screen
+        # displaying the background on the entirety of the screen
         screen.blit(background, (0, 0))
 
-        # allowing the user to quit even tho they shouldn't because our game is perfect
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        # getting the position of the user's mouse
+        mouse = pygame.mouse.get_pos()
+
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
                 pygame.quit()
 
-        # update player position
-        player_group.update()
+            if back_button.is_clicked(mouse, ev):
+                select_sound()
+                return
 
-        # detect if the user walked in to the special area (which is the house)
-        if special_area.colliderect(player.rect):
-            under_construction()
+            # Clear the button's previous position
+            previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
+            screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
 
-            # changing the players position <tbd>
-            player.rect.top = 200
-            player.rect.left = 560
-            player.rect.left = 560
+            # Update and draw the button
+            if back_button.is_hovered(mouse):
+                back_button.scale_up()
+            else:
+                back_button.scale_down()
 
-        # allowing the player to return back to the previous area/screen
-        if player.rect.left <= 0:
-            # position the player to the right of the screen
-            player.rect.left = width - player.rect.width
+            back_button.draw(screen, mouse)  # Draw the button after updating
 
-            # switching the player to the right of the screen
-            player.rect.left = width - player.rect.width
+        # drawing the back button
+        back_button.draw(screen, mouse)
 
-            # switching back to the main game
-            return "main"
-
-        # drawing the player
-        player_group.draw(screen)
-        # updating the screen
-        pygame.display.flip()
+        # updating the display
+        pygame.display.update()

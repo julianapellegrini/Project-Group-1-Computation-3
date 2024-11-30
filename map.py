@@ -1,5 +1,7 @@
 from interface import *
-from button import Button
+from button import Button, select_sound
+from shed import shed
+
 
 
 def map_layout():
@@ -21,6 +23,9 @@ def map_layout():
     igloo_button = Button(940, 30, 200, 200, None, None, None, 35, False, None,
                          image=igloo_sprite)
 
+    play_button = Button(500, 230, 260, 100, "Play", bice_blue, "chiller", 55, True, royal_blue,
+                         image=button_sprite)
+
     while True:
 
         # Displaying the screen
@@ -39,32 +44,41 @@ def map_layout():
                 select_sound()
                 return
 
+            if play_button.is_clicked(mouse, ev):
+                select_sound()
+                game_loop()
+
             if igloo_button.is_clicked(mouse, ev):
                 select_sound()
-                return "shed"
+                shed()
 
             # Clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
             screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
 
-            # Update and draw the button
             if back_button.is_hovered(mouse):
                 back_button.scale_up()
             else:
                 back_button.scale_down()
 
-            # Update and draw the button
             if igloo_button.is_hovered(mouse):
                 igloo_button.scale_up()
             else:
                 igloo_button.scale_down()
 
+            if play_button.is_hovered(mouse):
+                play_button.scale_up()
+            else:
+                play_button.scale_down()
+
             back_button.draw(screen, mouse)  # Draw the button after updating
             igloo_button.draw(screen, mouse)  # Draw the button after updating
+            play_button.draw(screen, mouse)  # Draw the button after updating
 
         # drawing the back button
         back_button.draw(screen, mouse)
         igloo_button.draw(screen, mouse)
+        play_button.draw(screen, mouse)
 
         # Update the display
         pygame.display.update()

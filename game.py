@@ -30,15 +30,13 @@ def game_loop():
     # creating the player for the game:
     player = Player()
 
-    # by default i start the game in the main area
+    # by default i start the game in the map area
     current_state = "main"
 
     # "endless" game loop:
     while True:
         if current_state == "main":
             current_state = execute_game(player)
-        elif current_state == "shed":
-            current_state = shed(player)
 
 
 def execute_game(player):
@@ -125,8 +123,8 @@ def execute_game(player):
         enemies.update(player)
 
         # checking if the player moved off-screen from the right to the next area
-        if player.rect.right >= width:
-            return "shed"
+        #if player.rect.right >= width:
+        #    return "shed"
 
         # drawing the bullet sprites on the screen
         player_group.draw(screen)
