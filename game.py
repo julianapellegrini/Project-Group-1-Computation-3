@@ -10,6 +10,7 @@ import random
 from powerup import PowerUp
 from invincibility import Invincibility
 from despawner import DeSpawner
+from pause import pause_screen
 
 # initializing pygame
 pygame.init()
@@ -22,9 +23,6 @@ invincibility_probability = 1 #FOR TESTING PURPOSES
 #POWERUP_DEACTIVATION_EVENT = pygame.USEREVENT + 2
 # Initialize power-ups
 invincibility_powerup = Invincibility()
-
-
-
 
 def game_loop():
     # creating the player for the game:
@@ -72,8 +70,12 @@ def execute_game(player):
     # before starting our main loop, setup the enemy cooldown
     enemy_cooldown = 0
 
-    # MAIN GAME LOOP
+    # Load the pause button image
+    pause_button_image = pygame.image.load('images/botton_pause.png')
+    pause_button_image = pygame.transform.scale(pause_button_image, (70, 70))
+    pause_button_position = (resolution[0] - pause_button_image.get_width() - 10, 10)
 
+    # MAIN GAME LOOP
     running = True
 
     while running:
@@ -88,6 +90,11 @@ def execute_game(player):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                if (pause_button_position[0] <= mouse_pos[0] <= pause_button_position[0] + pause_button_image.get_width() and
+                        pause_button_position[1] <= mouse_pos[1] <= pause_button_position[1] + pause_button_image.get_height()):
+                    pause_screen(screen, resolution)
             # Check for power-up appearance
             elif event.type == POWERUP_ICON_EVENT:
                 prob = random.random()
@@ -171,12 +178,14 @@ def execute_game(player):
         for enemy in enemies:
             enemy.draw_health_bar(screen)
 
-        
         # Update player
         player.update()
 
         # Draw player
         screen.blit(player.image, player.rect.topleft)
+
+        # Draw the pause button
+        screen.blit(pause_button_image, pause_button_position)
 
         pygame.display.flip()
 
