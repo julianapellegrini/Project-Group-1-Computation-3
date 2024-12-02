@@ -11,7 +11,6 @@ def interface():
     # initiating pygame
     pygame.init()  # calling pygame
 
-
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
 

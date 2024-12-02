@@ -3,9 +3,14 @@ from interface import *
 # creating the pause game button
 def pause_screen(screen, resolution):
     # Load the pause button image
-    icon_image = pygame.image.load('images/botton_pause.png.png')
+    icon_image = pygame.image.load('images/botton_pause.png')
     icon_image = pygame.transform.scale(icon_image, (50, 50))
     icon_position = (resolution[0] - icon_image.get_width() - 10, 10)
+
+    # Load the pause background image
+    background = pygame.image.load('images/pause__background.png')
+    background = pygame.transform.scale(background, (700, 550))
+    background_position = (resolution[0] - background.get_width() - 10, 10)
 
     # Loop to maintain the pause
     paused = True
@@ -20,8 +25,7 @@ def pause_screen(screen, resolution):
                     paused = False
 
         # Render the pause screen
-        background = pygame.image.load('images/pause__background.png.png')
-        screen.blit(background, (0, 0))
+        screen.blit(background, (300, 100))
         screen.blit(icon_image, icon_position)
 
         pygame.display.update()
