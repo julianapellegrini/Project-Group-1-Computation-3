@@ -71,7 +71,7 @@ def execute_game(player):
     enemy_cooldown = 0
 
     # Load the pause button image
-    pause_button_image = pygame.image.load('images/botton_pause.png')
+    pause_button_image = pygame.image.load('images/pause_button.png')
     pause_button_image = pygame.transform.scale(pause_button_image, (70, 70))
     pause_button_position = (resolution[0] - pause_button_image.get_width() - 10, 10)
 
