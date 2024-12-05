@@ -29,10 +29,13 @@ def shed():
                          image="images/ice-banner.png")
 
     table_button = Button(750, 600, 150, 60, "Skins", None, "chiller", 35, True, bice_blue,
-                         image="images/ice-banner.png")
+                          image="images/ice-banner.png")
 
     fish_button = Button(700, 200, 150, 60, "Fishing Hole", None, "chiller", 35, True, bice_blue,
                          image="images/ice-banner.png")
+
+    weapons_button = Button(924, 455, 150, 60, "Weapons", None, "chiller", 35, True, bice_blue,
+                            image="images/ice-banner.png")
 
     running = True
 
@@ -43,6 +46,7 @@ def shed():
 
         # getting the position of the user's mouse
         mouse = pygame.mouse.get_pos()
+        print(mouse)
 
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
@@ -66,6 +70,10 @@ def shed():
             if fish_button.is_clicked(mouse, ev):
                 select_sound()
                 fishing()
+
+            if weapons_button.is_clicked(mouse, ev):
+                select_sound()
+                under_construction()
 
             # Clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
@@ -92,16 +100,23 @@ def shed():
             else:
                 fish_button.scale_down()
 
+            if weapons_button.is_hovered(mouse):
+                weapons_button.scale_up()
+            else:
+                weapons_button.scale_down()
+
             back_button.draw(screen, mouse)  # Draw the button after updating
             table_button.draw(screen, mouse)
             shop_button.draw(screen, mouse)
             fish_button.draw(screen, mouse)
+            weapons_button.draw(screen, mouse)
 
         # drawing the back button
         back_button.draw(screen, mouse)
         table_button.draw(screen, mouse)
         shop_button.draw(screen, mouse)
         fish_button.draw(screen, mouse)
+        weapons_button.draw(screen, mouse)
 
         # updating the display
         pygame.display.update()
