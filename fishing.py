@@ -1,7 +1,7 @@
 from utils import *
 from config import *
 from button import Button, select_sound
-from fishes import Salmon, Cod
+from fishes import Salmon, Cod, ClownFish
 import random
 
 
@@ -70,7 +70,7 @@ def fishing_minigame():
     pygame.mouse.set_visible(False)
 
     # Define the fish types
-    fish_types = [Salmon, Cod]
+    fish_types = [Salmon, Cod, ClownFish]
 
     # Function to spawn a fish based on probabilities
     def spawn_fish():
