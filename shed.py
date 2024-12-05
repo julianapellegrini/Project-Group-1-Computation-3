@@ -1,5 +1,3 @@
-import pygame
-
 from config import *
 from utils import *
 from button import Button, select_sound
