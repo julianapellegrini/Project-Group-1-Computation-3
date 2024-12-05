@@ -1,11 +1,8 @@
-
-
 from config import *
 import math
 import pygame
 from player import Player
-from enemy import Enemy
-from shed import shed
+from enemy import Enemy, Seal2, Seal_with_a_hat, Polar_bear, Orca  # Import new enemy types
 import random
 from powerup import PowerUp
 from invincibility import Invincibility
@@ -15,31 +12,21 @@ from pause import pause_screen
 # initializing pygame
 pygame.init()
 
-# Settings of the powerups
+# Settings for powerups
 POWERUP_ICON_DURATION = 5000  # 5 seconds in milliseconds
 POWERUP_ICON_EVENT = pygame.USEREVENT + 1
-pygame.time.set_timer(POWERUP_ICON_EVENT, POWERUP_ICON_DURATION)  # Set up a timer event for every 10 seconds (10000 milliseconds)
-invincibility_probability = 1 #FOR TESTING PURPOSES
-#POWERUP_DEACTIVATION_EVENT = pygame.USEREVENT + 2
-# Initialize power-ups
+pygame.time.set_timer(POWERUP_ICON_EVENT, POWERUP_ICON_DURATION)
+invincibility_probability = 0.1
+
 invincibility_powerup = Invincibility()
 
-def game_loop():
-    # creating the player for the game:
-    player = Player()
 
-    # by default i start the game in the map area
-    current_state = "main"
-
-    # "endless" game loop:
-    while True:
-        if current_state == "main":
-            current_state = execute_game(player)
-
-
-def execute_game(player):
-    # setup:
-
+def game_loop(level):
+    """
+    Main game loop that handles gameplay for different levels.
+    :param level: The current level the player is playing.
+    """
+    # Setup:
     # setting up the background:
     background = pygame.image.load("images/ice-background2.png")
     background = pygame.transform.scale(background, (width, height))
@@ -54,8 +41,6 @@ def execute_game(player):
     # setting up the player
     player = Player()
     player_group = pygame.sprite.Group()
-
-    # adding the player to the group
     player_group.add(player)
 
     # creating an empty bullet group that will be given as input to the player.shoot() method
@@ -64,11 +49,16 @@ def execute_game(player):
     # creating an enemy group
     enemies = pygame.sprite.Group()
 
-    # creating a powerup group
-    powerups = pygame.sprite.Group()
-
-    # before starting our main loop, setup the enemy cooldown
+    # setting up enemy cooldown and spawn rates
     enemy_cooldown = 0
+    spawn_chances = {
+        Seal2: 0.7,  # 70% chance to spawn the base enemy
+        Seal_with_a_hat: 0.2 if level >= 2 else 0.0,  # 20% chance starting from level 2
+        Polar_bear: 0.1 if level >= 3 else 0.0,  # 10% chance starting from level 3
+    }
+
+    # Initialize mini-boss cooldown
+    mini_boss_cooldown = fps * 30  # Mini-boss spawns every 30 seconds
 
     # Load the pause button image
     pause_button_image = pygame.image.load('images/pause_button.png')
@@ -77,7 +67,6 @@ def execute_game(player):
 
     # MAIN GAME LOOP
     running = True
-
     while running:
 
         # controlling the frame rate
@@ -90,50 +79,43 @@ def execute_game(player):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                return
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 if (pause_button_position[0] <= mouse_pos[0] <= pause_button_position[0] + pause_button_image.get_width() and
                         pause_button_position[1] <= mouse_pos[1] <= pause_button_position[1] + pause_button_image.get_height()):
                     pause_screen(screen, resolution)
-            # Check for power-up appearance
             elif event.type == POWERUP_ICON_EVENT:
-                prob = random.random()
-                if prob < invincibility_probability:
+                if random.random() < invincibility_probability:
                     powerup_type = invincibility_powerup
                     powerup_type.draw(screen)
-                    
 
         # automatically shoot bullets from the player
         player.shoot(bullets)
 
-        # spawning enemies every two seconds
+        # spawn enemies
         if enemy_cooldown <= 0:
-            # creating an enemy
-            enemy = Enemy()
-
-            # adding the enemy to the group
+            enemy_type = random.choices(list(spawn_chances.keys()), list(spawn_chances.values()))[0]
+            enemy = enemy_type()
             enemies.add(enemy)
+            enemy_cooldown = fps * 2  # Spawn every 2 seconds
 
-            enemy_cooldown = fps * 2
+        # Spawn a mini-boss
+        if mini_boss_cooldown <= 0 and level >= 4:
+            mini_boss = Orca()
+            enemies.add(mini_boss)
+            mini_boss_cooldown = fps * 30  # Reset cooldown
 
-            # in bullets, we use fps to spawn every second. Here we double that to spawn every 2 seconds
-
-        # updating the enemy cooldown
+        # Update cooldowns
         enemy_cooldown -= 1
+        mini_boss_cooldown -= 1
 
-        # updating positions and visuals:
-        # calling the .update( method of all the instance in the player group
+        # updating groups
         player_group.update()
-
-        # updating the bullets and enemy groups
         bullets.update()
         enemies.update(player)
 
-        # checking if the player moved off-screen from the right to the next area
-        #if player.rect.right >= width:
-        #    return "shed"
-
-        # drawing the bullet sprites on the screen
+        # drawing entities
         player_group.draw(screen)
         enemies.draw(screen)
 
@@ -141,54 +123,32 @@ def execute_game(player):
         for bullet in bullets:
             bullet.draw(screen)
 
-        # checking for collisions between player bullets and enemies
+        # checking for collisions between bullets and enemies
         for bullet in bullets:
             collided_enemies = pygame.sprite.spritecollide(bullet, enemies, False)
-
             for enemy in collided_enemies:
-
-                # every hit enemy needs to lose life...
-                # every bullet hit will reduce the life by 5hp
                 enemy.health -= 5
-
-                # removing the bullet from the screen (as it's lodged in the enemy's heart)
                 bullet.kill()
-
-                # checking if enemy is dead
                 if enemy.health <= 0:
                     enemy.kill()
 
         # checking for collisions between player and enemies
         for enemy in enemies:
-            collided_player = pygame.sprite.spritecollide(player, enemies, False)
-            for enemy in collided_player:
+            if pygame.sprite.collide_rect(player, enemy):
                 player.health -= 0.3
-
-                # OR
-                # player.health -= 20
-                # enemy.kill()
-
                 if player.health <= 0:
-                    player.kill()
                     pygame.quit()
+                    return
 
-        # Draw the player's health bar
+        # draw health bars
         player.draw_health_bar(screen)
-        # Draw enemy health bar
         for enemy in enemies:
             enemy.draw_health_bar(screen)
 
-        # Update player
-        player.update()
-
-        # Draw player
-        screen.blit(player.image, player.rect.topleft)
-
-        # Draw the pause button
+        # draw the pause button
         screen.blit(pause_button_image, pause_button_position)
 
+        # update display
         pygame.display.flip()
 
-    # the main while game loop has terminated and the game ends
     pygame.quit()
-

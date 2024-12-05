@@ -1,8 +1,7 @@
 from interface import *
 from button import Button, select_sound
 from shed import shed
-
-
+from game import game_loop  # Import the game_loop function to pass the level number
 
 def map_layout():
     # initializing pygame
@@ -21,13 +20,18 @@ def map_layout():
 
     # setting up the igloo button
     igloo_button = Button(940, 30, 200, 200, None, None, None, 35, False, None,
-                         image=igloo_sprite)
+                          image=igloo_sprite)
 
-    play_button = Button(500, 230, 260, 100, "Play", bice_blue, "chiller", 55, True, royal_blue,
-                         image=button_sprite)
+    # creating level buttons
+    level_buttons = [
+        Button(150, 200, 200, 100, "1", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
+        Button(400, 300, 200, 100, "2", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
+        Button(650, 400, 200, 100, "3", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
+        Button(200, 500, 200, 100, "4", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
+        Button(500, 600, 200, 100, "5", None, "chiller", 45, True, royal_blue, image="images/level-button.png")
+    ]
 
     while True:
-
         # Displaying the screen
         background = pygame.image.load('images/map_layout.png')
         background = pygame.transform.scale(background, (resolution[0], resolution[1]))
@@ -47,44 +51,39 @@ def map_layout():
                 select_sound()
                 return
 
-            if play_button.is_clicked(mouse, ev):
-                select_sound()
-                game_loop()
-
             if igloo_button.is_clicked(mouse, ev):
                 select_sound()
                 shed()
 
-            # Clear the button's previous position
-            previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
-            screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
+            # Check if any level button is clicked by iterating through them rather than creating 1908393 if cases
+            for i, level_button in enumerate(level_buttons):
+                if level_button.is_clicked(mouse, ev):
+                    select_sound()
+                    game_loop(level=i + 1)  # Pass the level number to game_loop
 
-            if back_button.is_hovered(mouse):
-                back_button.scale_up()
+        # Update button visuals
+        for level_button in level_buttons:
+            if level_button.is_hovered(mouse):
+                level_button.scale_up()
             else:
-                back_button.scale_down()
+                level_button.scale_down()
 
-            if igloo_button.is_hovered(mouse):
-                igloo_button.scale_up()
-            else:
-                igloo_button.scale_down()
+        if back_button.is_hovered(mouse):
+            back_button.scale_up()
+        else:
+            back_button.scale_down()
 
-            if play_button.is_hovered(mouse):
-                play_button.scale_up()
-            else:
-                play_button.scale_down()
+        if igloo_button.is_hovered(mouse):
+            igloo_button.scale_up()
+        else:
+            igloo_button.scale_down()
 
-            back_button.draw(screen, mouse)  # Draw the button after updating
-            igloo_button.draw(screen, mouse)  # Draw the button after updating
-            play_button.draw(screen, mouse)  # Draw the button after updating
+        # Draw all buttons
+        for level_button in level_buttons:
+            level_button.draw(screen, mouse)
 
-        # drawing the back button
         back_button.draw(screen, mouse)
         igloo_button.draw(screen, mouse)
-        play_button.draw(screen, mouse)
 
         # Update the display
         pygame.display.update()
-
-
-

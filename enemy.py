@@ -71,3 +71,34 @@ class Enemy(pygame.sprite.Sprite):
         text = font.render(f'{health_percentage}%', True, (255, 255, 255))
         text_rect = text.get_rect(center=(bar_x + bar_width // 2, bar_y + bar_height // 2))
         surface.blit(text, text_rect)
+
+
+class Seal2(Enemy):
+    def __init__(self):
+        super().__init__(max_health=8)  # Less health
+        self.image = pygame.image.load('images/seal2.png')
+        self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
+        self.speed = 3
+
+
+class Seal_with_a_hat(Enemy):
+    def __init__(self):
+        super().__init__(max_health=20)  # Higher health
+        self.image = pygame.image.load('images/seal3.png')
+        self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
+        self.speed = random.randint(1, 2)  # Slower speed
+
+class Polar_bear(Enemy):
+    def __init__(self):
+        super().__init__(max_health=25)  # Higher health
+        self.image = pygame.image.load('images/polar-bear.png')
+        self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
+        self.speed = random.randint(1, 2)
+
+# Mini-Boss Subclass
+class Orca(Enemy):
+    def __init__(self):
+        super().__init__(max_health=50)  # Very high health
+        self.image = pygame.image.load('images/orca.png')  # Unique image
+        self.image = pygame.transform.scale(self.image, (enemy_size[0] * 2, enemy_size[-1] * 2))  # Larger size
+        self.speed = 1  # Very slow
