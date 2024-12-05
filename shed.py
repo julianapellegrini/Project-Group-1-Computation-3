@@ -5,7 +5,7 @@ from utils import *
 from button import Button, select_sound
 from utils import under_construction
 from shop import shop_layout
-from fishing import fishing_minigame
+from fishing import fishing
 
 
 def shed():
@@ -62,7 +62,7 @@ def shed():
 
             if fish_button.is_clicked(mouse, ev):
                 select_sound()
-                fishing_minigame()
+                fishing()
 
             # Clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
