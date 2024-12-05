@@ -80,11 +80,11 @@ def shed():
                 select_sound()
                 under_construction()
 
-            # Clear the button's previous position
+            # clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
             screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
 
-            # Update and draw the button
+            # update and draw the button
             if back_button.is_hovered(mouse):
                 back_button.scale_up()
             else:

@@ -44,60 +44,66 @@ def draw_normal_stick_figure(screen, x, y):
     pygame.draw.line(screen, (255, 255, 255), (x, y + 60), (x + 20, y + 100), 2)  # Right leg
 
 
+# rectangle for fishing minigame
 def draw_centered_rectangle(screen, height, color, outline_thickness):
-    # Calculate the dimensions and position of the rectangle
+    # calculate the dimensions and position of the rectangle
     rect_width = resolution[0] * 2 // 3
     rect_height = height
     rect_x = (resolution[0] - rect_width) // 2
     rect_y = (resolution[1] - rect_height) // 2
 
-    # Define the rectangle's properties
-    rect_color = color  # Color of the outline
-    rect_thickness = outline_thickness  # Thickness of the outline
+    # rectangle properties
+    # outline color
+    rect_color = color
+    # thickness of the outline
+    rect_thickness = outline_thickness
 
-    # Draw the rectangle
+    # draw the rectangle
     pygame.draw.rect(screen, rect_color, (rect_x, rect_y, rect_width, rect_height), rect_thickness)
 
 
+# function to draw fishing bar for the fishing minigame
 def draw_chasing_rectangle(screen, mouse_pos, height_centered, width_chasing, centered_color,
                            chasing_color):
-    # Calculate the dimensions and position of the centered rectangle
+
+    # calculate the dimensions and position of the centered rectangle
     rect_width = resolution[0] * 2 // 3
-    rect_height = height_centered  # Height of the centered rectangle
+    rect_height = height_centered
     rect_x = (resolution[0] - rect_width) // 2
     rect_y = (resolution[1] - rect_height) // 2
 
-    # Define the centered rectangle
+    # create the centered rectangle
     centered_rect = pygame.Rect(rect_x, rect_y, rect_width, rect_height)
 
-    # Calculate the dimensions and position of the chasing rectangle
-    # Adjust, so it does not overlap with the centered rectangle, outline thickness is set to 2
+    # calculate the dimensions and position of the chasing rectangle
+    # adjust it so it does not overlap with the centered rectangle
+    # outline thickness is set to 2
     inset_x = rect_x + 2
     inset_y = rect_y + 2
     inset_width = rect_width - 2 * 2
-    inset_height = rect_height - 2 * 2
 
-    chase_rect_width = width_chasing  # Width of the chasing rectangle
-    chase_rect_height = height_centered - 4  # Height of the chasing rectangle
+    # properties of the chasing rectangle
+    chase_rect_width = width_chasing
+    chase_rect_height = height_centered - 4
     chase_rect_x = mouse_pos[0] - chase_rect_width // 2
-    chase_rect_y = inset_y  # Keep the y position within the inset bounds
+    chase_rect_y = inset_y
 
-    # Ensure the chasing rectangle stays within the bounds of the centered rectangle
+    # keep chasing rectangle within the centered rectangle
     if chase_rect_x < inset_x:
         chase_rect_x = inset_x
     elif chase_rect_x + chase_rect_width > inset_x + inset_width:
         chase_rect_x = inset_x + inset_width - chase_rect_width
 
-    # Define the chasing rectangle
+    # create the chasing rectangle
     chasing_rect = pygame.Rect(chase_rect_x, chase_rect_y, chase_rect_width, chase_rect_height)
 
-    # Draw the centered rectangle (outline)
+    # draw the centered rectangle (outline)
     pygame.draw.rect(screen, centered_color, centered_rect, 2)
 
-    # Draw the chasing rectangle (filled)
+    # draw the chasing rectangle (filled)
     pygame.draw.rect(screen, chasing_color, chasing_rect)
 
-    # Return as a pygame rect object
+    # return as a pygame rect object
     return chasing_rect
 
 

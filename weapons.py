@@ -2,6 +2,7 @@ from utils import *
 from config import *
 
 
+# create weapon class
 class Weapon(pygame.sprite.Sprite):
     def __init__(self, name, cooldown, damage, image_path):
         super().__init__()
@@ -14,7 +15,7 @@ class Weapon(pygame.sprite.Sprite):
 
         self.rect.center = (width // 2, height // 2)
 
-        # Gameplay variables
+        # gameplay variables
 
         self.cooldown = cooldown
         self.damage = damage
