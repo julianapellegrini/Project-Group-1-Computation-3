@@ -136,8 +136,7 @@ def fishing_minigame():
         # Check if the fish is caught
         if progress >= 100:
             # Add the fish to the player's inventory
-            fish_name = current_fish.__class__.__name__
-            player.inventory.add_item(fish_name)
+            player.add_item(current_fish)
 
             # Reset progress after catching a fish
             progress = 0

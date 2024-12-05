@@ -42,7 +42,10 @@ class Player(pygame.sprite.Sprite):
 
     # Inventory methods
     def add_item(self, item):
+        # Add the item to the inventory
         self.inventory.add_item(item)
+        print(f"Added {item.name} to inventory")
+        print(self.inventory.items)
 
     # Weapon methods
 
