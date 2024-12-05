@@ -1,5 +1,3 @@
-import pygame
-
 from config import *
 from utils import *
 from button import Button, select_sound
@@ -34,8 +32,11 @@ def shed():
     fish_button = Button(700, 200, 150, 60, "Fishing Hole", None, "chiller", 35, True, bice_blue,
                          image="images/ice-banner.png")
 
-    weapons_button = Button(924, 455, 150, 60, "Weapons", None, "chiller", 35, True, bice_blue,
+    weapons_button = Button(850, 455, 150, 60, "Weapons", None, "chiller", 35, True, bice_blue,
                             image="images/ice-banner.png")
+
+    save_game_button = Button(662, 364, 150, 60, "Save Game", None, "chiller", 35, True, bice_blue,
+                              image="images/ice-banner.png")
 
     running = True
 
@@ -75,6 +76,10 @@ def shed():
                 select_sound()
                 under_construction()
 
+            if save_game_button.is_clicked(mouse, ev):
+                select_sound()
+                under_construction()
+
             # Clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
             screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
@@ -105,11 +110,15 @@ def shed():
             else:
                 weapons_button.scale_down()
 
+            if save_game_button.is_hovered(mouse):
+                save_game_button.scale_up()
+
             back_button.draw(screen, mouse)  # Draw the button after updating
             table_button.draw(screen, mouse)
             shop_button.draw(screen, mouse)
             fish_button.draw(screen, mouse)
             weapons_button.draw(screen, mouse)
+            save_game_button.draw(screen, mouse)
 
         # drawing the back button
         back_button.draw(screen, mouse)
@@ -117,6 +126,7 @@ def shed():
         shop_button.draw(screen, mouse)
         fish_button.draw(screen, mouse)
         weapons_button.draw(screen, mouse)
+        save_game_button.draw(screen, mouse)
 
         # updating the display
         pygame.display.update()
