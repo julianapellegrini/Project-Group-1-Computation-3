@@ -2,6 +2,7 @@ from utils import *
 from config import *
 from button import Button, select_sound
 from fishes import Salmon, Cod, ClownFish
+from player import Player
 import random
 
 
@@ -93,6 +94,9 @@ def fishing_minigame():
     current_fish = spawn_fish()
     fish_group = pygame.sprite.Group(current_fish)
 
+    # Create a player instance
+    player = Player()
+
     running = True
     while running:
         clock.tick(fps)
@@ -128,6 +132,19 @@ def fishing_minigame():
                 progress += 0.2
             elif progress > 0:
                 progress -= 0.2
+
+        # Check if the fish is caught
+        if progress >= 100:
+            # Add the fish to the player's inventory
+            fish_name = current_fish.__class__.__name__
+            player.inventory.add_item(fish_name)
+
+            # Reset progress after catching a fish
+            progress = 0
+
+            # Spawn a new fish
+            current_fish = spawn_fish()
+            fish_group = pygame.sprite.Group(current_fish)
 
         # Update the progress text
         progress_text = chiller_font.render(f"{int(progress)}%", True, white)

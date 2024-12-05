@@ -1,13 +1,7 @@
 class Inventory:
     def __init__(self):
-        self.items = []
+        self.items = [{'Fishes': {'Salmon': 0, 'Cod': 0, 'ClownFish': 0}}]
 
     def add_item(self, item):
-        self.items.append(item)
-
-    def remove_item(self, item):
-        if item in self.items:
-            self.items.remove(item)
-
-    def get_items(self):
-        return self.items
+        if item in self.items[0]['Fishes']:
+            self.items[0]['Fishes'][item] += 1

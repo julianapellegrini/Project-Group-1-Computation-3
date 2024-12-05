@@ -1,10 +1,9 @@
-
-
 from utils import *
 from config import *
 import pygame
 import math
 from bullet import Bullet
+from inventory import Inventory
 
 
 # making Player a child of the Sprite class
@@ -33,6 +32,13 @@ class Player(pygame.sprite.Sprite):
         self.speed = 3
         self.health = 100
         self.bullet_cooldown = 0
+
+        # Player has an inventory
+        self.inventory = Inventory()
+
+    # Inventory methods
+    def add_item(self, item):
+        self.inventory.add_item(item)
 
     def update(self):
 
