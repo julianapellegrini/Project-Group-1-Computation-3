@@ -4,6 +4,7 @@ import pygame
 import math
 from bullet import Bullet
 from inventory import Inventory
+from weapons import Snowball
 
 
 # making Player a child of the Sprite class
@@ -36,9 +37,19 @@ class Player(pygame.sprite.Sprite):
         # Player has an inventory
         self.inventory = Inventory()
 
+        # Weapons
+        self.weapon = None
+
     # Inventory methods
     def add_item(self, item):
         self.inventory.add_item(item)
+
+    # Weapon methods
+    def set_weapon(self, weapon):
+        self.weapon = weapon
+
+        if self.weapon is None:
+            self.weapon = Snowball()
 
     def update(self):
 
