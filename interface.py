@@ -132,6 +132,9 @@ def credits_():
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
+
             if back_button.is_clicked(mouse, ev):
                 select_sound()
                 return
@@ -174,6 +177,9 @@ def rules_():
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
+
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
 
             if back_button.is_clicked(mouse, ev):
                 select_sound()
@@ -221,7 +227,6 @@ def power_desc():
     # setting up the back button
     back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
 
-
     while True:
 
         # getting the position of the user's mouse
@@ -230,6 +235,9 @@ def power_desc():
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
+
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
 
             if back_button.is_clicked(mouse, ev):
                 select_sound()

@@ -128,6 +128,10 @@ def under_construction():
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
+
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
+
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 # checking if the back button was clicked
                 if 450 <= mouse[0] <= 590 and 600 <= mouse[1] <= 660:
