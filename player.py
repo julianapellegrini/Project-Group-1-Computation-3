@@ -38,16 +38,13 @@ class Player(pygame.sprite.Sprite):
         self.inventory = Inventory()
 
         # Weapons
-        self.weapon = None
+        self.weapon = Snowball()  # Default weapon
 
     # Inventory methods
     def add_item(self, item):
         self.inventory.add_item(item)
 
     # Weapon methods
-    def set_weapon(self, weapon):
-        if self.weapon is None:
-            self.weapon = Snowball()
 
     def change_weapon(self, weapon):
         self.weapon = weapon
@@ -88,7 +85,7 @@ class Player(pygame.sprite.Sprite):
                     # adding  the bullet to the bullets pygame group
                     bullets.add(bullet)
 
-                # resetting the cooldown
+                # resetting the cooldown according to the weapon's cooldown
                 self.bullet_cooldown = self.weapon.cooldown
 
             self.bullet_cooldown -= 1
