@@ -14,13 +14,12 @@ def interface():
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
 
-    # Set game icon
-    pygame_icon = pygame.image.load('images/game_icon.png')
-    pygame_icon = pygame.transform.scale(pygame_icon, (32, 32))
-    pygame.display.set_icon(pygame_icon)
-
     # Setting the window title
     pygame.display.set_caption("Penguin Rodeo")
+
+    # Set game icon
+    pygame_icon = pygame.image.load('images/game_icon.jpg')
+    pygame.display.set_icon(pygame_icon)
 
     # Loading the same image for the buttons
     button_sprite = "images/ice-banner.png"
