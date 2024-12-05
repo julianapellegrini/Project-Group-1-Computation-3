@@ -89,7 +89,7 @@ class Player(pygame.sprite.Sprite):
                     bullets.add(bullet)
 
                 # resetting the cooldown
-                self.bullet_cooldown = fps
+                self.bullet_cooldown = self.weapon.cooldown
 
             self.bullet_cooldown -= 1
 
