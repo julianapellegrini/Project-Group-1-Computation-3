@@ -1,5 +1,3 @@
-
-
 from config import *
 import math
 import pygame
@@ -8,27 +6,30 @@ from enemy import Enemy
 from shed import shed
 import random
 from powerup import PowerUp
-from despawner import DeSpawner
 import time
 
 
-class Invincibility(PowerUp):
+
+class Speed_Boost:
+    
     def __init__(self):
         super().__init__()
         self.active = False
         # load the icon
-        self.icon = pygame.image.load('powerup_images/snow_globe.jpg')
+        self.icon = pygame.image.load('powerup_images/rollerblades.jpg')
         self.icon = pygame.transform.scale(self.icon, (50, 50))
         self.icon_rect = self.icon.get_rect()
         # load the image
-        self.image = pygame.image.load('powerup_images/invincibility.png')
+        #TO CHANGE
+        self.image = pygame.image.load('powerup_images/speed_boost.png')
         self.image = pygame.transform.scale(self.image, (150, 150))  # Scale the image
         self.image_rect = self.image.get_rect()
 
     def affect_player(self, surface, player):
-        #the affect player logic will be in the game loop when dealing with the collisions between enemies and players
-        player.invincible = True
+        #the affect player logic is in this method
+        self.image = pygame.transform.scale(self.image, (150, 150))
         self.active = True
+        player.speed *= 2
         self.start_time = time.time()
         if self.active:
             # Position the power-up image around the player
@@ -46,9 +47,8 @@ class Invincibility(PowerUp):
         return  # No change to game
 
     def deactivate(self, player):
-        player.invincible = False
         self.active = False
-        self.start_time = time.time()
+        player.speed /= 2
         return
     
 
@@ -65,4 +65,3 @@ class Invincibility(PowerUp):
 
         # Draw the power-up at the new position
         surface.blit(self.icon, self.icon_rect.topleft)
-

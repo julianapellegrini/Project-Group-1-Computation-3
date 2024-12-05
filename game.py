@@ -8,17 +8,13 @@ from powerup import PowerUp
 from invincibility import Invincibility
 from despawner import DeSpawner
 from pause import pause_screen
+from speed_boost import SpeedBoost
+from extra_fish import Extra_Fish
 
 # initializing pygame
 pygame.init()
 
-# Settings for powerups
-POWERUP_ICON_DURATION = 5000  # 5 seconds in milliseconds
-POWERUP_ICON_EVENT = pygame.USEREVENT + 1
-pygame.time.set_timer(POWERUP_ICON_EVENT, POWERUP_ICON_DURATION)
-invincibility_probability = 0.1
 
-invincibility_powerup = Invincibility()
 
 
 def game_loop(level):
@@ -66,6 +62,18 @@ def game_loop(level):
     pause_button_image = pygame.transform.scale(pause_button_image, (70, 70))
     pause_button_position = (resolution[0] - pause_button_image.get_width() - 10, 10)
 
+
+    # Settings for powerups
+    POWERUP_SPAWN_INTERVAL = 5000  # 5 seconds in milliseconds
+    last_powerup_spawn_time = pygame.time.get_ticks()
+    powerup_group = pygame.sprite.Group() 
+    despawner_probability = 0.6 #40% to get
+    speed_boost_probability = 0.3 #30% to get
+    invincibility_probability = 0.12 #18% to get
+    extra_fish_probability = 0 # 12% to get
+
+    
+    
     # MAIN GAME LOOP
     running = True
     while running:
@@ -86,11 +94,34 @@ def game_loop(level):
                 if (pause_button_position[0] <= mouse_pos[0] <= pause_button_position[0] + pause_button_image.get_width() and
                         pause_button_position[1] <= mouse_pos[1] <= pause_button_position[1] + pause_button_image.get_height()):
                     pause_screen(screen, resolution)
-            elif event.type == POWERUP_ICON_EVENT:
-                if random.random() < invincibility_probability:
-                    powerup_type = invincibility_powerup
-                    powerup_type.draw(screen)
+            
+        # Check if it's time to spawn a powerup
+        current_time = pygame.time.get_ticks()
+        if current_time - last_powerup_spawn_time >= POWERUP_SPAWN_INTERVAL:
+            prob = random.random()
+            if prob >= despawner_probability:
+                new_powerup = DeSpawner()
+                powerup_group.add(new_powerup)
+            elif prob() >= invincibility_probability and prob < despawner_probability:
+                new_powerup = DeSpawner(0.5)
+                powerup_group.add(new_powerup)
+            elif prob >= speed_boost_probability and prob < invincibility_probability:
+                new_powerup = SpeedBoost()
+                powerup_group.add(new_powerup)
+            elif prob >= extra_fish_probability and prob < speed_boost_probability:
+                new_powerup = Extra_Fish()
+                powerup_group.add(new_powerup)
+            last_powerup_spawn_time = current_time  # Reset the timer
+    
 
+        for powerup in powerup_group:
+            powerup.draw(screen)
+            if pygame.sprite.collide_rect(player, powerup):
+                powerup.affect_player(player)
+                powerup.affect_game()
+                
+                
+            
         # automatically shoot bullets from the player
         player.shoot(bullets)
 
@@ -136,7 +167,9 @@ def game_loop(level):
         # checking for collisions between player and enemies
         for enemy in enemies:
             if pygame.sprite.collide_rect(player, enemy):
-                player.health -= 0.3
+                # If the player is not invincible, reduce health
+                if not player.invincible:
+                    player.health -= 0.3
                 if player.health <= 0:
                     pygame.quit()
                     return

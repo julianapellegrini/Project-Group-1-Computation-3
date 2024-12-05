@@ -30,7 +30,7 @@ class Player(pygame.sprite.Sprite):
 
         # GAMEPLAY VARIABLES
 
-        self.speed = 4
+        self.speed = 8
         self.health = 100
         self.bullet_cooldown = 0
 
@@ -39,6 +39,12 @@ class Player(pygame.sprite.Sprite):
 
         # Weapons
         self.weapon = Snowball()  # Default weapon
+        
+        # Invincibility Powerup
+        self.invincible = False
+
+        # Extra Fish Powerup
+        self.extra_fish = False
 
     # Inventory methods
     def add_item(self, item):
@@ -79,15 +85,17 @@ class Player(pygame.sprite.Sprite):
             if self.bullet_cooldown <= 0:
                 # defining the directions in which the bullets will fly
                 # these 4 directions are, in order, right, left, up, down
-                for angle in [0, math.pi, math.pi / 2, 3 * math.pi / 2]:
+                angles = [0, math.pi, math.pi / 2, 3 * math.pi / 2]
+                
+                # If the extra fish powerup is active, add the diagonal angles
+                if self.extra_fish.active:
+                    # Add angles for the corners
+                    angles.extend([math.pi / 4, 3 * math.pi / 4, 5 * math.pi / 4, 7 * math.pi / 4])
+                for angle in angles:
                     # creating a bullet for each angle
-                    # I will use self.rect.centerx to make the x position of the bullet the same as the
-                    # x position of the player, thus making the bullet come out of them
-                    # finally, the direction of the bullet is the angle
                     bullet = Bullet(self.rect.centerx, self.rect.centery, angle)
-                    # adding  the bullet to the bullets pygame group
+                    # adding the bullet to the bullets pygame group
                     bullets.add(bullet)
-
                 # resetting the cooldown according to the weapon's cooldown
                 self.bullet_cooldown = self.weapon.cooldown
 
@@ -117,4 +125,7 @@ class Player(pygame.sprite.Sprite):
         text = font.render(f'{int(health)}%', True, (255, 255, 255))
         text_rect = text.get_rect(center=(bar_x + bar_width // 2, bar_y + bar_height // 2))
         surface.blit(text, text_rect)
+
+        
+
 
