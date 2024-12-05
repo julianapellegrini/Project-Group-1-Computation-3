@@ -37,6 +37,9 @@ def fishing():
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
+
             if back_button.is_clicked(mouse, ev):
                 select_sound()
                 return
@@ -72,6 +75,15 @@ def fishing_minigame():
     # Define the fish types
     fish_types = [Salmon, Cod, ClownFish]
 
+    # Progress of the fishing minigame
+    progress = 0
+
+    # Setting the text font
+    chiller_font = pygame.font.SysFont("chiller", 30)
+
+    # Set the progress text
+    progress_text = chiller_font.render(f"{progress}%", True, white)
+
     # Function to spawn a fish based on probabilities
     def spawn_fish():
         fish_selected = random.choices(fish_types, [little_guy().probability for little_guy in fish_types])[0]
@@ -101,12 +113,24 @@ def fishing_minigame():
         # drawing the fishing minigame
 
         # drawing the fishing bar
-        draw_chasing_rectangle(screen, mouse, 30, 100, white, pink)
+        fishing_bar = draw_chasing_rectangle(screen, mouse, 30, 100, white, pink)
+
+        # Display the progress text after the centered rectangle
+        screen.blit(progress_text, (fishing_bar.right + 10, fishing_bar.centery - progress_text.get_height() // 2))
 
         # drawing the fish
         for fish in fish_group:
             fish.update_position()
             screen.blit(fish.image, fish.rect)
+
+            # Check if the fish is in the fishing bar
+            if fish.rect.colliderect(fishing_bar) and progress < 100:
+                progress += 0.2
+            elif progress > 0:
+                progress -= 0.2
+
+        # Update the progress text
+        progress_text = chiller_font.render(f"{int(progress)}%", True, white)
 
         # updating the display
         pygame.display.update()

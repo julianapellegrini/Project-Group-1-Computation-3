@@ -97,6 +97,9 @@ def draw_chasing_rectangle(screen, mouse_pos, height_centered, width_chasing, ce
     # Draw the chasing rectangle (filled)
     pygame.draw.rect(screen, chasing_color, chasing_rect)
 
+    # Return as a pygame rect object
+    return chasing_rect
+
 
 def under_construction():
     # creating the screen at 720x720 pixels
