@@ -46,10 +46,11 @@ class Player(pygame.sprite.Sprite):
 
     # Weapon methods
     def set_weapon(self, weapon):
-        self.weapon = weapon
-
         if self.weapon is None:
             self.weapon = Snowball()
+
+    def change_weapon(self, weapon):
+        self.weapon = weapon
 
     def update(self):
 
