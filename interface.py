@@ -14,9 +14,16 @@ def interface():
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
 
+    # Setting the window title
+    pygame.display.set_caption("Penguin Rodeo")
+
+    # Set game icon
+    pygame_icon = pygame.image.load('images/game_icon.jpg')
+    pygame.display.set_icon(pygame_icon)
+
     # Loading the same image for the buttons
     button_sprite = "images/ice-banner.png"
-    #wood_banner = "images/wood-banner.png"
+    #  wood_banner = "images/wood-banner.png"
 
     # Calculate the center x-coordinate
     center_x = resolution[0] // 2
@@ -125,6 +132,9 @@ def credits_():
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
+
             if back_button.is_clicked(mouse, ev):
                 select_sound()
                 return
@@ -167,6 +177,9 @@ def rules_():
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
+
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
 
             if back_button.is_clicked(mouse, ev):
                 select_sound()
@@ -214,7 +227,6 @@ def power_desc():
     # setting up the back button
     back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
 
-
     while True:
 
         # getting the position of the user's mouse
@@ -223,6 +235,9 @@ def power_desc():
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
+
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
 
             if back_button.is_clicked(mouse, ev):
                 select_sound()

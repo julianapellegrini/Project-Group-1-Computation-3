@@ -28,6 +28,9 @@ def shop_layout():
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
+
             if back_button.is_clicked(mouse, ev):
                 select_sound()
                 return

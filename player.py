@@ -1,10 +1,10 @@
-
-
 from utils import *
 from config import *
 import pygame
 import math
 from bullet import Bullet
+from inventory import Inventory
+from weapons import Snowball
 
 
 # making Player a child of the Sprite class
@@ -33,6 +33,21 @@ class Player(pygame.sprite.Sprite):
         self.speed = 3
         self.health = 100
         self.bullet_cooldown = 0
+
+        # Player has an inventory
+        self.inventory = Inventory()
+
+        # Weapons
+        self.weapon = Snowball()  # Default weapon
+
+    # Inventory methods
+    def add_item(self, item):
+        self.inventory.add_item(item)
+
+    # Weapon methods
+
+    def change_weapon(self, weapon):
+        self.weapon = weapon
 
     def update(self):
 
@@ -70,8 +85,8 @@ class Player(pygame.sprite.Sprite):
                     # adding  the bullet to the bullets pygame group
                     bullets.add(bullet)
 
-                # resetting the cooldown
-                self.bullet_cooldown = fps
+                # resetting the cooldown according to the weapon's cooldown
+                self.bullet_cooldown = self.weapon.cooldown
 
             self.bullet_cooldown -= 1
 
