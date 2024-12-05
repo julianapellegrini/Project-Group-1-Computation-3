@@ -1,14 +1,14 @@
 from utils import *
 from config import *
 from button import Button, select_sound
-from fishes import Salmon, Cod, ClownFish
+from igloo.fishes import Salmon, Cod, ClownFish
 from player import Player
 import random
 
 
 def fishing():
     # setting up the background and the screen
-    background = pygame.image.load("images/fishing_background.png")
+    background = pygame.image.load("../images/fishing_background.png")
 
     # scaling the background image into our selected resolution
     background = pygame.transform.scale(background, resolution)
@@ -59,7 +59,7 @@ def fishing():
 
 def fishing_minigame():
     # setting up the background and the screen
-    background = pygame.image.load("images/fishing_background.png")
+    background = pygame.image.load("../images/fishing_background.png")
 
     # scaling the background image into our selected resolution
     background = pygame.transform.scale(background, resolution)

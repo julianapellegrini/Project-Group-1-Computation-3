@@ -1,11 +1,5 @@
-from config import *
-import math
 import pygame
-from player import Player
-from enemy import Enemy
-from shed import shed
 import random
-from powerup import PowerUp
 import time
 
 

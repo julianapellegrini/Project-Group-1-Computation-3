@@ -1,15 +1,12 @@
 from config import *
-import math
 import pygame
 from player import Player
-from enemy import Enemy, Seal, Seal2, Seal_with_a_hat, Polar_bear, Orca  # Import new enemy types
+from enemy import Seal, Seal2, Seal_with_a_hat, Polar_bear, Orca  # Import new enemy types
 import random
-from powerup import PowerUp
-from invincibility import Invincibility
-from despawner import DeSpawner
+from powerups.despawner import DeSpawner
 from pause import pause_screen
-from speed_boost import SpeedBoost
-from extra_fish import Extra_Fish
+from powerups.speed_boost import SpeedBoost
+from powerups.extra_fish import Extra_Fish
 
 # initializing pygame
 pygame.init()

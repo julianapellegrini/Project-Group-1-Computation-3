@@ -1,6 +1,6 @@
 from interface import *
 from button import Button, select_sound
-from shed import shed
+from igloo.shed import shed
 from game import game_loop  # Import the game_loop function to pass the level number
 
 def map_layout():

@@ -3,12 +3,12 @@ from utils import *
 from button import Button, select_sound
 from utils import under_construction
 from shop import shop_layout
-from fishing import fishing
+from igloo.fishing import fishing
 
 
 def shed():
     # setting up the background and the screen
-    background = pygame.image.load("images/igloo_bar.png")
+    background = pygame.image.load("../images/igloo_bar.png")
 
     # scaling the background image into our selected resolution
     background = pygame.transform.scale(background, resolution)
