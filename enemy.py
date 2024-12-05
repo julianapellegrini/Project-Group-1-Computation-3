@@ -73,9 +73,17 @@ class Enemy(pygame.sprite.Sprite):
         surface.blit(text, text_rect)
 
 
+class Seal(Enemy):
+    def __init__(self):
+        super().__init__(max_health=8)
+        self.image = pygame.image.load('images/seal1.png')
+        self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
+        self.speed = 3
+
+
 class Seal2(Enemy):
     def __init__(self):
-        super().__init__(max_health=8)  # Less health
+        super().__init__(max_health=13)
         self.image = pygame.image.load('images/seal2.png')
         self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
         self.speed = 3
@@ -83,14 +91,14 @@ class Seal2(Enemy):
 
 class Seal_with_a_hat(Enemy):
     def __init__(self):
-        super().__init__(max_health=20)  # Higher health
+        super().__init__(max_health=20)
         self.image = pygame.image.load('images/seal3.png')
         self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
         self.speed = random.randint(1, 2)  # Slower speed
 
 class Polar_bear(Enemy):
     def __init__(self):
-        super().__init__(max_health=25)  # Higher health
+        super().__init__(max_health=25)
         self.image = pygame.image.load('images/polar-bear.png')
         self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
         self.speed = random.randint(1, 2)

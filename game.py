@@ -2,7 +2,7 @@ from config import *
 import math
 import pygame
 from player import Player
-from enemy import Enemy, Seal2, Seal_with_a_hat, Polar_bear, Orca  # Import new enemy types
+from enemy import Enemy, Seal, Seal2, Seal_with_a_hat, Polar_bear, Orca  # Import new enemy types
 import random
 from powerup import PowerUp
 from invincibility import Invincibility
@@ -52,9 +52,10 @@ def game_loop(level):
     # setting up enemy cooldown and spawn rates
     enemy_cooldown = 0
     spawn_chances = {
-        Seal2: 0.7,  # 70% chance to spawn the base enemy
-        Seal_with_a_hat: 0.2 if level >= 2 else 0.0,  # 20% chance starting from level 2
-        Polar_bear: 0.1 if level >= 3 else 0.0,  # 10% chance starting from level 3
+        Seal: 0.4,  # 0.4 chance to spawn the base enemy
+        Seal2: 0.3 if level >= 2 else 0.0,     # 0.3 chance to spawn level 2 enemy
+        Seal_with_a_hat: 0.2 if level >= 3 else 0.0,  # 20% chance starting from level 2
+        Polar_bear: 0.1 if level >= 4 else 0.0,  # 10% chance starting from level 3
     }
 
     # Initialize mini-boss cooldown

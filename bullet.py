@@ -13,7 +13,7 @@ class Bullet(pygame.sprite.Sprite):
         self.color = yellow
 
         self.rect = pygame.Rect(x - self.radius, y - self.radius, self.radius * 2, self.radius * 2)
-        self.speed = 7
+        self.speed = 8
 
     def update(self):
 
