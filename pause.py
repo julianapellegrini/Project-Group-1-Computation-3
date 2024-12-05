@@ -7,15 +7,23 @@ def pause_screen(screen, resolution):
     # Load the pause button image
     pause_button = Button(resolution[0] - 90, 10, 80, 80, "", None, None, 0, False, None, 'images/pause_button.png')
 
-    # Load the play button image
+    # load the play button image
     play_button = Button(resolution[0] // 4 - 60, resolution[1] // 2 - 60, 120, 120, "", None, None, 0, False, None,
                          'images/play_button.png')
 
-    # Load the pause background image
+    # load the setting button image
+    setting_button = Button(resolution[0] // 3 - 60, resolution[1] // 2 - 60, 120, 120, "", None, None, 0, False, None,
+                            'images/setting_button.png')
+
+    # load the igloo button image
+    igloo_button = Button(resolution[0] // 2 - 60, resolution[1] // 2 - 60, 120, 120, "", None, None, 0, False, None,
+                          'images/igloo_wood_button.png')
+
+    # load the pause background image
     background = pygame.image.load('images/pause__background.png')
     background = pygame.transform.scale(background, resolution)
 
-    # Loop to maintain the pause
+    # main loop to maintain the pause
     paused = True
     while paused:
         for event in pygame.event.get():
