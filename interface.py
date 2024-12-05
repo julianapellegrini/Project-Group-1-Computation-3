@@ -14,9 +14,13 @@ def interface():
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
 
+    # Set game icon
+    pygame_icon = pygame.image.load('images/game_icon.png')
+    pygame.display.set_icon(pygame_icon)
+
     # Loading the same image for the buttons
     button_sprite = "images/ice-banner.png"
-    #wood_banner = "images/wood-banner.png"
+    #  wood_banner = "images/wood-banner.png"
 
     # Calculate the center x-coordinate
     center_x = resolution[0] // 2
