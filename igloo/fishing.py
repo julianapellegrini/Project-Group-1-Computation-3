@@ -1,8 +1,7 @@
 from utils import *
 from config import *
-from button import Button, select_sound
+from interfaces_menus.button import Button, select_sound
 from igloo.fishes import Salmon, Cod, ClownFish
-from player import Player
 import random
 
 

@@ -1,10 +1,9 @@
 from config import *
 import pygame
-from player import Player
 from enemy import Seal, Seal2, Seal_with_a_hat, Polar_bear, Orca  # Import new enemy types
 import random
 from powerups.despawner import DeSpawner
-from pause import pause_screen
+from interfaces_menus.pause import pause_screen
 from powerups.speed_boost import Speed_Boost
 from powerups.extra_fish import Extra_Fish
 

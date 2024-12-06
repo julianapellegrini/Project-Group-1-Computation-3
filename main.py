@@ -1,5 +1,5 @@
-from interface import *
-from player import Player
+from interfaces_menus.interface import *
+from player.player import Player
 
 
 def main():

@@ -1,11 +1,10 @@
 from config import *
 from utils import *
-from button import Button, select_sound
+from interfaces_menus.button import Button, select_sound
 from utils import under_construction
 from igloo.shop import shop_layout
 from igloo.fishing import fishing
-from player import Player
-from SaveLoadGame import SaveManager, check_save_file
+from save_system.SaveLoadGame import SaveManager
 from igloo.weapon_selector import weapon_selector
 
 

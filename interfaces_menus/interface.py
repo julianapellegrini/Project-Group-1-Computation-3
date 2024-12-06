@@ -3,7 +3,7 @@ from config import *  # importing colors and the like
 from utils import under_construction
 from map import map_layout
 from button import Button, select_sound
-from SaveLoadGame import SaveManager, check_save_file
+from save_system.SaveLoadGame import SaveManager, check_save_file
 
 
 def start_screen(player):
@@ -17,11 +17,11 @@ def start_screen(player):
     pygame.display.set_caption("Penguin Rodeo")
 
     # set game icon
-    pygame_icon = pygame.image.load('images/game_icon.jpg')
+    pygame_icon = pygame.image.load('../images/game_icon.jpg')
     pygame.display.set_icon(pygame_icon)
 
     # set and scale background
-    background = pygame.image.load('images/menu.png')
+    background = pygame.image.load('../images/menu.png')
     background = pygame.transform.scale(background, resolution)
 
     # load font
@@ -65,7 +65,7 @@ def confirm_new_game():
     screen = pygame.display.set_mode(resolution)
 
     # scale and set background
-    background = pygame.image.load('images/menu.png')
+    background = pygame.image.load('../images/menu.png')
     background = pygame.transform.scale(background, resolution)
     screen.blit(background, (0, 0))
 
@@ -117,7 +117,7 @@ def interface_no_save(player):
     screen = pygame.display.set_mode(resolution)
 
     # set and scale background
-    background = pygame.image.load('images/menu.png')
+    background = pygame.image.load('../images/menu.png')
     background = pygame.transform.scale(background, (resolution[0], resolution[1]))
 
     # Loading the same image for the buttons
@@ -215,7 +215,7 @@ def interface_w_save(player):
     screen = pygame.display.set_mode(resolution)
 
     # set and scale background
-    background = pygame.image.load('images/menu.png')
+    background = pygame.image.load('../images/menu.png')
     background = pygame.transform.scale(background, (resolution[0], resolution[1]))
 
     # Loading the same image for the buttons
@@ -274,7 +274,7 @@ def interface_w_save(player):
                 # get confirmation for new game
                 if confirm_new_game():
                     # clear save file and start new game
-                    open('gamesave.txt', 'w').close()
+                    open('../save_system/gamesave.txt', 'w').close()
                     map_layout(player)
             if rules_button.is_clicked(mouse, ev):
                 select_sound()
@@ -336,7 +336,7 @@ def interface_w_save(player):
 def credits_():
     # loading the rules screen
     screen = pygame.display.set_mode(resolution)
-    background = pygame.image.load('images/credits2.png')
+    background = pygame.image.load('../images/credits2.png')
     screen.blit(background, (0, 0))
 
     # setting up the back button
@@ -381,7 +381,7 @@ def credits_():
 def rules_():
     # loading the rules screen
     screen = pygame.display.set_mode(resolution)
-    background = pygame.image.load('images/rules2.png')
+    background = pygame.image.load('../images/rules2.png')
     screen.blit(background, (0, 0))
 
     # setting up the back button
@@ -442,7 +442,7 @@ def rules_():
 def power_desc():
     # loading the rules screen
     screen = pygame.display.set_mode(resolution)
-    background = pygame.image.load('images/powerups_desc.png')
+    background = pygame.image.load('../images/powerups_desc.png')
     screen.blit(background, (0, 0))
 
     # setting up the back button

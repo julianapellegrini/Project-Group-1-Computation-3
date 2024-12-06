@@ -1,4 +1,4 @@
-from interface import *
+from interfaces_menus.interface import *
 from button import Button
 
 
@@ -20,7 +20,7 @@ def pause_screen(screen, resolution):
                           'images/igloo_wood_button.png')
 
     # load the pause background image
-    background = pygame.image.load('images/pause__background.png')
+    background = pygame.image.load('../images/pause__background.png')
     background = pygame.transform.scale(background, resolution)
 
     # main loop to maintain the pause

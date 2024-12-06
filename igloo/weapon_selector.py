@@ -1,8 +1,8 @@
 from utils import *
 from config import *
-from button import Button, select_sound
-from weapons import Weapon, Snowball, Slingshot
-from player import Player
+from interfaces_menus.button import Button, select_sound
+from player.weapons import Snowball, Slingshot
+from player.player import Player
 
 
 def weapon_selector():

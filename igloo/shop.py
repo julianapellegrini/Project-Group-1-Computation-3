@@ -1,5 +1,5 @@
-from interface import *
-from button import Button, select_sound
+from interfaces_menus.interface import *
+from interfaces_menus.button import Button, select_sound
 
 
 def shop_layout():
