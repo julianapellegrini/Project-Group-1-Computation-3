@@ -5,11 +5,11 @@ from utils import under_construction
 from igloo.shop import shop_layout
 from igloo.fishing import fishing
 from player import Player
-from SaveLoadGame import SaveManager
+from SaveLoadGame import SaveManager, check_save_file
 from igloo.weapon_selector import weapon_selector
 
 
-def shed():
+def shed(player):
     # setting up the background and the screen
     background = pygame.image.load("images/igloo_bar.png")
 
@@ -21,9 +21,6 @@ def shed():
 
     # setting up the clock for fps
     clock = pygame.time.Clock()
-
-    # create player instance for save
-    player = Player()
 
     # set save manager
     save_manager = SaveManager()
@@ -45,6 +42,8 @@ def shed():
                             image="images/ice-banner.png")
 
     save_game_button = Button(662, 364, 150, 60, "Save Game", None, "chiller", 35, True, bice_blue,
+                              image="images/ice-banner.png")
+    load_game_button = Button(662, 430, 150, 60, "Load Game", None, "chiller", 35, True, bice_blue,
                               image="images/ice-banner.png")
 
     running = True
@@ -78,7 +77,7 @@ def shed():
 
             if fish_button.is_clicked(mouse, ev):
                 select_sound()
-                fishing()
+                fishing(player)
 
             if weapons_button.is_clicked(mouse, ev):
                 select_sound()
@@ -88,6 +87,16 @@ def shed():
                 select_sound()
                 save_manager.save_game(player)
                 print(player.inventory.items)
+
+            if load_game_button.is_clicked(mouse, ev):
+                select_sound()
+                if check_save_file():
+                    saved_data = save_manager.load_game()
+                    if saved_data:
+                        player.load_inventory(saved_data[0])
+                    print(player.inventory.items)
+                else:
+                    print("No save file found")
 
             # clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
@@ -124,6 +133,11 @@ def shed():
             else:
                 save_game_button.scale_down()
 
+            if load_game_button.is_hovered(mouse):
+                load_game_button.scale_up()
+            else:
+                load_game_button.scale_down()
+
             # draw the buttons after updating
             back_button.draw(screen, mouse)
             table_button.draw(screen, mouse)
@@ -131,6 +145,7 @@ def shed():
             fish_button.draw(screen, mouse)
             weapons_button.draw(screen, mouse)
             save_game_button.draw(screen, mouse)
+            load_game_button.draw(screen, mouse)
 
         # drawing the back button
         back_button.draw(screen, mouse)
@@ -139,6 +154,7 @@ def shed():
         fish_button.draw(screen, mouse)
         weapons_button.draw(screen, mouse)
         save_game_button.draw(screen, mouse)
+        load_game_button.draw(screen, mouse)
 
         # updating the display
         pygame.display.update()

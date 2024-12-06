@@ -12,9 +12,10 @@ from powerups.extra_fish import Extra_Fish
 pygame.init()
 
 
-def game_loop(level):
+def game_loop(level, player):
     """
     Main game loop that handles gameplay for different levels.
+    :param player: keep same player instance throughout the game in order to be able to save the player's progress.
     :param level: The current level the player is playing.
     """
     # Setup:
@@ -29,8 +30,7 @@ def game_loop(level):
     screen = pygame.display.set_mode(resolution)
     pygame.display.set_caption("Endless Wilderness Explorer")
 
-    # setting up the player
-    player = Player()
+    # setting up the player group
     player_group = pygame.sprite.Group()
     player_group.add(player)
 

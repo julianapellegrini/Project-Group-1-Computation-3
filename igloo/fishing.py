@@ -6,7 +6,7 @@ from player import Player
 import random
 
 
-def fishing():
+def fishing(player):
     # setting up the background
     background = pygame.image.load("images/fishing_background.png")
 
@@ -57,7 +57,7 @@ def fishing():
             # go to fishing minigame
             if fish_button.is_clicked(mouse, ev):
                 select_sound()
-                fishing_minigame()
+                fishing_minigame(player)
 
         # drawing the buttons
         back_button.draw(screen, mouse)
@@ -67,7 +67,7 @@ def fishing():
         pygame.display.update()
 
 
-def fishing_minigame():
+def fishing_minigame(player):
 
     # setting up the background
     background = pygame.image.load("images/fishing_background.png")
@@ -104,9 +104,6 @@ def fishing_minigame():
     # select fish and add to fish group
     current_fish = spawn_fish()
     fish_group = pygame.sprite.Group(current_fish)
-
-    # create a player instance for the inventory
-    player = Player()
 
     # game loop
     running = True

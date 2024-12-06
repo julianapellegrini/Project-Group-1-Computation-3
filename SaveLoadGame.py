@@ -1,25 +1,27 @@
-import pickle
 import os
 
 
-def check_save():
-    return os.path.isfile('savegame.pickle')
+# check if save file is not empty so load game doesn't crash
+def check_save_file():
+    if os.path.getsize("gamesave.txt") > 0:
+        return True
+    else:
+        return False
 
 
 class SaveManager:
     def __init__(self):
-        self.save_dict = None
+        self.save_file = "gamesave.txt"
+        self.player_data = []
 
     def save_game(self, player):
-        self.save_dict = player.inventory.items
-
-        save_file = 'savegame.pickle'
-        with open(save_file, 'wb') as f:
-            pickle.dump(self.save_dict, f)
+        self.player_data.append(player.inventory.items)
+        with open(self.save_file, "w") as file:
+            for data in self.player_data:
+                file.write(str(data) + "\n")
 
     def load_game(self):
-        save_file = 'savegame.pickle'
-        with open(save_file, 'rb') as f:
-            self.save_dict = pickle.load(f)
-        return self.save_dict
-
+        with open(self.save_file, "r") as file:
+            for line in file:
+                self.player_data.append(eval(line))
+        return self.player_data

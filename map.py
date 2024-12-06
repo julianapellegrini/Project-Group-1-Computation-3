@@ -1,8 +1,7 @@
 from interface import *
 from button import Button, select_sound
 from igloo.shed import shed
-from game import game_loop  # Import the game_loop function to pass the level number
-from SaveLoadGame import SaveManager, check_save
+from game import game_loop
 from player import Player
 
 
@@ -12,17 +11,6 @@ def map_layout():
 
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
-
-    # player instance for save
-    player = Player()
-
-    # set up save manager
-    save_manager = SaveManager()
-
-    # load game if it exists
-    if check_save():
-        saved_data = save_manager.load_game()
-        player.load_inventory(saved_data)
 
     # path for the images of the buttons
     button_sprite = "images/ice-banner.png"
@@ -46,13 +34,16 @@ def map_layout():
     ]
 
     while True:
-        # Displaying the screen
+        # displaying the screen
         background = pygame.image.load('images/map_layout.png')
         background = pygame.transform.scale(background, (resolution[0], resolution[1]))
         screen.blit(background, (0, 0))
 
-        # Get mouse position
+        # get mouse position
         mouse = pygame.mouse.get_pos()
+
+        # create player instance here and pass so save works
+        player = Player()
 
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
@@ -67,15 +58,16 @@ def map_layout():
 
             if igloo_button.is_clicked(mouse, ev):
                 select_sound()
-                shed()
+                shed(player)
 
-            # Check if any level button is clicked by iterating through them rather than creating 1908393 if cases
+            # check if any level button is clicked by iterating through them rather than creating 1908393 if cases
             for i, level_button in enumerate(level_buttons):
                 if level_button.is_clicked(mouse, ev):
                     select_sound()
-                    game_loop(level=i + 1)  # Pass the level number to game_loop
+                    # pass the level number and player instance to game_loop
+                    game_loop(level=i + 1, player=player)
 
-        # Update button visuals
+        # update button visuals
         for level_button in level_buttons:
             if level_button.is_hovered(mouse):
                 level_button.scale_up()
@@ -92,12 +84,12 @@ def map_layout():
         else:
             igloo_button.scale_down()
 
-        # Draw all buttons
+        # draw all buttons
         for level_button in level_buttons:
             level_button.draw(screen, mouse)
 
         back_button.draw(screen, mouse)
         igloo_button.draw(screen, mouse)
 
-        # Update the display
+        # update the display
         pygame.display.update()
