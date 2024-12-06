@@ -24,7 +24,7 @@ def shed():
     # create player instance for save
     player = Player()
 
-    # setting up the save manager
+    # set save manager
     save_manager = SaveManager()
 
     # setting up the buttons
@@ -86,6 +86,7 @@ def shed():
             if save_game_button.is_clicked(mouse, ev):
                 select_sound()
                 save_manager.save_game(player)
+                print(player.inventory.items)
 
             # clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)

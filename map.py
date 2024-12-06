@@ -2,6 +2,9 @@ from interface import *
 from button import Button, select_sound
 from igloo.shed import shed
 from game import game_loop  # Import the game_loop function to pass the level number
+from SaveLoadGame import SaveManager, check_save
+from player import Player
+
 
 def map_layout():
     # initializing pygame
@@ -9,6 +12,17 @@ def map_layout():
 
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
+
+    # player instance for save
+    player = Player()
+
+    # set up save manager
+    save_manager = SaveManager()
+
+    # load game if it exists
+    if check_save():
+        saved_data = save_manager.load_game()
+        player.load_inventory(saved_data)
 
     # path for the images of the buttons
     button_sprite = "images/ice-banner.png"

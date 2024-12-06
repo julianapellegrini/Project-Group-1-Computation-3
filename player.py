@@ -5,6 +5,7 @@ import math
 from bullet import Bullet
 from inventory import Inventory
 from weapons import Snowball
+from powerups.extra_fish import Extra_Fish
 
 
 # making Player a child of the Sprite class
@@ -47,6 +48,11 @@ class Player(pygame.sprite.Sprite):
         self.extra_fish = False
 
     # Inventory methods
+
+    def load_inventory(self, items):
+        self.inventory.items = items
+        print("Loaded inventory:", self.inventory.items)
+
     def add_item(self, item):
         # Add the item to the inventory
         self.inventory.add_item(item)
@@ -88,7 +94,7 @@ class Player(pygame.sprite.Sprite):
                 angles = [0, math.pi, math.pi / 2, 3 * math.pi / 2]
                 
                 # If the extra fish powerup is active, add the diagonal angles
-                if self.extra_fish.active:
+                if self.extra_fish:
                     # Add angles for the corners
                     angles.extend([math.pi / 4, 3 * math.pi / 4, 5 * math.pi / 4, 7 * math.pi / 4])
                 for angle in angles:

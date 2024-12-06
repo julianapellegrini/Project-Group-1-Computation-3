@@ -12,8 +12,6 @@ from powerups.extra_fish import Extra_Fish
 pygame.init()
 
 
-
-
 def game_loop(level):
     """
     Main game loop that handles gameplay for different levels.
@@ -46,7 +44,7 @@ def game_loop(level):
     enemy_cooldown = 0
     spawn_chances = {
         Seal: 0.4,  # 0.4 chance to spawn the base enemy
-        Seal2: 0.3 if level >= 2 else 0.0,     # 0.3 chance to spawn level 2 enemy
+        Seal2: 0.3 if level >= 2 else 0.0,  # 0.3 chance to spawn level 2 enemy
         Seal_with_a_hat: 0.2 if level >= 3 else 0.0,  # 20% chance starting from level 2
         Polar_bear: 0.1 if level >= 4 else 0.0,  # 10% chance starting from level 3
     }
@@ -59,18 +57,15 @@ def game_loop(level):
     pause_button_image = pygame.transform.scale(pause_button_image, (70, 70))
     pause_button_position = (resolution[0] - pause_button_image.get_width() - 10, 10)
 
-
     # Settings for powerups
     POWERUP_SPAWN_INTERVAL = 5000  # 5 seconds in milliseconds
     last_powerup_spawn_time = pygame.time.get_ticks()
-    powerup_group = pygame.sprite.Group() 
-    despawner_probability = 0.6 #40% to get
-    speed_boost_probability = 0.3 #30% to get
-    invincibility_probability = 0.12 #18% to get
-    extra_fish_probability = 0 # 12% to get
+    powerup_group = pygame.sprite.Group()
+    despawner_probability = 0.6  # 40% to get
+    speed_boost_probability = 0.3  # 30% to get
+    invincibility_probability = 0.12  # 18% to get
+    extra_fish_probability = 0  # 12% to get
 
-    
-    
     # MAIN GAME LOOP
     running = True
     while running:
@@ -88,10 +83,12 @@ def game_loop(level):
                 return
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                if (pause_button_position[0] <= mouse_pos[0] <= pause_button_position[0] + pause_button_image.get_width() and
-                        pause_button_position[1] <= mouse_pos[1] <= pause_button_position[1] + pause_button_image.get_height()):
+                if (pause_button_position[0] <= mouse_pos[0] <= pause_button_position[
+                    0] + pause_button_image.get_width() and
+                        pause_button_position[1] <= mouse_pos[1] <= pause_button_position[
+                            1] + pause_button_image.get_height()):
                     pause_screen(screen, resolution)
-            
+
         # Check if it's time to spawn a powerup
         current_time = pygame.time.get_ticks()
         if current_time - last_powerup_spawn_time >= POWERUP_SPAWN_INTERVAL:
@@ -99,26 +96,23 @@ def game_loop(level):
             if prob >= despawner_probability:
                 new_powerup = DeSpawner()
                 powerup_group.add(new_powerup)
-            elif prob() >= invincibility_probability and prob < despawner_probability:
+            elif prob >= invincibility_probability and prob < despawner_probability:
                 new_powerup = DeSpawner(0.5)
                 powerup_group.add(new_powerup)
             elif prob >= speed_boost_probability and prob < invincibility_probability:
-                new_powerup = SpeedBoost()
+                new_powerup = Speed_Boost()
                 powerup_group.add(new_powerup)
             elif prob >= extra_fish_probability and prob < speed_boost_probability:
                 new_powerup = Extra_Fish()
                 powerup_group.add(new_powerup)
             last_powerup_spawn_time = current_time  # Reset the timer
-    
 
         for powerup in powerup_group:
             powerup.draw(screen)
             if pygame.sprite.collide_rect(player, powerup):
                 powerup.affect_player(player)
                 powerup.affect_game()
-                
-                
-            
+
         # automatically shoot bullets from the player
         player.shoot(bullets)
 
