@@ -2,13 +2,15 @@ from config import *
 from utils import *
 from button import Button, select_sound
 from utils import under_construction
-from shop import shop_layout
+from igloo.shop import shop_layout
 from igloo.fishing import fishing
+from player import Player
+from SaveLoadGame import SaveManager
 
 
 def shed():
     # setting up the background and the screen
-    background = pygame.image.load("../images/igloo_bar.png")
+    background = pygame.image.load("images/igloo_bar.png")
 
     # scaling the background image into our selected resolution
     background = pygame.transform.scale(background, resolution)
@@ -18,6 +20,12 @@ def shed():
 
     # setting up the clock for fps
     clock = pygame.time.Clock()
+
+    # create player instance for save
+    player = Player()
+
+    # setting up the save manager
+    save_manager = SaveManager()
 
     # setting up the buttons
     back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue,
@@ -47,7 +55,6 @@ def shed():
 
         # getting the position of the user's mouse
         mouse = pygame.mouse.get_pos()
-        print(mouse)
 
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
@@ -78,7 +85,7 @@ def shed():
 
             if save_game_button.is_clicked(mouse, ev):
                 select_sound()
-                under_construction()
+                save_manager.save_game(player)
 
             # clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
@@ -112,8 +119,11 @@ def shed():
 
             if save_game_button.is_hovered(mouse):
                 save_game_button.scale_up()
+            else:
+                save_game_button.scale_down()
 
-            back_button.draw(screen, mouse)  # Draw the button after updating
+            # draw the buttons after updating
+            back_button.draw(screen, mouse)
             table_button.draw(screen, mouse)
             shop_button.draw(screen, mouse)
             fish_button.draw(screen, mouse)

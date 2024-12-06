@@ -8,7 +8,7 @@ import random
 
 def fishing():
     # setting up the background
-    background = pygame.image.load("../images/fishing_background.png")
+    background = pygame.image.load("images/fishing_background.png")
 
     # scaling the background to resolution
     background = pygame.transform.scale(background, resolution)
@@ -70,7 +70,7 @@ def fishing():
 def fishing_minigame():
 
     # setting up the background
-    background = pygame.image.load("../images/fishing_background.png")
+    background = pygame.image.load("images/fishing_background.png")
 
     # scaling the background to resolution
     background = pygame.transform.scale(background, resolution)

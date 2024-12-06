@@ -46,14 +46,14 @@ class Fish(pygame.sprite.Sprite):
 
 class Salmon(Fish, pygame.sprite.Sprite):
     def __init__(self):
-        super().__init__("Salmon", 10, 10, "../images/salmon.png", 0.4)
+        super().__init__("Salmon", 10, 10, "images/salmon.png", 0.4)
 
 
 class Cod(Fish, pygame.sprite.Sprite):
     def __init__(self):
-        super().__init__("Cod", 5, 5, "../images/cod.png", 0.4)
+        super().__init__("Cod", 5, 5, "images/cod.png", 0.4)
 
 
 class ClownFish(Fish, pygame.sprite.Sprite):
     def __init__(self):
-        super().__init__("Tuna", 15, 100, "../images/clown_fish.png", 0.2)
+        super().__init__("Tuna", 15, 100, "images/clown_fish.png", 0.2)

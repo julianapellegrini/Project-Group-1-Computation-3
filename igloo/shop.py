@@ -17,7 +17,7 @@ def shop_layout():
     while True:
 
         # displaying the screen
-        background = pygame.image.load('../images/shop_layout.png')
+        background = pygame.image.load('images/shop_layout.png')
 
         # scale the background to the resolution
         background = pygame.transform.scale(background, (resolution[0], resolution[1]))

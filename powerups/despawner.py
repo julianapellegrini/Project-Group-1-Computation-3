@@ -1,5 +1,5 @@
 import pygame
-from powerup import PowerUp
+from powerups.powerup import PowerUp
 import time
 
 

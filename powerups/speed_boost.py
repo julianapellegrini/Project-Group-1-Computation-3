@@ -3,7 +3,6 @@ import random
 import time
 
 
-
 class Speed_Boost:
     
     def __init__(self):
