@@ -5,7 +5,7 @@ from game import game_loop
 from player import Player
 
 
-def map_layout():
+def map_layout(player):
     # initializing pygame
     pygame.init()
 
@@ -41,9 +41,6 @@ def map_layout():
 
         # get mouse position
         mouse = pygame.mouse.get_pos()
-
-        # create player instance here and pass so save works
-        player = Player()
 
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:

@@ -6,7 +6,7 @@ from button import Button, select_sound
 from SaveLoadGame import SaveManager, check_save_file
 
 
-def start_screen():
+def start_screen(player):
     # initialize pygame
     pygame.init()  # calling pygame
 
@@ -50,9 +50,9 @@ def start_screen():
                 return
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 if check_save_file():
-                    interface_w_save()
+                    interface_w_save(player)
                 else:
-                    interface_no_save()
+                    interface_no_save(player)
 
         # update display
         pygame.display.update()
@@ -111,7 +111,7 @@ def confirm_new_game():
         pygame.display.update()
 
 
-def interface_no_save():
+def interface_no_save(player):
 
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
@@ -158,7 +158,7 @@ def interface_no_save():
             # button is clicked
             if play_button.is_clicked(mouse, ev):
                 select_sound()
-                map_layout()
+                map_layout(player)
             if rules_button.is_clicked(mouse, ev):
                 select_sound()
                 rules_()
@@ -209,7 +209,7 @@ def interface_no_save():
         pygame.display.update()
 
 
-def interface_w_save():
+def interface_w_save(player):
 
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
@@ -263,8 +263,10 @@ def interface_w_save():
                 select_sound()
                 # check if save file exists so game doesn't crash at load
                 if check_save_file():  # load game if save file exists
-                    save_manager.load_game()
-                    map_layout()
+                    saved_data = save_manager.load_game()
+                    if saved_data:
+                        player.load_inventory(saved_data)
+                    map_layout(player)
                 else:  # print message if no save file found
                     print("No save file found")
             if new_game_button.is_clicked(mouse, ev):
@@ -273,7 +275,7 @@ def interface_w_save():
                 if confirm_new_game():
                     # clear save file and start new game
                     open('gamesave.txt', 'w').close()
-                    map_layout()
+                    map_layout(player)
             if rules_button.is_clicked(mouse, ev):
                 select_sound()
                 rules_()

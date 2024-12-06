@@ -15,13 +15,15 @@ class SaveManager:
         self.player_data = []
 
     def save_game(self, player):
-        self.player_data.append(player.inventory.items)
+        # clear previous player data and add current player data
+        self.player_data = [player.inventory.items]
+        # save player inventory
         with open(self.save_file, "w") as file:
             for data in self.player_data:
                 file.write(str(data) + "\n")
 
     def load_game(self):
+        # get inventory data from save file
         with open(self.save_file, "r") as file:
-            for line in file:
-                self.player_data.append(eval(line))
-        return self.player_data
+            self.player_data = [eval(line) for line in file]
+        return self.player_data[-1] if self.player_data else None
