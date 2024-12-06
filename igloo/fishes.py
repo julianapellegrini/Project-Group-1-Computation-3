@@ -34,7 +34,11 @@ class Fish(pygame.sprite.Sprite):
 
     # move fish randomly
     def update_position(self):
-        self.rect.x += random.randint(-self.speed, self.speed)
+        move = random.randint(-self.speed, self.speed)
+        if move < 0:
+            self.rect.x += move - 2
+        else:
+            self.rect.x += move + 2
         # keep fish within the centered rectangle
         self.rect.x = max(x_start, min(self.rect.x, x_end - self.rect.width))
 
