@@ -22,7 +22,7 @@ light_blue = (166, 225, 250)
 pink = (246, 120, 197)
 
 # SCREEN RESOLUTION
-resolution = (1200, 720) # height/width
+resolution = (1200, 720)  # height/width
 width, height = resolution[0], resolution[1]
 fps = 60
 

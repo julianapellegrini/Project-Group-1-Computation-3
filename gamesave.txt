@@ -1,1 +1,0 @@
-{'Fishes': {'Salmon': 0, 'Cod': 1, 'ClownFish': 0}}

@@ -8,7 +8,7 @@ def main():
 
     # playing the music infinitely
     pygame.mixer.music.play(loops=-1)
-    interface()
+    start_screen()
 
 
 if __name__ == '__main__':
