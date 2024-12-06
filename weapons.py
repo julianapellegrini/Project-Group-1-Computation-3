@@ -24,3 +24,8 @@ class Weapon(pygame.sprite.Sprite):
 class Snowball(Weapon, pygame.sprite.Sprite):
     def __init__(self):
         super().__init__("Snowball", fps * 2, 5, "images/snowball.png")
+
+
+class Slingshot(Weapon, pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__("Slingshot", fps * 1, 10, "images/slingshot.png")

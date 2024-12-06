@@ -1,6 +1,8 @@
 from utils import *
 from config import *
 from button import Button, select_sound
+from weapons import Weapon, Snowball, Slingshot
+from player import Player
 
 
 def weapon_selector():
@@ -19,13 +21,22 @@ def weapon_selector():
     # set buttons
     back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue,
                          image="images/ice-banner.png")
-    select_button = Button(1000, (resolution[0] - 150) // 2, 150, 60, "Select", None, "chiller", 35, True, bice_blue,
+    select_button = Button((resolution[0] - 150) // 2, 600, 150, 60, "Select", None, "chiller", 35, True, bice_blue,
                            image="images/ice-banner.png")
 
-    arrow_left = Button(100, 300, 50, 50, "<", None, "chiller", 35, True, bice_blue,
+    arrow_left = Button(100, 300, 200, 200, None, None, "chiller", 35, True, bice_blue,
                         image="images/arrow_left.png")
-    arrow_right = Button(1200, 300, 50, 50, ">", None, "chiller", 35, True, bice_blue,
+    arrow_right = Button(900, 300, 200, 200, None, None, "chiller", 35, True, bice_blue,
                          image="images/arrow_right.png")
+
+    # list weapons
+    weapons = [Snowball(), Slingshot()]
+
+    # tracker for current weapon
+    selector_current = 0
+
+    # player instance to add weapon
+    player = Player()
 
     # set running
     running = True
@@ -42,7 +53,7 @@ def weapon_selector():
 
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
-                running = False
+                pygame.quit()
 
             if back_button.is_clicked(mouse, ev):
                 select_sound()
@@ -50,15 +61,22 @@ def weapon_selector():
 
             if select_button.is_clicked(mouse, ev):
                 select_sound()
-                under_construction()
+                player.change_weapon(weapons[selector_current])
+                print(player.weapon)
 
             if arrow_left.is_clicked(mouse, ev):
                 select_sound()
-                under_construction()
+                if selector_current > 0:
+                    selector_current -= 1
+                else:
+                    selector_current = len(weapons) - 1
 
             if arrow_right.is_clicked(mouse, ev):
                 select_sound()
-                under_construction()
+                if selector_current < len(weapons) - 1:
+                    selector_current += 1
+                else:
+                    selector_current = 0
 
             if back_button.is_hovered(mouse):
                 back_button.scale_up()
@@ -85,5 +103,16 @@ def weapon_selector():
         select_button.draw(screen, mouse)
         arrow_left.draw(screen, mouse)
         arrow_right.draw(screen, mouse)
+
+        # rescale current weapon
+        current_weapon = weapons[selector_current]
+        current_weapon.image = pygame.transform.scale(current_weapon.image, (150, 150))  # Adjust the scale as needed
+        current_weapon.rect = current_weapon.image.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
+
+        # add current weapon to group
+        weapons_group = pygame.sprite.Group(weapons[selector_current])
+
+        # draw weapon
+        weapons_group.draw(screen)
 
         pygame.display.update()
