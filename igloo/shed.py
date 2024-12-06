@@ -6,6 +6,7 @@ from igloo.shop import shop_layout
 from igloo.fishing import fishing
 from player import Player
 from SaveLoadGame import SaveManager
+from igloo.weapon_selector import weapon_selector
 
 
 def shed():
@@ -81,7 +82,7 @@ def shed():
 
             if weapons_button.is_clicked(mouse, ev):
                 select_sound()
-                under_construction()
+                weapon_selector()
 
             if save_game_button.is_clicked(mouse, ev):
                 select_sound()
