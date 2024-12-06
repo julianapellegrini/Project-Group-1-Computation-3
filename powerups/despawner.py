@@ -25,7 +25,7 @@ class DeSpawner(PowerUp):
         self.active = True
         self.start_time = time.time()
         if self.active:
-            # Position the power-up image around the player
+            # Position the power-up image around the player_related
             self.image_rect.center = player.rect.center
             surface.blit(self.image, self.rect.topleft)
             # Check if the power-up has been active for 5 seconds

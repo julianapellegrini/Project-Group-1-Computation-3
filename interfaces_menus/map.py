@@ -1,5 +1,5 @@
 from interfaces_menus.interface import *
-from button import Button, select_sound
+from interfaces_menus.button import Button, select_sound
 from igloo.shed import shed
 from game import game_loop
 
@@ -60,7 +60,7 @@ def map_layout(player):
             for i, level_button in enumerate(level_buttons):
                 if level_button.is_clicked(mouse, ev):
                     select_sound()
-                    # pass the level number and player instance to game_loop
+                    # pass the level number and player_related instance to game_loop
                     game_loop(level=i + 1, player=player)
 
         # update button visuals

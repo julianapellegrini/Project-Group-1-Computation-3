@@ -14,8 +14,8 @@ pygame.init()
 def game_loop(level, player):
     """
     Main game loop that handles gameplay for different levels.
-    :param player: keep same player instance throughout the game in order to be able to save the player's progress.
-    :param level: The current level the player is playing.
+    :param player: keep same player_related instance throughout the game in order to be able to save the player_related's progress.
+    :param level: The current level the player_related is playing.
     """
     # Setup:
     # setting up the background:
@@ -29,11 +29,11 @@ def game_loop(level, player):
     screen = pygame.display.set_mode(resolution)
     pygame.display.set_caption("Endless Wilderness Explorer")
 
-    # setting up the player group
+    # setting up the player_related group
     player_group = pygame.sprite.Group()
     player_group.add(player)
 
-    # creating an empty bullet group that will be given as input to the player.shoot() method
+    # creating an empty bullet group that will be given as input to the player_related.shoot() method
     bullets = pygame.sprite.Group()
 
     # creating an enemy group
@@ -112,7 +112,7 @@ def game_loop(level, player):
                 powerup.affect_player(player)
                 powerup.affect_game()
 
-        # automatically shoot bullets from the player
+        # automatically shoot bullets from the player_related
         player.shoot(bullets)
 
         # spawn enemies
@@ -154,10 +154,10 @@ def game_loop(level, player):
                 if enemy.health <= 0:
                     enemy.kill()
 
-        # checking for collisions between player and enemies
+        # checking for collisions between player_related and enemies
         for enemy in enemies:
             if pygame.sprite.collide_rect(player, enemy):
-                # If the player is not invincible, reduce health
+                # If the player_related is not invincible, reduce health
                 if not player.invincible:
                     player.health -= 0.3
                 if player.health <= 0:

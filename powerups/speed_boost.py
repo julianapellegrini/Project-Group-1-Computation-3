@@ -19,13 +19,13 @@ class Speed_Boost:
         self.image_rect = self.image.get_rect()
 
     def affect_player(self, surface, player):
-        #the affect player logic is in this method
+        #the affect player_related logic is in this method
         self.image = pygame.transform.scale(self.image, (150, 150))
         self.active = True
         player.speed *= 2
         self.start_time = time.time()
         if self.active:
-            # Position the power-up image around the player
+            # Position the power-up image around the player_related
             self.image_rect.center = player.rect.center
             surface.blit(self.image, self.rect.topleft)
             # Check if the power-up has been active for 5 seconds

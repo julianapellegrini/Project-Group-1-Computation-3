@@ -18,12 +18,12 @@ class Invincibility(PowerUp):
         self.image_rect = self.image.get_rect()
 
     def affect_player(self, surface, player):
-        #the affect player logic will be in the game loop when dealing with the collisions between enemies and players
+        #the affect player_related logic will be in the game loop when dealing with the collisions between enemies and players
         player.invincible = True
         self.active = True
         self.start_time = time.time()
         if self.active:
-            # Position the power-up image around the player
+            # Position the power-up image around the player_related
             self.image_rect.center = player.rect.center
             surface.blit(self.image, self.rect.topleft)
             # Check if the power-up has been active for 5 seconds

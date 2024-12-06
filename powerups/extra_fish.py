@@ -18,12 +18,12 @@ class Extra_Fish(PowerUp):
         self.image_rect = self.image.get_rect()
 
     def affect_player(self,surface, player):
-        #the affect player logic will be in the player class when dealing with the shoot method
+        #the affect player_related logic will be in the player_related class when dealing with the shoot method
         self.active = True
         player.extra_fish = True
         self.start_time = time.time()
         if self.active:
-            # Position the power-up image around the player
+            # Position the power-up image around the player_related
             self.image_rect.center = player.rect.center
             surface.blit(self.image, self.rect.topleft)
             # Check if the power-up has been active for 5 seconds

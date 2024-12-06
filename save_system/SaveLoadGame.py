@@ -15,9 +15,9 @@ class SaveManager:
         self.player_data = []
 
     def save_game(self, player):
-        # clear previous player data and add current player data
+        # clear previous player_related data and add current player_related data
         self.player_data = [player.inventory.items]
-        # save player inventory
+        # save player_related inventory
         with open(self.save_file, "w") as file:
             for data in self.player_data:
                 file.write(str(data) + "\n")

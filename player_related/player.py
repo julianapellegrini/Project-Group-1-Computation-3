@@ -2,9 +2,9 @@ from utils import *
 from config import *
 import pygame
 import math
-from bullet import Bullet
-from inventory import Inventory
-from weapons import Snowball
+from player_related.bullet import Bullet
+from player_related.inventory import Inventory
+from player_related.weapons import Snowball
 from powerups.extra_fish import Extra_Fish
 
 
@@ -21,10 +21,10 @@ class Player(pygame.sprite.Sprite):
         # (FAIL) character = pygame.image.load("images/girl.jpeg")
         # FAIL self.image.blit(character)
 
-        # we call surface to represent the player image
+        # we call surface to represent the player_related image
         self.image = pygame.Surface(player_size)
 
-        # drawing the image of the player
+        # drawing the image of the player_related
         self.image.fill(blue)
         self.rect = self.image.get_rect()
         self.rect.center = (width // 2, height // 2)
@@ -70,7 +70,7 @@ class Player(pygame.sprite.Sprite):
 
         keys = pygame.key.get_pressed()
 
-        # checking which keys were pressed and moving the player accordingly
+        # checking which keys were pressed and moving the player_related accordingly
         if keys[pygame.K_w] and self.rect.top > 0:
             self.rect.y -= self.speed
         if keys[pygame.K_s] and self.rect.bottom < height:

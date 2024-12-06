@@ -25,7 +25,7 @@ def shop_layout():
         # display the background
         screen.blit(background, (0, 0))
 
-        # get player's mouse position
+        # get player_related's mouse position
         mouse = pygame.mouse.get_pos()
 
         for ev in pygame.event.get():

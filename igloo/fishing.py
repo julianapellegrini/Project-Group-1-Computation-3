@@ -152,9 +152,9 @@ def fishing_minigame(player):
             elif progress > 0:
                 progress -= 0.2
 
-        # check if fish is caught and add to player's inventory
+        # check if fish is caught and add to player_related's inventory
         if progress >= 100:
-            # add the fish to the player's inventory
+            # add the fish to the player_related's inventory
             player.add_item(current_fish)
 
             # reset progress after catching a fish

@@ -1,5 +1,5 @@
 from interfaces_menus.interface import *
-from button import Button
+from interfaces_menus.button import Button
 
 
 # creating the pause game button

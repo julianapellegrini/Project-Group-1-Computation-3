@@ -1,8 +1,8 @@
 from utils import *  # no need to import pygame because the import is in utils
 from config import *  # importing colors and the like
 from utils import under_construction
-from map import map_layout
-from button import Button, select_sound
+from interfaces_menus.map import map_layout
+from interfaces_menus.button import Button, select_sound
 from save_system.SaveLoadGame import SaveManager, check_save_file
 
 

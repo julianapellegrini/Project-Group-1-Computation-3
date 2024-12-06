@@ -28,18 +28,18 @@ class Enemy(pygame.sprite.Sprite):
 
     def update(self, player):
         """
-        receiving the player as input so that we can assure the enemies move in the players' direction
+        receiving the player_related as input so that we can assure the enemies move in the players' direction
 
         """
 
-        # determining the direction of the movement based on the player location
+        # determining the direction of the movement based on the player_related location
         dx = player.rect.x - self.rect.x
         dy = player.rect.y - self.rect.y
 
         # getting the direction in radians
         direction = math.atan2(dy, dx)
 
-        # moving the enemy towards the player --> like bullet
+        # moving the enemy towards the player_related --> like bullet
         self.rect.x += self.speed * math.cos(direction)
         self.rect.y += self.speed * math.sin(direction)
 

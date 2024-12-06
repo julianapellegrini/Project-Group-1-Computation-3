@@ -1,8 +1,8 @@
 from utils import *
 from config import *
 from interfaces_menus.button import Button, select_sound
-from player.weapons import Snowball, Slingshot
-from player.player import Player
+from player_related.weapons import Snowball, Slingshot
+from player_related.player import Player
 
 
 def weapon_selector():
@@ -35,7 +35,7 @@ def weapon_selector():
     # tracker for current weapon
     selector_current = 0
 
-    # player instance to add weapon
+    # player_related instance to add weapon
     player = Player()
 
     # set running
