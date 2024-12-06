@@ -34,7 +34,7 @@ def map_layout(player):
 
     while True:
         # displaying the screen
-        background = pygame.image.load('../images/map_layout.png')
+        background = pygame.image.load('images/map_layout.png')
         background = pygame.transform.scale(background, (resolution[0], resolution[1]))
         screen.blit(background, (0, 0))
 

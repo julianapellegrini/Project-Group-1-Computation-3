@@ -9,11 +9,11 @@ class Invincibility(PowerUp):
         super().__init__()
         self.active = False
         # load the icon
-        self.icon = pygame.image.load('../powerup_images/snow_globe.jpg')
+        self.icon = pygame.image.load('powerup_images/snow_globe.jpg')
         self.icon = pygame.transform.scale(self.icon, (50, 50))
         self.icon_rect = self.icon.get_rect()
         # load the image
-        self.image = pygame.image.load('../powerup_images/invincibility.png')
+        self.image = pygame.image.load('powerup_images/invincibility.png')
         self.image = pygame.transform.scale(self.image, (150, 150))  # Scale the image
         self.image_rect = self.image.get_rect()
 

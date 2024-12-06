@@ -3,7 +3,7 @@ import os
 
 # check if save file is not empty so load game doesn't crash
 def check_save_file():
-    if os.path.getsize("gamesave.txt") > 0:
+    if os.path.getsize("save_system/gamesave.txt") > 0:
         return True
     else:
         return False
@@ -11,7 +11,7 @@ def check_save_file():
 
 class SaveManager:
     def __init__(self):
-        self.save_file = "gamesave.txt"
+        self.save_file = "save_system/gamesave.txt"
         self.player_data = []
 
     def save_game(self, player):
