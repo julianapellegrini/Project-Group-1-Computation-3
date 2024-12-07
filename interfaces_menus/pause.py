@@ -1,9 +1,10 @@
 from interfaces_menus.interface import *
-from interfaces_menus.button import Button
-
+from interfaces_menus.button import Button, select_sound
+from utils import under_construction
+from igloo.shed import shed
 
 # creating the pause game button
-def pause_screen(screen, resolution):
+def pause_screen(screen, resolution, player):
 
     # load the pause button image
     pause_button = Button(resolution[0] - 90, 10, 80, 80, "", None, None, 0, False, None, 'images/pause_button.png')
@@ -31,25 +32,36 @@ def pause_screen(screen, resolution):
     # main loop to maintain the pause
     paused = True
     while paused:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                paused = False  # exit the pause loop instead of quitting the game
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+                return
+            elif ev.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                if play_button.is_clicked(mouse_pos, event):
+                if play_button.is_clicked(mouse_pos, ev):
+                    select_sound()
                     paused = False
-                elif setting_button.is_clicked(mouse_pos, event):
-                    print("Settings menu")
-                elif igloo_button.is_clicked(mouse_pos, event):
-                    print("Igloo")
-                elif map_button.is_clicked(mouse_pos, event):
-                    print("Map")
+                elif setting_button.is_clicked(mouse_pos, ev):
+                    select_sound()
+                    under_construction()
+                elif igloo_button.is_clicked(mouse_pos, ev):
+                    select_sound()
+                    shed(player)
+                elif map_button.is_clicked(mouse_pos, ev):
+                    select_sound()
+                    from interfaces_menus.map import map_layout
+                    map_layout(player)
 
-        # Render the pause screen
+        # putting visual effects on buttons
+        for button in [play_button, setting_button, igloo_button, map_button]:
+            if button.is_hovered(pygame.mouse.get_pos()):
+                button.scale_up()
+            else:
+                button.scale_down()
+
+        # render the pause screen
         screen.blit(background, (0, 0))
-        play_button.draw(screen, pygame.mouse.get_pos())
-        setting_button.draw(screen, pygame.mouse.get_pos())
-        igloo_button.draw(screen, pygame.mouse.get_pos())
-        map_button.draw(screen, pygame.mouse.get_pos())
+        for button in [play_button, setting_button, igloo_button, map_button]:
+            button.draw(screen, pygame.mouse.get_pos())
 
         pygame.display.update()
