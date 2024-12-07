@@ -90,8 +90,7 @@ class Player(pygame.sprite.Sprite):
         if self.invincible:
             invincibility = Invincibility()
             invincibility.affect_player(surface, self)
-            #  in
-            # Check if the power-up has been active for 5 seconds
+            # check if the power-up has been active for 5 seconds
             if self.powerup is not None and time.time() - self.powerup_start >= 5:
                 self.invincible = False
                 self.powerup = None
