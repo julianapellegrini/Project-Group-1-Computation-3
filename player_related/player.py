@@ -1,11 +1,9 @@
-from utils import *
 from config import *
 import pygame
 import math
 from player_related.bullet import Bullet
 from player_related.inventory import Inventory
 from player_related.weapons import Snowball
-from powerups.extra_fish import Extra_Fish
 
 
 # making Player a child of the Sprite class
@@ -131,7 +129,3 @@ class Player(pygame.sprite.Sprite):
         text = font.render(f'{int(health)}%', True, (255, 255, 255))
         text_rect = text.get_rect(center=(bar_x + bar_width // 2, bar_y + bar_height // 2))
         surface.blit(text, text_rect)
-
-        
-
-

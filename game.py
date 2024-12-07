@@ -57,13 +57,29 @@ def game_loop(level, player):
     pause_button_position = (resolution[0] - pause_button_image.get_width() - 10, 10)
 
     # Settings for powerups
-    POWERUP_SPAWN_INTERVAL = 5000  # 5 seconds in milliseconds
+    powerup_spawn_interval = 5000  # 5 seconds in milliseconds
     last_powerup_spawn_time = pygame.time.get_ticks()
     powerup_group = pygame.sprite.Group()
     despawner_probability = 0.6  # 40% to get
     speed_boost_probability = 0.3  # 30% to get
-    invincibility_probability = 0.12  # 18% to get
-    extra_fish_probability = 0  # 12% to get
+    invincibility_probability = 0.18  # 18% to get
+    extra_fish_probability = 0.12  # 12% to get
+
+    # powerup spawn function
+    def spawn_powerup():
+        prob = random.random()
+        if prob >= despawner.probability:
+            new_powerup = DeSpawner()
+            powerup_group.add(new_powerup)
+        elif prob >= invincibility_probability and prob < despawner_probability:
+            new_powerup = DeSpawner(0.5)
+            powerup_group.add(new_powerup)
+        elif prob >= speed_boost_probability and prob < invincibility_probability:
+            new_powerup = Speed_Boost()
+            powerup_group.add(new_powerup)
+        elif prob >= extra_fish_probability and prob < speed_boost_probability:
+            new_powerup = Extra_Fish()
+            powerup_group.add(new_powerup)
 
     # MAIN GAME LOOP
     running = True
@@ -90,7 +106,7 @@ def game_loop(level, player):
 
         # Check if it's time to spawn a powerup
         current_time = pygame.time.get_ticks()
-        if current_time - last_powerup_spawn_time >= POWERUP_SPAWN_INTERVAL:
+        if current_time - last_powerup_spawn_time >= powerup_spawn_interval:
             prob = random.random()
             if prob >= despawner_probability:
                 new_powerup = DeSpawner()

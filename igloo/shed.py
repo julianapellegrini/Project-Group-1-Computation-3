@@ -128,7 +128,7 @@ def shed(player):
             weapons_button.draw(screen, mouse)
             save_game_button.draw(screen, mouse)
 
-        # drawing the back button
+        # drawing the buttons
         back_button.draw(screen, mouse)
         table_button.draw(screen, mouse)
         shop_button.draw(screen, mouse)

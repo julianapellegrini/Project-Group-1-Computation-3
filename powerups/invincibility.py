@@ -6,19 +6,10 @@ import time
 
 class Invincibility(PowerUp):
     def __init__(self):
-        super().__init__()
-        self.active = False
-        # load the icon
-        self.icon = pygame.image.load('powerup_images/snow_globe.jpg')
-        self.icon = pygame.transform.scale(self.icon, (50, 50))
-        self.icon_rect = self.icon.get_rect()
-        # load the image
-        self.image = pygame.image.load('powerup_images/invincibility.png')
-        self.image = pygame.transform.scale(self.image, (150, 150))  # Scale the image
-        self.image_rect = self.image.get_rect()
+        super().__init__('powerup_images/snow_globe.jpg', 'powerup_images/invincibility.png', 0.18)
 
     def affect_player(self, surface, player):
-        #the affect player_related logic will be in the game loop when dealing with the collisions between enemies and players
+        # the affect player_related logic will be in the game loop when dealing with the collisions between enemies and players
         player.invincible = True
         self.active = True
         self.start_time = time.time()

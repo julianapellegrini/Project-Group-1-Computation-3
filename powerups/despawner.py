@@ -1,27 +1,19 @@
-import pygame
 from powerups.powerup import PowerUp
 import time
+from player_related import player
 
 
-class DeSpawner(PowerUp):
+class DeSpawner(PowerUp, player):
+
     def __init__(self):
-        super().__init__()
+        super().__init__('powerup_images/Despawner_icon.png', 'powerup_images/Despawner_image.png', 0.6)
         self.reduction_factor = 0.5
-        self.active = False
-        # load the icon
-        self.icon = pygame.image.load('powerup_images/Despawner_icon.png')
-        self.icon = pygame.transform.scale(self.icon, (50, 50))
-        self.icon_rect = self.icon.get_rect()
-        # load the image
-        self.image = pygame.image.load('powerup_images/Despawner_image.png')
-        self.image = pygame.transform.scale(self.image, (150, 150))  # Scale the image
-        self.image_rect = self.image.get_rect()
 
-    def affect_player(self, player):
+    def affect_player(self, surface, player):
         pass
 
-    def affect_game(self, surface,spawn_rate,player):
-        #The affect game logic is in this method
+    def affect_game(self, spawn_rate):
+        # The affect game logic is in this method
         self.active = True
         self.start_time = time.time()
         if self.active:
@@ -33,6 +25,9 @@ class DeSpawner(PowerUp):
                 self.deactivate(player)
         return spawn_rate * self.reduction_factor
 
-    def deactivate(self, player, spawn_rate):
+    def deactivate(self, player):
         self.active = False
         return spawn_rate / self.reduction_factor
+
+    def draw(self, surface):
+        pass
