@@ -19,12 +19,9 @@ class Extra_Fish(PowerUp):
             if self.active and time.time() - self.start_time >= 5:
                 self.deactivate(player)
 
-    def affect_game(self, spawn_rate):
+    def affect_game(self):
         pass
 
     def deactivate(self, player):
         self.active = False
         player.extra_fish = False
-
-    def draw(self, surface):
-        pass

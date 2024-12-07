@@ -3,9 +3,10 @@ import pygame
 from enemy import Seal, Seal2, Seal_with_a_hat, Polar_bear, Orca  # Import new enemy types
 import random
 from powerups.despawner import DeSpawner
-from interfaces_menus.pause import pause_screen
 from powerups.speed_boost import Speed_Boost
 from powerups.extra_fish import Extra_Fish
+from powerups.invincibility import Invincibility
+from interfaces_menus.pause import pause_screen
 
 # initializing pygame
 pygame.init()
@@ -57,29 +58,19 @@ def game_loop(level, player):
     pause_button_position = (resolution[0] - pause_button_image.get_width() - 10, 10)
 
     # Settings for powerups
-    powerup_spawn_interval = 5000  # 5 seconds in milliseconds
+    powerup_spawn_interval = 60 * fps  # every x seconds (change later)
     last_powerup_spawn_time = pygame.time.get_ticks()
     powerup_group = pygame.sprite.Group()
-    despawner_probability = 0.6  # 40% to get
-    speed_boost_probability = 0.3  # 30% to get
-    invincibility_probability = 0.18  # 18% to get
-    extra_fish_probability = 0.12  # 12% to get
+
+    # powerups
+    # powerup_types = [DeSpawner, Speed_Boost, Extra_Fish, Invincibility]
+    powerup_types = [Invincibility]  # temporary while others aren't done
 
     # powerup spawn function
-    def spawn_powerup():
-        prob = random.random()
-        if prob >= despawner.probability:
-            new_powerup = DeSpawner()
-            powerup_group.add(new_powerup)
-        elif prob >= invincibility_probability and prob < despawner_probability:
-            new_powerup = DeSpawner(0.5)
-            powerup_group.add(new_powerup)
-        elif prob >= speed_boost_probability and prob < invincibility_probability:
-            new_powerup = Speed_Boost()
-            powerup_group.add(new_powerup)
-        elif prob >= extra_fish_probability and prob < speed_boost_probability:
-            new_powerup = Extra_Fish()
-            powerup_group.add(new_powerup)
+    def select_powerup():
+        # choice function with weights to select a powerup
+        selected_powerup = random.choices(powerup_types, [i().probability for i in powerup_types])[0]
+        return selected_powerup()
 
     # MAIN GAME LOOP
     running = True
@@ -107,26 +98,25 @@ def game_loop(level, player):
         # Check if it's time to spawn a powerup
         current_time = pygame.time.get_ticks()
         if current_time - last_powerup_spawn_time >= powerup_spawn_interval:
-            prob = random.random()
-            if prob >= despawner_probability:
-                new_powerup = DeSpawner()
-                powerup_group.add(new_powerup)
-            elif prob >= invincibility_probability and prob < despawner_probability:
-                new_powerup = DeSpawner(0.5)
-                powerup_group.add(new_powerup)
-            elif prob >= speed_boost_probability and prob < invincibility_probability:
-                new_powerup = Speed_Boost()
-                powerup_group.add(new_powerup)
-            elif prob >= extra_fish_probability and prob < speed_boost_probability:
-                new_powerup = Extra_Fish()
-                powerup_group.add(new_powerup)
-            last_powerup_spawn_time = current_time  # Reset the timer
+            # use select_powerup() to get a powerup
+            new_powerup = select_powerup()
+            # clear the powerup group and add the new powerup
+            powerup_group.empty()
+            powerup_group.add(new_powerup)
+            # draw the powerup on the screen
+            for powerup in powerup_group:
+                powerup.spawn(screen)
+            # set the last powerup spawn time to the current time
+            last_powerup_spawn_time = current_time
 
         for powerup in powerup_group:
-            powerup.draw(screen)
-            if pygame.sprite.collide_rect(player, powerup):
-                powerup.affect_player(player)
+            # draw the powerup on the screen
+            powerup.spawn(screen)
+            if powerup.rect.colliderect(player.rect):
+                powerup.affect_player(screen, player)
                 powerup.affect_game()
+                # remove the powerup from the group
+                powerup_group.remove(powerup)
 
         # automatically shoot bullets from the player_related
         player.shoot(bullets)
