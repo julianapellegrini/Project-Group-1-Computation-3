@@ -4,6 +4,7 @@ from utils import under_construction
 from interfaces_menus.map import map_layout
 from interfaces_menus.button import Button, select_sound
 from save_system.SaveLoadGame import SaveManager, check_save_file
+from interfaces_menus.confirm_screen import confirm
 
 
 def start_screen(player):
@@ -55,59 +56,6 @@ def start_screen(player):
                     interface_no_save(player)
 
         # update display
-        pygame.display.update()
-
-
-# function to confirm new game
-def confirm_new_game():
-
-    # set screen
-    screen = pygame.display.set_mode(resolution)
-
-    # scale and set background
-    background = pygame.image.load('images/menu.png')
-    background = pygame.transform.scale(background, resolution)
-    screen.blit(background, (0, 0))
-
-    # create confirmation buttons
-    yes_button = Button(400, 300, 150, 60, "Yes", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
-    no_button = Button(600, 300, 150, 60, "No", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
-
-    while True:
-
-        # get mouse position
-        mouse = pygame.mouse.get_pos()
-
-        for ev in pygame.event.get():
-            if ev.type == pygame.QUIT:
-                pygame.quit()
-
-            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
-                return False
-
-            if yes_button.is_clicked(mouse, ev):
-                select_sound()
-                return True
-
-            if no_button.is_clicked(mouse, ev):
-                select_sound()
-                return False
-
-            # visuals for buttons
-            if yes_button.is_hovered(mouse):
-                yes_button.scale_up()
-            else:
-                yes_button.scale_down()
-
-            if no_button.is_hovered(mouse):
-                no_button.scale_up()
-            else:
-                no_button.scale_down()
-
-        # draw buttons
-        yes_button.draw(screen, mouse)
-        no_button.draw(screen, mouse)
-
         pygame.display.update()
 
 
@@ -272,7 +220,7 @@ def interface_w_save(player):
             if new_game_button.is_clicked(mouse, ev):
                 select_sound()
                 # get confirmation for new game
-                if confirm_new_game():
+                if confirm():
                     # clear save file and start new game
                     open('save_system/gamesave.txt', 'w').close()
                     map_layout(player)
