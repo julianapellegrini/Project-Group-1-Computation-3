@@ -57,5 +57,7 @@ class PowerUp(ABC, pygame.sprite.Sprite):
 
             print(f"powerup spawned {self.icon_rect.topleft}")
 
+        # set the powerup rect to the position of the rect of the icon of the powerup
+        self.rect.topleft = self.icon_rect.topleft
         # draw the powerup
         surface.blit(self.icon, self.icon_rect.topleft)
