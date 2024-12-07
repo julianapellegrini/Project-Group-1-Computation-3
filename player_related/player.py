@@ -4,6 +4,8 @@ import math
 from player_related.bullet import Bullet
 from player_related.inventory import Inventory
 from player_related.weapons import Snowball
+from powerups.invincibility import Invincibility
+import time
 
 
 # making Player a child of the Sprite class
@@ -37,8 +39,14 @@ class Player(pygame.sprite.Sprite):
         self.inventory = Inventory()
 
         # Weapons
-        self.weapon = Snowball()  # Default weapon
-        
+        self.weapon = Snowball()  # default weapon
+
+        # Powerups
+        self.powerup = None  # current powerup, default is None
+
+        # Powerup timer
+        self.powerup_start = None
+
         # Invincibility Powerup
         self.invincible = False
 
@@ -62,7 +70,7 @@ class Player(pygame.sprite.Sprite):
     def change_weapon(self, weapon):
         self.weapon = weapon
 
-    def update(self):
+    def update(self, surface):
 
         # getting the keys input:
 
@@ -77,6 +85,16 @@ class Player(pygame.sprite.Sprite):
             self.rect.x -= self.speed
         if keys[pygame.K_d] and self.rect.right < width:
             self.rect.x += self.speed
+
+        # Powerup image
+        if self.invincible:
+            invincibility = Invincibility()
+            invincibility.affect_player(surface, self)
+            #  in
+            # Check if the power-up has been active for 5 seconds
+            if self.powerup is not None and time.time() - self.powerup_start >= 5:
+                self.invincible = False
+                self.powerup = None
 
     def shoot(self, bullets):
         """

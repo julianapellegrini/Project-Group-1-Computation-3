@@ -7,6 +7,7 @@ from powerups.speed_boost import Speed_Boost
 from powerups.extra_fish import Extra_Fish
 from powerups.invincibility import Invincibility
 from interfaces_menus.pause import pause_screen
+import time
 
 # initializing pygame
 pygame.init()
@@ -113,10 +114,17 @@ def game_loop(level, player):
             # draw the powerup on the screen
             powerup.spawn(screen)
             if powerup.rect.colliderect(player.rect):
-                powerup.affect_player(screen, player)
-                powerup.affect_game()
-                # remove the powerup from the group
-                powerup_group.remove(powerup)
+                if player.powerup is None:
+                    # start timer
+                    player.powerup_start = time.time()
+                    # set player powerup to the powerup and affect the player and game
+                    player.powerup = powerup
+                    powerup.affect_player(screen, player)
+                    powerup.affect_game()
+                    # remove the powerup from the group
+                    powerup_group.remove(powerup)
+                else:
+                    print("Player already has a powerup")
 
         # automatically shoot bullets from the player_related
         player.shoot(bullets)
@@ -139,7 +147,7 @@ def game_loop(level, player):
         mini_boss_cooldown -= 1
 
         # updating groups
-        player_group.update()
+        player_group.update(screen)
         bullets.update()
         enemies.update(player)
 

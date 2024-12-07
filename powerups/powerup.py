@@ -12,8 +12,6 @@ class PowerUp(ABC, pygame.sprite.Sprite):
         self.active = False
         # check if powerup is spawned already
         self.spawned = False
-        # time player got the powerup, default is empty
-        self.start_time = None
         # load the icon
         self.icon = pygame.image.load(icon_path)
         self.icon = pygame.transform.scale(self.icon, (50, 50))
@@ -25,10 +23,6 @@ class PowerUp(ABC, pygame.sprite.Sprite):
         self.image_rect = self.image.get_rect()
         # powerup rect
         self.rect = self.image.get_rect()
-
-    @abstractmethod
-    def affect_player(self, surface, player):
-        pass
 
     @abstractmethod
     def affect_game(self):

@@ -11,14 +11,10 @@ class Invincibility(PowerUp):
         # and players
         player.invincible = True
         self.active = True
-        self.start_time = time.time()
         if self.active:
             # Position the power-up image around the player_related
             self.image_rect.center = player.rect.center
             surface.blit(self.image, self.image_rect.topleft)
-            # Check if the power-up has been active for 5 seconds
-            if self.active and time.time() - self.start_time >= 5:
-                self.deactivate(player)
 
     def affect_game(self):
         pass  # No change to game
