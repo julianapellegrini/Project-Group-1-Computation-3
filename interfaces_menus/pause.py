@@ -1,7 +1,8 @@
 from interfaces_menus.interface import *
 from interfaces_menus.button import Button, select_sound
 from utils import under_construction
-from igloo.shed import shed
+from igloo.village import area
+
 
 # creating the pause game button
 def pause_screen(screen, resolution, player):
@@ -46,7 +47,7 @@ def pause_screen(screen, resolution, player):
                     under_construction()
                 elif igloo_button.is_clicked(mouse_pos, ev):
                     select_sound()
-                    shed(player)
+                    area(player)
                 elif map_button.is_clicked(mouse_pos, ev):
                     select_sound()
                     from interfaces_menus.map import map_layout

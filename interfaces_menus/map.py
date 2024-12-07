@@ -1,7 +1,7 @@
 from interfaces_menus.interface import *
 from interfaces_menus.button import Button, select_sound
-from igloo.shed import shed
 from game import game_loop
+from igloo.village import area
 
 
 def map_layout(player):
@@ -54,7 +54,7 @@ def map_layout(player):
 
             if igloo_button.is_clicked(mouse, ev):
                 select_sound()
-                shed(player)
+                area(player)
 
             # check if any level button is clicked by iterating through them rather than creating 1908393 if cases
             for i, level_button in enumerate(level_buttons):
