@@ -2,10 +2,11 @@ from interfaces_menus.interface import *
 from interfaces_menus.button import Button, select_sound
 from utils import under_construction
 from igloo.village import area
+from config import *
 
 
 # creating the pause game button
-def pause_screen(screen, resolution, player):
+def pause_screen(screen, resolution, player, map_layout):
 
     # load the pause button image
     pause_button = Button(resolution[0] - 90, 10, 80, 80, "", None, None, 0, False, None, 'images/pause_button.png')
@@ -47,10 +48,9 @@ def pause_screen(screen, resolution, player):
                     under_construction()
                 elif igloo_button.is_clicked(mouse_pos, ev):
                     select_sound()
-                    area(player)
+                    area(player, map_layout)
                 elif map_button.is_clicked(mouse_pos, ev):
                     select_sound()
-                    from interfaces_menus.map import map_layout
                     map_layout(player)
 
         # putting visual effects on buttons

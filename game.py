@@ -13,7 +13,7 @@ import time
 pygame.init()
 
 
-def game_loop(level, player):
+def game_loop(level, player, map_layout):
     """
     Main game loop that handles gameplay for different levels.
     :param player: keep same player_related instance throughout the game in order to be able to save the player_related's progress.
@@ -94,7 +94,7 @@ def game_loop(level, player):
                     0] + pause_button_image.get_width() and
                         pause_button_position[1] <= mouse_pos[1] <= pause_button_position[
                             1] + pause_button_image.get_height()):
-                    pause_screen(screen, resolution, player)
+                    pause_screen(screen, resolution, player, map_layout)
 
         # Check if it's time to spawn a powerup
         current_time = pygame.time.get_ticks()

@@ -54,14 +54,14 @@ def map_layout(player):
 
             if igloo_button.is_clicked(mouse, ev):
                 select_sound()
-                area(player)
+                area(player, map_layout)
 
             # check if any level button is clicked by iterating through them rather than creating 1908393 if cases
             for i, level_button in enumerate(level_buttons):
                 if level_button.is_clicked(mouse, ev):
                     select_sound()
                     # pass the level number and player_related instance to game_loop
-                    game_loop(level=i + 1, player=player)
+                    game_loop(level=i + 1, player=player, map_layout=map_layout)
 
         # update button visuals
         for level_button in level_buttons:
