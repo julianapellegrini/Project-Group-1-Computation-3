@@ -5,7 +5,7 @@ from powerups.powerup import PowerUp
 class Speed_Boost(PowerUp):
 
     def __init__(self):
-        super().__init__('powerup_images/rollerblades.jpg', 'powerup_images/speed_boost.png', 0.3)
+        super().__init__('powerup_images/speed_boost_icon.png', 'powerup_images/speed_boost.png', 0.3)
 
     def affect_player(self, surface, player):
         # the affect player_related logic is in this method

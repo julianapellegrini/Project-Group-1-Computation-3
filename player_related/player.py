@@ -146,3 +146,12 @@ class Player(pygame.sprite.Sprite):
         text = font.render(f'{int(health)}%', True, (255, 255, 255))
         text_rect = text.get_rect(center=(bar_x + bar_width // 2, bar_y + bar_height // 2))
         surface.blit(text, text_rect)
+
+
+class Normal_Penguin(Player):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load('images/normal_penguin_image.png')
+        self.image = pygame.transform.scale(self.image, player_size)
+        self.speed = 8
+

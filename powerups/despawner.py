@@ -1,10 +1,11 @@
 from powerups.powerup import PowerUp
+import time
 
 
 class DeSpawner(PowerUp):
 
     def __init__(self):
-        super().__init__('powerup_images/Despawner_icon.png', 'powerup_images/Despawner_image.png', 0.6)
+        super().__init__('powerup_images/despawner_icon.png', 'powerup_images/Despawner_image.png', 0.6)
         self.reduction_factor = 0.5
 
     def affect_player(self, surface, player):

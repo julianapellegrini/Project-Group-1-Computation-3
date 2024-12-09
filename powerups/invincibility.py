@@ -4,7 +4,7 @@ import time
 
 class Invincibility(PowerUp):
     def __init__(self):
-        super().__init__('powerup_images/snow_globe.jpg', 'powerup_images/invincibility.png', 0.18)
+        super().__init__('powerup_images/invincibility_icon.png', 'powerup_images/invincibility_image.png', 0.18)
 
     def affect_player(self, surface, player):
         # the affect player_related logic will be in the game loop when dealing with the collisions between enemies
