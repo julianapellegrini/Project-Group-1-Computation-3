@@ -22,10 +22,11 @@ class Player(pygame.sprite.Sprite):
         # FAIL self.image.blit(character)
 
         # we call surface to represent the player_related image
-        self.image = pygame.Surface(player_size)
+        self.image = pygame.image.load('images/normal_peguin_image.png') 
+        self.image =pygame.transform.scale(self.image, (player_size[0] + 30, player_size[-1] + 30))
 
         # drawing the image of the player_related
-        self.image.fill(blue)
+        
         self.rect = self.image.get_rect()
         self.rect.center = (width // 2, height // 2)
 
