@@ -25,11 +25,11 @@ def map_layout(player):
 
     # creating level buttons
     level_buttons = [
-        Button(150, 200, 200, 100, "1", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
-        Button(400, 300, 200, 100, "2", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
-        Button(650, 400, 200, 100, "3", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
-        Button(200, 500, 200, 100, "4", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
-        Button(500, 600, 200, 100, "5", None, "chiller", 45, True, royal_blue, image="images/level-button.png")
+        Button(50, 500, 200, 100, "1", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
+        Button(200, 175, 200, 100, "2", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
+        Button(470, 350, 200, 100, "3", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
+        Button(735, 210, 200, 100, "4", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
+        Button(530, 50, 200, 100, "5", None, "chiller", 45, True, royal_blue, image="images/level-button.png")
     ]
 
     while True:

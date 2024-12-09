@@ -59,7 +59,7 @@ def pause_screen(screen, resolution, player, map_layout):
                 button.scale_up()
             else:
                 button.scale_down()
-
+                
         # render the pause screen
         screen.blit(background, (0, 0))
         for button in [play_button, setting_button, igloo_button, map_button]:
