@@ -65,7 +65,7 @@ def game_loop(level, player, map_layout):
 
     # powerups
     # powerup_types = [DeSpawner, Speed_Boost, Extra_Fish, Invincibility]
-    powerup_types = [Invincibility]  # temporary while others aren't done
+    powerup_types = [Invincibility,Extra_Fish] #,DeSpawner]  # temporary while others aren't done
 
     # powerup spawn function
     def select_powerup():
@@ -120,7 +120,7 @@ def game_loop(level, player, map_layout):
                     # set player powerup to the powerup and affect the player and game
                     player.powerup = powerup
                     powerup.affect_player(screen, player)
-                    powerup.affect_game()
+                    powerup.affect_game(screen,1,player)
                     # remove the powerup from the group
                     powerup_group.remove(powerup)
                 else:

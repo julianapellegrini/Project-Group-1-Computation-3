@@ -1,12 +1,15 @@
 from powerups.powerup import PowerUp
 import time
+import pygame
+from player_related.player import player_size
 
 
 class DeSpawner(PowerUp):
 
     def __init__(self):
-        super().__init__('powerup_images/despawner_icon.png', 'powerup_images/Despawner_image.png', 0.6)
+        super().__init__('powerup_images/despawner_icon.png','powerup_images/despawner_image.png', 0.6)
         self.reduction_factor = 0.5
+        
 
     def affect_player(self, surface, player):
         pass
@@ -17,6 +20,8 @@ class DeSpawner(PowerUp):
         self.start_time = time.time()
         if self.active:
             # Position the power-up image around the player_related
+            self.image = pygame.image.load('powerup_images/despawner_image.png')
+            self.image =pygame.transform.scale(self.image, (player_size[0] + 30, player_size[-1] + 30))
             self.image_rect.center = player.rect.center
             surface.blit(self.image, self.image_rect.topleft)
             # Check if the power-up has been active for 5 seconds
