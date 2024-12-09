@@ -119,8 +119,10 @@ def game_loop(level, player, map_layout):
                     player.powerup_start = time.time()
                     # set player powerup to the powerup and affect the player and game
                     player.powerup = powerup
-                    powerup.affect_player(screen, player)
-                    powerup.affect_game(screen, 1, player)
+                    if powerup != DeSpawner():
+                        powerup.affect_player(screen, player)
+                    else:
+                        powerup.affect_game(screen, 1, player)
                     # remove the powerup from the group
                     powerup_group.remove(powerup)
                 else:
