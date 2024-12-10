@@ -3,8 +3,10 @@ from config import *  # importing colors and the like
 from utils import under_construction
 from interfaces_menus.map import map_layout
 from interfaces_menus.button import Button, select_sound
-from save_system.SaveLoadGame import SaveManager, check_save_file
+from save_system.SaveLoadGame import SaveManager
 from interfaces_menus.confirm_screen import confirm
+from interfaces_menus.choose_interface import choose_interface
+from save_system.check_save import check_save_file
 
 
 def start_screen(player):
@@ -50,10 +52,7 @@ def start_screen(player):
                 pygame.quit()
                 return
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                if check_save_file():
-                    interface_w_save(player)
-                else:
-                    interface_no_save(player)
+                choose_interface(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
 
         # update display
         pygame.display.update()
@@ -106,7 +105,7 @@ def interface_no_save(player):
             # button is clicked
             if play_button.is_clicked(mouse, ev):
                 select_sound()
-                map_layout(player)
+                map_layout(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
             if rules_button.is_clicked(mouse, ev):
                 select_sound()
                 rules_()
@@ -214,7 +213,7 @@ def interface_w_save(player):
                     saved_data = save_manager.load_game()
                     if saved_data:
                         player.load_inventory(saved_data)
-                    map_layout(player)
+                    map_layout(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
                 else:  # print message if no save file found
                     print("No save file found")
             if new_game_button.is_clicked(mouse, ev):
@@ -223,7 +222,7 @@ def interface_w_save(player):
                 if confirm():
                     # clear save file and start new game
                     open('save_system/gamesave.txt', 'w').close()
-                    map_layout(player)
+                    map_layout(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
             if rules_button.is_clicked(mouse, ev):
                 select_sound()
                 rules_()

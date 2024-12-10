@@ -3,7 +3,7 @@ from igloo.shed import shed
 from config import *
 
 
-def area(player, map_layout):
+def area(player, map_layout, interface_w_save, interface_no_save):
     # Setup
     current_state = "main"  # Start in the main area
 
@@ -13,7 +13,7 @@ def area(player, map_layout):
         elif current_state == "shed":
             current_state = shed(player)
         elif current_state == "map":
-            current_state = map_layout(player)
+            current_state = map_layout(player, interface_w_save, interface_no_save)
 
 
 def village(player, map_layout):

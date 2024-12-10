@@ -1,5 +1,4 @@
 import pygame
-
 from config import resolution, white, dark_red
 
 

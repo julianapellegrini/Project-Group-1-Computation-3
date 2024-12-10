@@ -4,8 +4,9 @@ from utils import under_construction
 from igloo.village import area
 from config import *
 
+
 # creating the pause game button
-def pause_screen(screen, resolution, player, map_layout):
+def pause_screen(screen, resolution, player, map_layout, interface_w_save, interface_no_save):
 
     # load the pause button image
     pause_button = Button(resolution[0] - 90, 10, 80, 80, "", None, None, 0, False, None, 'images/pause_button.png')
@@ -55,9 +56,9 @@ def pause_screen(screen, resolution, player, map_layout):
                     if yes_button.is_clicked(mouse_pos, ev):
                         select_sound()
                         if action == "map":
-                            map_layout(player)
+                            map_layout(player, interface_w_save, interface_no_save)
                         elif action == "igloo":
-                            area(player, map_layout)
+                            area(player, map_layout, interface_w_save, interface_no_save)
                         return
                     elif no_button.is_clicked(mouse_pos, ev):
                         select_sound()
