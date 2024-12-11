@@ -51,8 +51,10 @@ class Chest(pygame.sprite.Sprite):
         surface.blit(self.image, self.rect.topleft)
 
     def select_options(self):
+        # seperating the items and porbabilities to then choose the items based on their probabilities
         items = list(self.possible_items.keys())
         probabilities = list(self.possible_items.values())
+        # Select 3 random items based on their probabilities
         self.options = random.choices(items, probabilities, k=3)
         print(f"Selected options: {self.options}")
 
@@ -99,9 +101,11 @@ class Chest(pygame.sprite.Sprite):
                         mouse_pos = event.pos
                         for rect, option in option_rects:
                             if rect.collidepoint(mouse_pos):
+                                #If user selects a weapon, change the player's weapon
                                 if option in self.weapons:
                                     player.weapon = option
                                     print(f"Player weapon changed to {option}")
+                                #If user selects a powerup, apply the powerup
                                 elif option in self.powerups:
                                     if option == "Despawner":
                                         powerup = Despawner()
