@@ -39,7 +39,7 @@ def pause_screen(screen, resolution, player, map_layout, interface_w_save, inter
     chiller_font = pygame.font.SysFont("chiller", 50)
 
     # create confirmation text
-    text = chiller_font.render("Are you sure?", True, bice_blue)
+    text = chiller_font.render("Are you sure you want to quit?", True, bice_blue)
 
     # main loop to maintain the pause
     paused = True
