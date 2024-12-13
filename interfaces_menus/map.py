@@ -5,7 +5,7 @@ from game import game_loop
 from igloo.village import area
 import pygame
 from config import *
-
+from interfaces_menus.levels import Level
 
 def map_layout(player, interface_w_save, interface_no_save):
     # initializing pygame
@@ -28,12 +28,12 @@ def map_layout(player, interface_w_save, interface_no_save):
 
     # creating level buttons
     level_buttons = [
-        Button(50, 500, 200, 100, "1", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
-        Button(200, 175, 200, 100, "2", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
-        Button(470, 350, 200, 100, "3", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
-        Button(735, 210, 200, 100, "4", None, "chiller", 45, True, royal_blue, image="images/level-button.png"),
-        Button(530, 50, 200, 100, "5", None, "chiller", 45, True, royal_blue, image="images/level-button.png")
-    ]
+        Level(1, 50, 500, 200, 100, royal_blue, "images/level-button.png"),
+        Level(2, 200, 175, 200, 100, royal_blue, "images/level-button.png"),
+        Level(3, 470, 350, 200, 100, royal_blue, "images/level-button.png"),
+        Level(4, 735, 210, 200, 100, royal_blue, "images/level-button.png"),
+        Level(5, 530, 50, 200, 100, royal_blue, "images/level-button.png")
+        ]
 
     while True:
         # displaying the screen
