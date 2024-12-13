@@ -1,5 +1,6 @@
+import pygame
+
 # Config file used to set global variables and other settings
-# COLORS AND PICTURES HERE FOR NOW
 
 # COLORS
 dark_red = (138, 0, 0)  # Dark red for buttons
@@ -27,6 +28,13 @@ width, height = resolution[0], resolution[1]
 fps = 60
 
 # SIZES
-player_size = (50, 50)
+player_size = (40, 50)
 enemy_size = (50, 50)
 bullet_size = 7
+
+# PLAYER IMAGES
+player_image_powered = pygame.image.load('images/normal_peguin_color.png')
+player_image_normal = pygame.image.load('images/normal_peguin_image.png')
+# SCALED IMAGES
+player_image_powered = pygame.transform.scale(player_image_powered, player_size)
+player_image_normal = pygame.transform.scale(player_image_normal, player_size)

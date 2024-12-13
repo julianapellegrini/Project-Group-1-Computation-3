@@ -1,5 +1,4 @@
 from config import *
-import pygame
 import math
 from player_related.bullet import Bullet
 from player_related.inventory import Inventory
@@ -22,8 +21,8 @@ class Player(pygame.sprite.Sprite):
         # FAIL self.image.blit(character)
 
         # we call surface to represent the player_related image
-        self.image = pygame.image.load('images/normal_peguin_image.png') 
-        self.image =pygame.transform.scale(self.image, (player_size[0] + 30, player_size[-1] + 30))
+        self.image = player_image_normal  # Default image no powerup
+        self.image = pygame.transform.scale(self.image, (player_size[0] + 30, player_size[-1] + 30))
 
         # drawing the image of the player_related
         
@@ -88,16 +87,11 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += self.speed
 
         # Powerup image
-        if self.invincible:
-            invincibility = Invincibility()
-            invincibility.affect_player(surface, self)
-            # check if the power-up has been active for 5 seconds
-            if self.powerup is not None and time.time() - self.powerup_start >= 5:
-                self.invincible = False
+        if self.powerup is not None:
+            # Check if the powerup has expired
+            if time.time() - self.powerup_start >= self.powerup.duration:
+                self.powerup.deactivate(self)
                 self.powerup = None
-        if self.powerup is not None and time.time() - self.powerup_start >= 5:
-            self.powerup = None
-            self.extra_fish = False
 
     def shoot(self, bullets):
         """
@@ -159,4 +153,3 @@ class Normal_Penguin(Player):
         self.image = pygame.image.load('images/normal_penguin_image.png')
         self.image = pygame.transform.scale(self.image, player_size)
         self.speed = 8
-

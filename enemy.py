@@ -1,5 +1,4 @@
 from config import *
-import pygame
 import random
 import math
 
@@ -102,6 +101,7 @@ class Polar_bear(Enemy):
         self.image = pygame.image.load('images/polar-bear.png')
         self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
         self.speed = random.randint(1, 2)
+
 
 # Mini-Boss Subclass
 class Orca(Enemy):

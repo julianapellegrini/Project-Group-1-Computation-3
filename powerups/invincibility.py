@@ -1,9 +1,10 @@
 from powerups.powerup import PowerUp
-
+from config import *
 
 class Invincibility(PowerUp):
     def __init__(self):
-        super().__init__('powerup_images/invincibility_icon.png', 'powerup_images/invincibility_image.png', 0.18)
+        super().__init__('powerup_images/invincibility_icon.png',
+                         'powerup_images/invincibility_image.png', 0.18, 5)
 
     def affect_player(self, surface, player):
         # the affect player_related logic will be in the game loop when dealing with the collisions between enemies
@@ -11,12 +12,13 @@ class Invincibility(PowerUp):
         player.invincible = True
         self.active = True
         if self.active:
-            # Position the power-up image around the player_related
-            self.image_rect.center = player.rect.center
-            surface.blit(self.image, self.image_rect.topleft)
+            # Change player color
+            player.image = player_image_powered
 
     def affect_game(self):
         pass  # No change to game
 
     def deactivate(self, player):
-        pass
+        player.invincible = False
+        player.image = player_image_normal
+        self.active = False
