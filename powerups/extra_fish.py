@@ -1,5 +1,4 @@
 from powerups.powerup import PowerUp
-import time
 
 
 class Extra_Fish(PowerUp):
@@ -10,14 +9,9 @@ class Extra_Fish(PowerUp):
         # the affect player_related logic will be in the player_related class when dealing with the shoot method
         self.active = True
         player.extra_fish = True
-        if self.active:
-            # Position the power-up image around the player_related
-            self.image_rect.center = player.rect.center
-            surface.blit(self.image, self.image_rect.topleft)
 
     def affect_game(self):
         pass
 
     def deactivate(self, player):
-        self.active = False
-        player.extra_fish = False
+        pass

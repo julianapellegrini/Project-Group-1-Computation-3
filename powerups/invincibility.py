@@ -1,5 +1,4 @@
 from powerups.powerup import PowerUp
-import time
 
 
 class Invincibility(PowerUp):
@@ -20,7 +19,4 @@ class Invincibility(PowerUp):
         pass  # No change to game
 
     def deactivate(self, player):
-        player.invincible = False
-        self.active = False
-        self.start_time = time.time()
-        return
+        pass
