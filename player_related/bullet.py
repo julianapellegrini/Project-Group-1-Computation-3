@@ -44,6 +44,22 @@ class Bullet(pygame.sprite.Sprite):
             image = pygame.image.load('images/bullet_up.png')
             image = pygame.transform.scale(image, (bullet_size, bullet_size))
             self.image = image
+        elif self.direction == math.pi / 4:
+            image = pygame.image.load('images/bullet_up.png')
+            image = pygame.transform.scale(image, (bullet_size, bullet_size))
+            self.image = image
+        elif self.direction == 3 * math.pi / 4:
+            image = pygame.image.load('images/bullet_up.png')
+            image = pygame.transform.scale(image, (bullet_size, bullet_size))
+            self.image = image
+        elif self.direction == 5 * math.pi / 4:
+            image = pygame.image.load('images/bullet_up.png')
+            image = pygame.transform.scale(image, (bullet_size, bullet_size))
+            self.image = image
+        elif self.direction == 7 * math.pi / 4:
+            image = pygame.image.load('images/bullet_up.png')
+            image = pygame.transform.scale(image, (bullet_size, bullet_size))
+            self.image = image
 
         # drawing the bullet on the screen
         screen.blit(self.image, self.rect)

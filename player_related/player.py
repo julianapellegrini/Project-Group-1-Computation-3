@@ -95,6 +95,9 @@ class Player(pygame.sprite.Sprite):
             if self.powerup is not None and time.time() - self.powerup_start >= 5:
                 self.invincible = False
                 self.powerup = None
+        if self.powerup is not None and time.time() - self.powerup_start >= 5:
+            self.powerup = None
+            self.extra_fish = False
 
     def shoot(self, bullets):
         """
@@ -112,6 +115,7 @@ class Player(pygame.sprite.Sprite):
                 # If the extra fish powerup is active, add the diagonal angles
                 if self.extra_fish:
                     # Add angles for the corners
+                    # in order: top right diagonal, top left diagonal, bottom left diagonal, top left diagonal
                     angles.extend([math.pi / 4, 3 * math.pi / 4, 5 * math.pi / 4, 7 * math.pi / 4])
                 for angle in angles:
                     # creating a bullet for each angle
