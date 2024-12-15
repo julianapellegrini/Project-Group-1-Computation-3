@@ -57,7 +57,7 @@ def start_screen(player):
 
         # Draw background and update scroll
         draw_bg(screen)
-        scroll += 1
+        scroll += 0.5
 
         # Display text
         screen.blit(text, text_rect)
