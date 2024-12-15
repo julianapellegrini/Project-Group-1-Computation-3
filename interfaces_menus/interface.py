@@ -177,9 +177,7 @@ def interface_w_save(player):
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
 
-    # set and scale background
-    background = pygame.image.load('images/menu.png')
-    background = pygame.transform.scale(background, (resolution[0], resolution[1]))
+    global scroll
 
     # Loading the same image for the buttons
     button_sprite = "images/ice-banner.png"
@@ -205,8 +203,10 @@ def interface_w_save(player):
     save_manager = SaveManager()
 
     while True:
-        # Displaying the screen
-        screen.blit(background, (0, 0))
+
+        # display background
+        draw_bg(screen)
+        scroll += 1
 
         # LOGO:
         # title = pygame.image.load(wood_banner)
@@ -299,14 +299,22 @@ def interface_w_save(player):
 def credits_():
     # loading the rules screen
     screen = pygame.display.set_mode(resolution)
-    background = pygame.image.load('images/credits2.png')
-    screen.blit(background, (0, 0))
+
+    global scroll
 
     # setting up the back button
     back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue,
                          image="images/ice-banner.png")
 
+    # credits image
+    credit = pygame.image.load('images/credits.png')
+    credit = pygame.transform.scale(credit, (700, 400))
+
     while True:
+
+        # display background
+        draw_bg(screen)
+        scroll += 0.5
 
         # getting the position of the user's mouse
         mouse = pygame.mouse.get_pos()
@@ -324,7 +332,7 @@ def credits_():
 
             # Clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
-            screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
+            #   screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
 
             # Update and draw the button
             if back_button.is_hovered(mouse):
@@ -332,10 +340,15 @@ def credits_():
             else:
                 back_button.scale_down()
 
-            back_button.draw(screen, mouse)  # Draw the button after updating
+            # drawing the back button
+            back_button.draw(screen, mouse)
+
+            screen.blit(credit,(0, 0))
 
         # drawing the back button
         back_button.draw(screen, mouse)
+
+        screen.blit(credit, (0, 0))
 
         # updating the display
         pygame.display.update()
