@@ -11,7 +11,14 @@ from save_system.check_save import check_save_file
 
 def start_screen(player):
     # initialize pygame
-    pygame.init()  # calling pygame
+    pygame.init()
+
+    # loading music file
+    pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
+    pygame.mixer.music.set_volume(0.3)
+
+    # playing the music infinitely
+    pygame.mixer.music.play(loops=-1)
 
     # set screen
     screen = pygame.display.set_mode(resolution)
@@ -108,7 +115,7 @@ def interface_no_save(player):
                 map_layout(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
             if rules_button.is_clicked(mouse, ev):
                 select_sound()
-                rules_()
+                rules_(player)
             if options_button.is_clicked(mouse, ev):
                 select_sound()
                 under_construction()
@@ -225,7 +232,7 @@ def interface_w_save(player):
                     map_layout(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
             if rules_button.is_clicked(mouse, ev):
                 select_sound()
-                rules_()
+                rules_(player)
             if options_button.is_clicked(mouse, ev):
                 select_sound()
                 under_construction()
@@ -325,7 +332,7 @@ def credits_():
         pygame.display.update()
 
 
-def rules_():
+def rules_(player):
     # loading the rules screen
     screen = pygame.display.set_mode(resolution)
     background = pygame.image.load('images/rules2.png')
@@ -351,11 +358,11 @@ def rules_():
 
             if back_button.is_clicked(mouse, ev):
                 select_sound()
-                return
+                choose_interface(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
 
             if power_button.is_clicked(mouse, ev):
                 select_sound()
-                power_desc()
+                power_desc(player)
 
             # Clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
@@ -386,7 +393,7 @@ def rules_():
         pygame.display.update()
 
 
-def power_desc():
+def power_desc(player):
     # loading the rules screen
     screen = pygame.display.set_mode(resolution)
     background = pygame.image.load('images/powerups_desc.png')
@@ -410,7 +417,7 @@ def power_desc():
 
             if back_button.is_clicked(mouse, ev):
                 select_sound()
-                rules_()
+                rules_(player)
 
             # Clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
