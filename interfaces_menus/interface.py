@@ -8,71 +8,78 @@ from interfaces_menus.confirm_screen import confirm
 from interfaces_menus.choose_interface import choose_interface
 from save_system.check_save import check_save_file
 
+# define scroll variables
+scroll = 0
+bg_images = []
+
+def load_backgrounds():
+    global bg_images
+    for i in range(1, 6):
+        bg_image = pygame.image.load(f"bg/Plan{i}.png").convert_alpha()
+        bg_image = pygame.transform.scale(bg_image, resolution)
+        bg_images.append(bg_image)
+
+
+def draw_bg(screen):
+    global bg_images
+    bg_width = bg_images[0].get_width()
+    for x in range(50):
+        speed = 1
+        for bg_image in bg_images:
+            screen.blit(bg_image, ((x * bg_width) - scroll * speed, 0))
+            speed += 0.3
 
 def start_screen(player):
-    # initialize pygame
-    pygame.init()
+    global scroll
 
-    # loading music file
+    # Initialize pygame and load music
+    pygame.init()
     pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
     pygame.mixer.music.set_volume(0.3)
-
-    # playing the music infinitely
     pygame.mixer.music.play(loops=-1)
 
-    # set screen
+    # Set screen and other UI elements
     screen = pygame.display.set_mode(resolution)
-
-    # set the window title
     pygame.display.set_caption("Penguin Rodeo")
-
-    # set game icon
     pygame_icon = pygame.image.load('images/game_icon.jpg')
     pygame.display.set_icon(pygame_icon)
+    load_backgrounds()
 
-    # set and scale background
-    background = pygame.image.load('images/menu.png')
-    background = pygame.transform.scale(background, resolution)
-
-    # load font
+    # Load font and text
     chiller_font = pygame.font.SysFont("chiller", 30)
-
-    # create text
     text = chiller_font.render("Press Space Bar to Start Game!", True, bice_blue)
-
-    # set text position
     text_rect = text.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
-    # set game loop
+    clock = pygame.time.Clock()
     running = True
     while running:
+        clock.tick(fps)  # Cap FPS
 
-        # display background
-        screen.blit(background, (0, 0))
+        # Draw background and update scroll
+        draw_bg(screen)
+        scroll += 1
 
-        # display text
+        # Display text
         screen.blit(text, text_rect)
 
-        # event handling
+        # Event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                choose_interface(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
+                interface_no_save(player)  # Transition to next screen
 
-        # update display
         pygame.display.update()
+
 
 
 def interface_no_save(player):
 
+    global scroll
+
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
-
-    # set and scale background
-    background = pygame.image.load('images/menu.png')
-    background = pygame.transform.scale(background, (resolution[0], resolution[1]))
 
     # Loading the same image for the buttons
     button_sprite = "images/ice-banner.png"
@@ -93,8 +100,10 @@ def interface_no_save(player):
     quit_button = Button(center_x - 75, 590, 150, 60, "Quit", None, "chiller", 45, True, bice_blue, image=button_sprite)
 
     while True:
-        # Displaying the screen
-        screen.blit(background, (0, 0))
+
+        # display background
+        draw_bg(screen)
+        scroll += 1
 
         # LOGO:
         # title = pygame.image.load(wood_banner)
