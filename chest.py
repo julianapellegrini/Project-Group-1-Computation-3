@@ -1,19 +1,19 @@
 import pygame
 import random
-from player_related.player import player
-from powerups.powerup import Powerup
-from powerups.despawner import Despawner
+from player_related.player import Player
+from powerups.powerup import PowerUp
+from powerups.despawner import DeSpawner
 from powerups.invincibility import Invincibility
-from powerups.extra_fish import ExtraFish
-from powerups.speed_boost import SpeedBoost
+from powerups.extra_fish import Extra_Fish
+from powerups.speed_boost import Speed_Boost
 from player_related.weapons import Snowball
 from player_related.weapons import Slingshot
 
 class Chest(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("images/treasure_chest.png") # load the image
-        self.image = pygame.transform.scale(self.image, (150, 150))  # scale the image
+        self.image = pygame.image.load("images/chest_image.png") # load the image
+        self.image = pygame.transform.scale(self.image, (120, 120))  # scale the image
         self.rect = self.image.get_rect()
         self.spawned = False
         self.possible_items = {
@@ -51,18 +51,12 @@ class Chest(pygame.sprite.Sprite):
         surface.blit(self.image, self.rect.topleft)
 
     def select_options(self):
-        # seperating the items and porbabilities to then choose the items based on their probabilities
         items = list(self.possible_items.keys())
         probabilities = list(self.possible_items.values())
-        # Select 3 random items based on their probabilities
         self.options = random.choices(items, probabilities, k=3)
         print(f"Selected options: {self.options}")
 
-    def open_chest(self, surface, player):
-        self.select_options()
-        self.display_options(surface, player)
-
-    def display_options(self, surface, player):
+    def display_options(self, surface,enemies,spawn_rate, player):
         # Pause the game
         paused = True
 
@@ -101,28 +95,30 @@ class Chest(pygame.sprite.Sprite):
                         mouse_pos = event.pos
                         for rect, option in option_rects:
                             if rect.collidepoint(mouse_pos):
-                                #If user selects a weapon, change the player's weapon
                                 if option in self.weapons:
                                     player.weapon = option
                                     print(f"Player weapon changed to {option}")
-                                #If user selects a powerup, apply the powerup
                                 elif option in self.powerups:
                                     if option == "Despawner":
-                                        powerup = Despawner()
-                                        powerup.affect_game()
+                                        powerup = DeSpawner()
+                                        powerup.affect_game(surface,enemies,spawn_rate, player) 
                                     elif option == "Invincibility":
                                         powerup = Invincibility()
-                                        powerup.affect_player()
+                                        powerup.affect_player(surface,player)
                                     elif option == "Extra Fish":
-                                        powerup = ExtraFish()
-                                        powerup.affect_player()
+                                        powerup = Extra_Fish()
+                                        powerup.affect_player(surface,player)
                                     elif option == "Speed Boost":
-                                        powerup = SpeedBoost()
-                                        powerup.affect_player()
+                                        powerup = Speed_Boost()
+                                        powerup.affect_player(surface,player)
                                     print(f"Applied powerup: {option}")
                                 paused = False  # Exit the loop after selecting one item
                                 break
                     if not paused:
                         break  # Exit the outer loop as well
+
+    def open(self, surface, enemies, spawn_rate, player):
+        self.select_options()
+        self.display_options(surface,enemies,spawn_rate, player)
 
         

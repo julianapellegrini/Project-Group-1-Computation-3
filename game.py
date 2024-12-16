@@ -8,6 +8,7 @@ from powerups.extra_fish import Extra_Fish
 from powerups.invincibility import Invincibility
 from interfaces_menus.pause import pause_screen
 import time
+from chest import Chest
 
 # initializing pygame
 pygame.init()
@@ -59,19 +60,25 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     pause_button_position = (resolution[0] - pause_button_image.get_width() - 10, 10)
 
     # Settings for powerups
-    powerup_spawn_interval = 60 * fps  # every x seconds (change later)
+    powerup_spawn_interval = 10000  # every 10 seconds
     last_powerup_spawn_time = pygame.time.get_ticks()
     powerup_group = pygame.sprite.Group()
 
     # powerups
     # powerup_types = [DeSpawner, Speed_Boost, Extra_Fish, Invincibility]
-    powerup_types = [Invincibility, Extra_Fish]  # ,DeSpawner]  # temporary while others aren't done
+    powerup_types = [Invincibility, Extra_Fish ,DeSpawner]  # temporary while others aren't done
 
     # powerup spawn function
     def select_powerup():
         # choice function with weights to select a powerup
         selected_powerup = random.choices(powerup_types, [i().probability for i in powerup_types])[0]
         return selected_powerup()
+    
+    # Settings for chests
+    chest_spawn_interval = 3000 # 20% to chance every 20 seconds
+    last_chest_spawn_time = pygame.time.get_ticks()
+    chest_group = pygame.sprite.Group()
+    chest_spawn_probability = 1.00  # 5% chance to spawn a chest every x seconds
 
     # MAIN GAME LOOP
     running = True
@@ -96,9 +103,30 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                             1] + pause_button_image.get_height()):
                     pause_screen(screen, resolution, player, map_layout, interface_w_save, interface_no_save)
 
+
+        # Check if it's time to spawn a new chest
+        current_time_chest = pygame.time.get_ticks()  
+        if current_time_chest - last_chest_spawn_time > chest_spawn_interval:
+            if random.random() < chest_spawn_probability:  # Check if chest should spawn based on probability
+                chest = Chest()  # Create a new Chest object
+                chest.spawn(screen)  # Set its position and draw it
+                chest_group.add(chest)  # Add it to the chest group
+            last_chest_spawn_time = current_time_chest  # Update the last chest spawn time
+        
+        # Draw all chests
+        for chest in chest_group:
+            chest.spawn(screen)
+            if chest.rect.colliderect(player.rect):
+                chest.open(screen,enemies,spawn_chances, player)
+                chest_group.remove(chest)
+
+        
+
+
+
         # Check if it's time to spawn a powerup
-        current_time = pygame.time.get_ticks()
-        if current_time - last_powerup_spawn_time >= powerup_spawn_interval:
+        current_time_powerup = pygame.time.get_ticks()
+        if current_time_powerup - last_powerup_spawn_time >= powerup_spawn_interval:
             # use select_powerup() to get a powerup
             new_powerup = select_powerup()
             # clear the powerup group and add the new powerup
@@ -108,7 +136,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
             for powerup in powerup_group:
                 powerup.spawn(screen)
             # set the last powerup spawn time to the current time
-            last_powerup_spawn_time = current_time
+            last_powerup_spawn_time = current_time_powerup
 
         for powerup in powerup_group:
             # draw the powerup on the screen
@@ -122,7 +150,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                     if powerup != DeSpawner():
                         powerup.affect_player(screen, player)
                     else:
-                        powerup.affect_game(screen, 1, player)
+                        powerup.affect_game(screen,enemies,spawn_chances,player)
                     # remove the powerup from the group
                     powerup_group.remove(powerup)
                 else:

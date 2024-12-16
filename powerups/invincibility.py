@@ -22,3 +22,7 @@ class Invincibility(PowerUp):
         player.invincible = False
         player.image = player_image_normal
         self.active = False
+
+    # For open chest method
+    def __repr__(self):
+        return "Invincibility"

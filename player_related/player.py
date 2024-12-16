@@ -22,7 +22,7 @@ class Player(pygame.sprite.Sprite):
 
         # we call surface to represent the player_related image
         self.image = player_image_normal  # Default image no powerup
-        self.image = pygame.transform.scale(self.image, (player_size[0] + 30, player_size[-1] + 30))
+        self.image = pygame.transform.scale(self.image, (player_size[0] , player_size[-1] ))
 
         # drawing the image of the player_related
         
@@ -153,3 +153,5 @@ class Normal_Penguin(Player):
         self.image = pygame.image.load('images/normal_penguin_image.png')
         self.image = pygame.transform.scale(self.image, player_size)
         self.speed = 8
+
+

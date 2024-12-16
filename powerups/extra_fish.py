@@ -5,7 +5,7 @@ from config import *
 class Extra_Fish(PowerUp):
     def __init__(self):
         super().__init__('powerup_images/extra_fish_icon.png',
-                         'powerup_images/Despawner_image.png', 0.12, 5)
+                         'powerup_images/despawner_image.png', 0.12, 5)
     
     def affect_player(self, surface, player):
         # the affect player_related logic will be in the player_related class when dealing with the shoot method
@@ -20,3 +20,7 @@ class Extra_Fish(PowerUp):
         self.active = False
         player.extra_fish = False
         pygame.image = player_image_normal
+
+    # For open chest method
+    def __repr__(self):
+        return "Extra Fish"
