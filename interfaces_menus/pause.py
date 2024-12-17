@@ -32,14 +32,14 @@ def pause_screen(screen, resolution, player, map_layout, interface_w_save, inter
     background = pygame.transform.scale(background, resolution)
 
     # create the confirmation buttons
-    yes_button = Button(resolution[0] // 2.5 - 100, resolution[1] // 2, 150, 60, "Yes", None, "chiller", 35, True, bice_blue, 'images/ice-banner.png')
-    no_button = Button(resolution[0] // 2.2 + 100, resolution[1] // 2, 150, 60, "No", None, "chiller", 35, True, bice_blue, 'images/ice-banner.png')
+    yes_button = Button(resolution[0] // 2.5 - 100, resolution[1] // 2, 150, 60, "Yes", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue, 'images/ice-banner.png')
+    no_button = Button(resolution[0] // 2.2 + 100, resolution[1] // 2, 150, 60, "No", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue, 'images/ice-banner.png')
 
     # set font
-    chiller_font = pygame.font.SysFont("chiller", 50)
+    pixel_font = pygame.font.SysFont("fonts/Grand9KPixel.ttf", 50)
 
     # create confirmation text
-    text = chiller_font.render("Are you sure you want to quit?", True, bice_blue)
+    text = pixel_font.render("Are you sure you want to quit?", True, bice_blue)
 
     # main loop to maintain the pause
     paused = True

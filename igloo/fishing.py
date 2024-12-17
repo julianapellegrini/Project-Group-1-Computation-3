@@ -19,9 +19,9 @@ def fishing(player):
     clock = pygame.time.Clock()
 
     # setting up the buttons
-    back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue,
+    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/ice-banner.png")
-    fish_button = Button(700, 200, 150, 60, "Fish", None, "chiller", 35, True, bice_blue,
+    fish_button = Button(700, 200, 150, 60, "Fish", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/ice-banner.png")
 
     # game loop
@@ -90,10 +90,10 @@ def fishing_minigame(player):
     progress = 0
 
     # setting the text font
-    chiller_font = pygame.font.SysFont("chiller", 30)
+    pixel_font = pygame.font.SysFont("fonts/Grand9KPixel.ttf", 30)
 
     # set the progress text
-    progress_text = chiller_font.render(f"{progress}%", True, white)
+    progress_text = pixel_font.render(f"{progress}%", True, white)
 
     # function to spawn a fish based on their probabilities
     def spawn_fish():
@@ -165,7 +165,7 @@ def fishing_minigame(player):
             fish_group = pygame.sprite.Group(current_fish)
 
         # update the progress text
-        progress_text = chiller_font.render(f"{int(progress)}%", True, white)
+        progress_text = pixel_font.render(f"{int(progress)}%", True, white)
 
         # updating the display
         pygame.display.update()

@@ -18,10 +18,10 @@ def confirm():
     no_button = Button(600, 300, 150, 60, "No", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue, image="images/ice-banner.png")
 
     # set font
-    chiller_font = pygame.font.SysFont("fonts/Grand9KPixel.ttf", 30)
+    pixel_font = pygame.font.SysFont("fonts/Grand9KPixel.ttf", 30)
 
     # create confirmation text
-    text = chiller_font.render("Are you sure?", True, bice_blue)
+    text = pixel_font.render("Are you sure?", True, bice_blue)
 
     # main loop
     while True:
