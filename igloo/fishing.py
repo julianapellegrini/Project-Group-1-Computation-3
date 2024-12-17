@@ -58,6 +58,13 @@ def fishing(player):
                 select_sound()
                 fishing_minigame(player)
 
+        # putting visual effects to buttons
+        for button in [back_button, fish_button]:
+            if button.is_hovered(mouse):
+                button.scale_up()
+            else:
+                button.scale_down()
+
         # drawing the buttons
         back_button.draw(screen, mouse)
         fish_button.draw(screen, mouse)
