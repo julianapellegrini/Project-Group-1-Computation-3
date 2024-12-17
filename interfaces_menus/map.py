@@ -11,6 +11,10 @@ def map_layout(player, interface_w_save, interface_no_save):
     # initializing pygame
     pygame.init()
 
+    pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
+    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.play(loops=-1)
+
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
 
@@ -19,20 +23,20 @@ def map_layout(player, interface_w_save, interface_no_save):
     igloo_sprite = "images/igloo_button.png"
 
     # setting up the back button
-    back_button = Button(950, 600, 200, 100, "Back", None, "Grand9KPixel.ttf", 45, True, bice_blue,
+    back_button = Button(950, 600, 200, 100, "Back", None, "fonts/Grand9KPixel.ttf", 45, True, bice_blue,
                          image=button_sprite)
 
     # setting up the igloo button
-    igloo_button = Button(940, 30, 200, 200, None, None, None, 35, False, None,
+    igloo_button = Button(990, 0, 190, 190, None, None, None, 35, False, None,
                           image=igloo_sprite)
 
     # creating level buttons
     level_buttons = [
-        Level(1, 50, 500, 200, 100, royal_blue, "images/level-button.png"),
-        Level(2, 200, 175, 200, 100, royal_blue, "images/level-button.png"),
-        Level(3, 470, 350, 200, 100, royal_blue, "images/level-button.png"),
-        Level(4, 735, 210, 200, 100, royal_blue, "images/level-button.png"),
-        Level(5, 530, 50, 200, 100, royal_blue, "images/level-button.png")
+        Level(1, 50, 250, 100, 100, royal_blue, "images/level-button.png"),
+        Level(2, 225, 175, 100, 100, royal_blue, "images/level-button.png"),
+        Level(3, 520, 310, 100, 100, royal_blue, "images/level-button.png"),
+        Level(4, 830, 200, 100, 100, royal_blue, "images/level-button.png"),
+        Level(5, 610, 30, 100, 100, royal_blue, "images/level-button.png")
         ]
 
     while True:

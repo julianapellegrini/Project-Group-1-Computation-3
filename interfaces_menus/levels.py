@@ -6,7 +6,7 @@ class Level:
     # initializing the Level
     def __init__(self, number, x, y, width, height, color, image):
         self.number = number
-        self.button = Button(x, y, width, height, str(number), None, "Grand9KPixel.ttf", 45, True, color, image=image)
+        self.button = Button(x, y, width, height, str(number), None, "fonts/Grand9KPixel.ttf", 45, True, color, image=image)
 
     # drawing the button in the screen
     def draw(self, screen, mouse):

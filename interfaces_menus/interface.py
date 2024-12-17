@@ -89,15 +89,15 @@ def interface_no_save(player):
     center_x = resolution[0] // 2
 
     # Initialize buttons with the correct parameters
-    play_button = Button(center_x - 130, 230, 260, 100, "Play", bice_blue, "Grand9KPixel.ttf", 40, True, royal_blue,
+    play_button = Button(center_x - 130, 230, 260, 100, "Play", bice_blue, "fonts/Grand9KPixel.ttf", 40, True, royal_blue,
                          image=button_sprite)
-    rules_button = Button(center_x - 75, 350, 150, 60, "Rules", None, "Grand9KPixel.ttf", 25, True, bice_blue,
+    rules_button = Button(center_x - 75, 350, 150, 60, "Rules", None, "fonts/Grand9KPixel.ttf", 25, True, bice_blue,
                           image=button_sprite)
-    options_button = Button(center_x - 75, 430, 150, 60, "Options", None, "Grand9KPixel.ttf", 24, True, bice_blue,
+    options_button = Button(center_x - 75, 430, 150, 60, "Options", None, "fonts/Grand9KPixel.ttf", 24, True, bice_blue,
                             image=button_sprite)
-    credits_button = Button(center_x - 75, 510, 150, 60, "Credits", None, "Grand9KPixel.ttf", 26, True, bice_blue,
+    credits_button = Button(center_x - 75, 510, 150, 60, "Credits", None, "fonts/Grand9KPixel.ttf", 26, True, bice_blue,
                             image=button_sprite)
-    quit_button = Button(center_x - 75, 590, 150, 60, "Quit", None, "Grand9KPixel.ttf", 28, True, bice_blue, image=button_sprite)
+    quit_button = Button(center_x - 75, 590, 150, 60, "Quit", None, "fonts/Grand9KPixel.ttf", 28, True, bice_blue, image=button_sprite)
 
     while True:
 
@@ -187,17 +187,17 @@ def interface_w_save(player):
     center_x = resolution[0] // 2
 
     # initialize buttons
-    load_game_button = Button(center_x - 75, 230, 150, 60, "Load Game", None, "Grand9KPixel.ttf", 35, True, bice_blue,
+    load_game_button = Button(center_x - 75, 230, 150, 60, "Load Game", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                               image=button_sprite)
-    new_game_button = Button(center_x - 75, 311, 150, 60, "New Game", None, "Grand9KPixel.ttf", 35, True, bice_blue,
+    new_game_button = Button(center_x - 75, 311, 150, 60, "New Game", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                              image=button_sprite)
-    rules_button = Button(center_x - 75, 350, 150, 60, "Rules", None, "Grand9KPixel.ttf", 25, True, bice_blue,
+    rules_button = Button(center_x - 75, 350, 150, 60, "Rules", None, "fonts/Grand9KPixel.ttf", 25, True, bice_blue,
                           image=button_sprite)
-    options_button = Button(center_x - 75, 430, 150, 60, "Options", None, "Grand9KPixel.ttf", 24, True, bice_blue,
+    options_button = Button(center_x - 75, 430, 150, 60, "Options", None, "fonts/Grand9KPixel.ttf", 24, True, bice_blue,
                             image=button_sprite)
-    credits_button = Button(center_x - 75, 510, 150, 60, "Credits", None, "Grand9KPixel.ttf", 26, True, bice_blue,
+    credits_button = Button(center_x - 75, 510, 150, 60, "Credits", None, "fonts/Grand9KPixel.ttf", 26, True, bice_blue,
                             image=button_sprite)
-    quit_button = Button(center_x - 75, 590, 150, 60, "Quit", None, "Grand9KPixel.ttf", 28, True, bice_blue, image=button_sprite)
+    quit_button = Button(center_x - 75, 590, 150, 60, "Quit", None, "fonts/Grand9KPixel.ttf", 28, True, bice_blue, image=button_sprite)
 
     # set save manager
     save_manager = SaveManager()
@@ -303,7 +303,7 @@ def credits_():
     global scroll
 
     # setting up the back button
-    back_button = Button(1000, 650, 150, 60, "Back", None, "Grand9KPixel.ttf", 35, True, bice_blue,
+    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/ice-banner.png")
 
     # credits image
@@ -366,9 +366,9 @@ def rules_(player):
     rules_rect = rules.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
     # setting up the back button
-    back_button = Button(1000, 650, 150, 60, "Back", None, "Grand9KPixel.ttf", 35, True, bice_blue,
+    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/ice-banner.png")
-    power_button = Button(1000, 550, 150, 60, "Powerups", pink, "chiller", 35, True, bice_blue,
+    power_button = Button(1000, 550, 150, 60, "Powerups", pink, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                           image="images/ice-banner.png")
 
     while True:
@@ -437,7 +437,7 @@ def power_desc(player):
     power_rect = power.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
     # setting up the back button
-    back_button = Button(1000, 650, 150, 60, "Back", None, "Grand9KPixel.ttf", 35, True, bice_blue,
+    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/ice-banner.png")
 
     while True:
