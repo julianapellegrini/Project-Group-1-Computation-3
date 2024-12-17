@@ -25,6 +25,10 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     background = pygame.image.load("images/ice-background2.png")
     background = pygame.transform.scale(background, (width, height))
 
+    pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
+    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.play(loops=-1)
+
     # using the clock to control the time frame
     clock = pygame.time.Clock()
 
