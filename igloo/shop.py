@@ -11,7 +11,7 @@ def shop_layout():
     screen = pygame.display.set_mode(resolution)
 
     # setting up the back button
-    back_button = Button(950, 600, 200, 100, "Back", None, "chiller", 45, True, bice_blue,
+    back_button = Button(950, 600, 200, 100, "Back", None, "fonts/Grand9KPixel.ttf", 45, True, bice_blue,
                          image="images/ice-banner.png")
 
     while True:

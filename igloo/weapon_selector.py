@@ -19,14 +19,14 @@ def weapon_selector():
     clock = pygame.time.Clock()
 
     # set buttons
-    back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue,
+    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/ice-banner.png")
-    select_button = Button((resolution[0] - 150) // 2, 600, 150, 60, "Select", None, "chiller", 35, True, bice_blue,
+    select_button = Button((resolution[0] - 150) // 2, 600, 150, 60, "Select", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                            image="images/ice-banner.png")
 
-    arrow_left = Button(100, 300, 200, 200, None, None, "chiller", 35, True, bice_blue,
+    arrow_left = Button(100, 300, 200, 200, None, None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                         image="images/arrow_left.png")
-    arrow_right = Button(900, 300, 200, 200, None, None, "chiller", 35, True, bice_blue,
+    arrow_right = Button(900, 300, 200, 200, None, None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/arrow_right.png")
 
     # list weapons
