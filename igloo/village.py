@@ -45,7 +45,7 @@ def village(player, map_layout):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-
+                
         # update the player's position
         player.update(screen)
         player.rect.y = 522

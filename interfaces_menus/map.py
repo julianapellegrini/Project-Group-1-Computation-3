@@ -23,7 +23,7 @@ def map_layout(player, interface_w_save, interface_no_save):
     igloo_sprite = "images/igloo_button.png"
 
     # setting up the back button
-    back_button = Button(950, 600, 200, 100, "Back", None, "fonts/Grand9KPixel.ttf", 45, True, bice_blue,
+    back_button = Button(950, 600, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
                          image=button_sprite)
 
     # setting up the igloo button

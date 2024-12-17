@@ -19,6 +19,7 @@ penn_blue = (0, 28, 85)
 royal_blue = (10, 36, 114)
 bice_blue = (14, 107, 168)
 light_blue = (166, 225, 250)
+vidro = (10, 36, 114, 50)
 
 pink = (246, 120, 197)
 

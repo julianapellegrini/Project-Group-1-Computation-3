@@ -127,7 +127,7 @@ def interface_no_save(player):
                 rules_(player)
             if options_button.is_clicked(mouse, ev):
                 select_sound()
-                under_construction()
+                settings(player)
             if quit_button.is_clicked(mouse, ev):
                 select_sound()
                 pygame.quit()
@@ -244,7 +244,7 @@ def interface_w_save(player):
                 rules_(player)
             if options_button.is_clicked(mouse, ev):
                 select_sound()
-                under_construction()
+                settings(player)
             if quit_button.is_clicked(mouse, ev):
                 select_sound()
                 pygame.quit()
@@ -303,7 +303,7 @@ def credits_():
     global scroll
 
     # setting up the back button
-    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
+    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
                          image="images/ice-banner.png")
 
     # credits image
@@ -366,9 +366,9 @@ def rules_(player):
     rules_rect = rules.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
     # setting up the back button
-    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
+    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
                          image="images/ice-banner.png")
-    power_button = Button(1000, 550, 150, 60, "Powerups", pink, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
+    power_button = Button(1000, 550, 150, 60, "Powerups", pink, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
                           image="images/ice-banner.png")
 
     while True:
@@ -437,7 +437,7 @@ def power_desc(player):
     power_rect = power.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
     # setting up the back button
-    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
+    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
                          image="images/ice-banner.png")
 
     while True:
@@ -473,6 +473,63 @@ def power_desc(player):
             back_button.draw(screen, mouse)  # Draw the button after updating
 
         screen.blit(power, power_rect)
+
+        # drawing the back button
+        back_button.draw(screen, mouse)
+
+        # updating the display
+        pygame.display.update()
+
+
+def settings(player):
+
+    global scroll
+
+    # loading the powerup screen
+    screen = pygame.display.set_mode(resolution)
+    #power = pygame.image.load('images/powers.png')
+    #power = pygame.transform.scale(power, (900, 400))
+    #power_rect = power.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
+
+    # setting up the back button
+    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
+                         image="images/ice-banner.png")
+
+    while True:
+
+        # display background
+        draw_bg(screen)
+        scroll += 0.5
+
+        rect = (300, 200, 200, 100)
+        # getting the position of the user's mouse
+        mouse = pygame.mouse.get_pos()
+
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
+
+            if back_button.is_clicked(mouse, ev):
+                select_sound()
+                return
+
+            # Clear the button's previous position
+            #previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
+            #screen.blit(power, power_rect)
+
+            # Update and draw the button
+            if back_button.is_hovered(mouse):
+                back_button.scale_up()
+            else:
+                back_button.scale_down()
+
+            back_button.draw(screen, mouse)  # Draw the button after updating
+
+        #screen.blit(power, power_rect)
+        pygame.draw.rect(screen, vidro, rect)
 
         # drawing the back button
         back_button.draw(screen, mouse)

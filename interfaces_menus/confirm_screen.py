@@ -14,11 +14,11 @@ def confirm():
     background = pygame.transform.scale(background, resolution)
 
     # create confirmation buttons
-    yes_button = Button(400, 300, 150, 60, "Yes", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
-    no_button = Button(600, 300, 150, 60, "No", None, "chiller", 35, True, bice_blue, image="images/ice-banner.png")
+    yes_button = Button(400, 300, 150, 60, "Yes", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue, image="images/ice-banner.png")
+    no_button = Button(600, 300, 150, 60, "No", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue, image="images/ice-banner.png")
 
     # set font
-    chiller_font = pygame.font.SysFont("chiller", 30)
+    chiller_font = pygame.font.SysFont("fonts/Grand9KPixel.ttf", 30)
 
     # create confirmation text
     text = chiller_font.render("Are you sure?", True, bice_blue)
