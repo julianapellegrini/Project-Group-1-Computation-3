@@ -20,7 +20,7 @@ class Button:
         self.font = font
         self.font_size = font_size
         self.image = image
-        self.scaled_font = pygame.font.SysFont(self.font, self.font_size)  # Use the font passed as an argument
+        self.scaled_font = pygame.font.Font(self.font, self.font_size)  # Use the font passed as an argument
         self.outline = outline
         self.outline_color = outline_color
         self.is_scaled = False

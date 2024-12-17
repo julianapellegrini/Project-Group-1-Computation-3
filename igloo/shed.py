@@ -25,22 +25,22 @@ def shed(player):
     save_manager = SaveManager()
 
     # setting up the buttons
-    back_button = Button(1000, 650, 150, 60, "Back", None, "chiller", 35, True, bice_blue,
+    back_button = Button(1000, 650, 150, 60, "Back", None, "Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/ice-banner.png")
 
-    shop_button = Button(460, 370, 150, 60, "Shop", None, "chiller", 35, True, bice_blue,
+    shop_button = Button(460, 370, 150, 60, "Shop", None, "Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/ice-banner.png")
 
-    table_button = Button(750, 600, 150, 60, "Skins", None, "chiller", 35, True, bice_blue,
+    table_button = Button(750, 600, 150, 60, "Skins", None, "Grand9KPixel.ttf", 35, True, bice_blue,
                           image="images/ice-banner.png")
 
-    fish_button = Button(700, 200, 150, 60, "Fishing Hole", None, "chiller", 35, True, bice_blue,
+    fish_button = Button(700, 200, 150, 60, "Fishing Hole", None, "Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/ice-banner.png")
 
-    weapons_button = Button(850, 455, 150, 60, "Weapons", None, "chiller", 35, True, bice_blue,
+    weapons_button = Button(850, 455, 150, 60, "Weapons", None, "Grand9KPixel.ttf", 35, True, bice_blue,
                             image="images/ice-banner.png")
 
-    save_game_button = Button(662, 364, 150, 60, "Save Game", None, "chiller", 35, True, bice_blue,
+    save_game_button = Button(662, 364, 150, 60, "Save Game", None, "Grand9KPixel.ttf", 35, True, bice_blue,
                               image="images/ice-banner.png")
 
     running = True
