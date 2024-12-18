@@ -75,7 +75,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
 
     # powerups
     # powerup_types = [DeSpawner, Speed_Boost, Extra_Fish, Invincibility]
-    powerup_types = [Invincibility, Extra_Fish, DeSpawner]  # temporary while others aren't done
+    powerup_types = [Invincibility, Extra_Fish]  # temporary while others aren't done
 
     # powerup spawn function
     def select_powerup():
@@ -153,14 +153,14 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
             if powerup.rect.colliderect(player.rect):
                 if player.powerup is None:
                     # start timer
-
                     player.powerup_start = pygame.time.get_ticks()
-                    # set player powerup to the powerup and affect the player and game
-                    player.powerup = powerup
                     if powerup != DeSpawner():
                         powerup.affect_player(screen, player)
+                        player.powerup = powerup
                     else:
                         powerup.affect_game(screen, enemies, spawn_chances, player)
+                        player.powerup = powerup
+                        
                     # remove the powerup from the group
                     powerup_group.remove(powerup)
                 else:
@@ -168,10 +168,9 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
 
         if player.powerup and current_time_powerup - player.powerup_start >= player.powerup.duration:
             if player.powerup == DeSpawner():
-                player.powerup.deactivate(player,spawn_chances)
+                player.powerup.deactivate(spawn_chances, player)
             else:
                 player.powerup.deactivate(player)
-            player.powerup = None
 
 
         # automatically shoot bullets from the player_related

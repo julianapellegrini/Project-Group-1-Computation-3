@@ -8,7 +8,7 @@ class DeSpawner(PowerUp):
 
     def __init__(self):
         super().__init__('powerup_images/despawner_icon.png',
-                         'powerup_images/despawner_image.png', 0.6, 5)
+                         'powerup_images/despawner_image.png', 0.6, 5000)
         self.reduction_factor = 0.5
         self.active = False
         self.start_time = None
@@ -20,7 +20,6 @@ class DeSpawner(PowerUp):
     def affect_game(self, surface, enemies, spawn_chances, player):
         # Activate the power-up
         self.active = True
-        self.start_time = time.time()
 
         # Remove a certain number of monsters probabilistically
         for enemy in list(enemies):
@@ -34,6 +33,7 @@ class DeSpawner(PowerUp):
         # Position the power-up image around the player
         if self.active:
             player.image = penguin_infinity_stone
+        player.powerup = DeSpawner
 
     def update(self, surface, enemies, spawn_chances, player):
         # Check if the power-up has been active for the specified duration

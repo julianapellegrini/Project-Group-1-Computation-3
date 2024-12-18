@@ -4,12 +4,12 @@ from config import *
 class Invincibility(PowerUp):
     def __init__(self):
         super().__init__('powerup_images/invincibility_icon.png',
-                         'powerup_images/invincibility_image.png', 0.18, 5)
+                         'powerup_images/invincibility_image.png', 0.18, 5000)
 
     def affect_player(self, surface, player):
         # the affect player_related logic will be in the game loop when dealing with the collisions between enemies
         # and players
-        player.invincible = True
+        player.powerup = Invincibility
         self.active = True
         if self.active:
             # Change player color
