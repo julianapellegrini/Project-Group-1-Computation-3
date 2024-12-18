@@ -17,7 +17,8 @@ pygame.init()
 def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     """
     Main game loop that handles gameplay for different levels.
-    :param player: keep same player_related instance throughout the game in order to be able to save the player_related's progress.
+    :param player: keep same player_related instance throughout the game in order to be able to save the
+    player's progress.
     :param level: The current level the player_related is playing.
     """
     # Setup:
@@ -63,6 +64,10 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     pause_button_image = pygame.transform.scale(pause_button_image, (70, 70))
     pause_button_position = (resolution[0] - pause_button_image.get_width() - 10, 10)
 
+    # Balance text
+    pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 50)
+    balance_text = pixel_font.render(f"Balance: {player.balance}", True, (255, 255, 255))
+
     # Settings for powerups
     powerup_spawn_interval = 10000  # every 10 seconds
     last_powerup_spawn_time = pygame.time.get_ticks()
@@ -70,16 +75,16 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
 
     # powerups
     # powerup_types = [DeSpawner, Speed_Boost, Extra_Fish, Invincibility]
-    powerup_types = [Invincibility, Extra_Fish ,DeSpawner]  # temporary while others aren't done
+    powerup_types = [Invincibility, Extra_Fish, DeSpawner]  # temporary while others aren't done
 
     # powerup spawn function
     def select_powerup():
         # choice function with weights to select a powerup
         selected_powerup = random.choices(powerup_types, [i().probability for i in powerup_types])[0]
         return selected_powerup()
-    
+
     # Settings for chests
-    chest_spawn_interval = 3000 # 20% to chance every 20 seconds
+    chest_spawn_interval = 3000  # 20% to chance every 20 seconds
     last_chest_spawn_time = pygame.time.get_ticks()
     chest_group = pygame.sprite.Group()
     chest_spawn_probability = 1.00  # 5% chance to spawn a chest every x seconds
@@ -94,6 +99,10 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         # setting up the background
         screen.blit(background, (0, 0))
 
+        # draw balance text
+        balance_text = pixel_font.render(f"Balance: {player.balance}", True, (255, 255, 255))
+        screen.blit(balance_text, (10, 10))
+
         # handling events:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -107,26 +116,21 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                             1] + pause_button_image.get_height()):
                     pause_screen(screen, resolution, player, map_layout, interface_w_save, interface_no_save)
 
-
         # Check if it's time to spawn a new chest
-        current_time_chest = pygame.time.get_ticks()  
+        current_time_chest = pygame.time.get_ticks()
         if current_time_chest - last_chest_spawn_time > chest_spawn_interval:
             if random.random() < chest_spawn_probability:  # Check if chest should spawn based on probability
                 chest = Chest()  # Create a new Chest object
                 chest.spawn(screen)  # Set its position and draw it
                 chest_group.add(chest)  # Add it to the chest group
             last_chest_spawn_time = current_time_chest  # Update the last chest spawn time
-        
+
         # Draw all chests
         for chest in chest_group:
             chest.spawn(screen)
             if chest.rect.colliderect(player.rect):
-                chest.open(screen,enemies,spawn_chances, player)
+                chest.open(screen, enemies, spawn_chances, player)
                 chest_group.remove(chest)
-
-        
-
-
 
         # Check if it's time to spawn a powerup
         current_time_powerup = pygame.time.get_ticks()
@@ -154,7 +158,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                     if powerup != DeSpawner():
                         powerup.affect_player(screen, player)
                     else:
-                        powerup.affect_game(screen,enemies,spawn_chances,player)
+                        powerup.affect_game(screen, enemies, spawn_chances, player)
                     # remove the powerup from the group
                     powerup_group.remove(powerup)
                 else:
@@ -201,6 +205,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                 bullet.kill()
                 if enemy.health <= 0:
                     enemy.kill()
+                    player.balance += 5
 
         # checking for collisions between player_related and enemies
         for enemy in enemies:

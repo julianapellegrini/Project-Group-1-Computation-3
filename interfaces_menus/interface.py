@@ -12,6 +12,7 @@ from save_system.check_save import check_save_file
 scroll = 0
 bg_images = []
 
+
 def load_backgrounds():
     global bg_images
     for i in range(1, 6):
@@ -28,6 +29,7 @@ def draw_bg(screen):
         for bg_image in bg_images:
             screen.blit(bg_image, ((x * bg_width) - scroll * speed, 0))
             speed += 0.3
+
 
 def start_screen(player):
     global scroll
@@ -73,9 +75,7 @@ def start_screen(player):
         pygame.display.update()
 
 
-
 def interface_no_save(player):
-
     global scroll
 
     # creating the screen at the set resolution
@@ -93,11 +93,14 @@ def interface_no_save(player):
                          image=button_sprite)
     rules_button = Button(center_x - 75, 350, 140, 60, "Rules", brown, "fonts/Grand9KPixel.ttf", 25, True, light_brown,
                           image=button_sprite)
-    options_button = Button(center_x - 75, 430, 140, 60, "Options", brown, "fonts/Grand9KPixel.ttf", 24, True, light_brown,
+    options_button = Button(center_x - 75, 430, 140, 60, "Options", brown, "fonts/Grand9KPixel.ttf", 24, True,
+                            light_brown,
                             image=button_sprite)
-    credits_button = Button(center_x - 75, 510, 140, 60, "Credits", brown, "fonts/Grand9KPixel.ttf", 26, True, light_brown,
+    credits_button = Button(center_x - 75, 510, 140, 60, "Credits", brown, "fonts/Grand9KPixel.ttf", 26, True,
+                            light_brown,
                             image=button_sprite)
-    quit_button = Button(center_x - 75, 590, 140, 60, "Quit", brown, "fonts/Grand9KPixel.ttf", 28, True, light_brown, image=button_sprite)
+    quit_button = Button(center_x - 75, 590, 140, 60, "Quit", brown, "fonts/Grand9KPixel.ttf", 28, True, light_brown,
+                         image=button_sprite)
 
     while True:
 
@@ -173,7 +176,6 @@ def interface_no_save(player):
 
 
 def interface_w_save(player):
-
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
 
@@ -187,17 +189,22 @@ def interface_w_save(player):
     center_x = resolution[0] // 2
 
     # initialize buttons
-    load_game_button = Button(center_x - 75, 230, 150, 60, "Load Game", brown, "fonts/Grand9KPixel.ttf", 35, True, light_brown,
+    load_game_button = Button(center_x - 75, 230, 150, 60, "Load Game", brown, "fonts/Grand9KPixel.ttf", 35, True,
+                              light_brown,
                               image=button_sprite)
-    new_game_button = Button(center_x - 75, 311, 150, 60, "New Game", brown, "fonts/Grand9KPixel.ttf", 35, True, light_brown,
+    new_game_button = Button(center_x - 75, 311, 150, 60, "New Game", brown, "fonts/Grand9KPixel.ttf", 35, True,
+                             light_brown,
                              image=button_sprite)
     rules_button = Button(center_x - 75, 350, 140, 60, "Rules", brown, "fonts/Grand9KPixel.ttf", 25, True, light_brown,
                           image=button_sprite)
-    options_button = Button(center_x - 75, 430, 140, 60, "Options", brown, "fonts/Grand9KPixel.ttf", 24, True, light_brown,
+    options_button = Button(center_x - 75, 430, 140, 60, "Options", brown, "fonts/Grand9KPixel.ttf", 24, True,
+                            light_brown,
                             image=button_sprite)
-    credits_button = Button(center_x - 75, 510, 140, 60, "Credits", brown, "fonts/Grand9KPixel.ttf", 26, True, light_brown,
+    credits_button = Button(center_x - 75, 510, 140, 60, "Credits", brown, "fonts/Grand9KPixel.ttf", 26, True,
+                            light_brown,
                             image=button_sprite)
-    quit_button = Button(center_x - 75, 590, 140, 60, "Quit", brown, "fonts/Grand9KPixel.ttf", 28, True, light_brown, image=button_sprite)
+    quit_button = Button(center_x - 75, 590, 140, 60, "Quit", brown, "fonts/Grand9KPixel.ttf", 28, True, light_brown,
+                         image=button_sprite)
 
     # set save manager
     save_manager = SaveManager()
@@ -344,19 +351,18 @@ def credits_():
             # drawing the back button
             back_button.draw(screen, mouse)
 
-            screen.blit(textbg,textbg_rect)
+            screen.blit(textbg, textbg_rect)
 
         # drawing the back button
         back_button.draw(screen, mouse)
 
-        screen.blit(textbg,textbg_rect)
+        screen.blit(textbg, textbg_rect)
 
         # updating the display
         pygame.display.update()
 
 
 def rules_(player):
-
     global scroll
 
     # loading the rules screen
@@ -405,8 +411,8 @@ def rules_(player):
                 power_desc(player)
 
             # Clear the button's previous position
-            #previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
-            #screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
+            # previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
+            # screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
 
             # draw bg, rules and title text
             screen.blit(textbg, textbg_rect)
@@ -440,7 +446,6 @@ def rules_(player):
 
 
 def power_desc(player):
-
     global scroll
 
     # loading the powerup screen
@@ -483,7 +488,7 @@ def power_desc(player):
                 return
 
             # Clear the button's previous position
-            #previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
+            # previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
             screen.blit(textbg, textbg_rect)
             screen.blit(power, power_rect)
             screen.blit(text, text_rect)
@@ -508,7 +513,6 @@ def power_desc(player):
 
 
 def settings(player):
-
     global scroll
 
     # loading the powerup screen

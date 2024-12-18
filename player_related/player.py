@@ -38,6 +38,9 @@ class Player(pygame.sprite.Sprite):
         # Player has an inventory
         self.inventory = Inventory()
 
+        # Player has currency
+        self.balance = 0
+
         # Weapons
         self.weapon = Snowball()  # default weapon
 
