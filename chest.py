@@ -96,7 +96,10 @@ class Chest(pygame.sprite.Sprite):
                         for rect, option in option_rects:
                             if rect.collidepoint(mouse_pos):
                                 if option in self.weapons:
-                                    player.weapon = option
+                                    if option == "Slingshot":
+                                        player.weapon = Slingshot()
+                                    elif option == "Snowball":
+                                        player.weapon = Snowball()
                                     print(f"Player weapon changed to {option}")
                                 elif option in self.powerups:
                                     if option == "Despawner":
