@@ -12,7 +12,7 @@ class DeSpawner(PowerUp):
         self.reduction_factor = 0.5
         self.active = False
         self.start_time = None
-        self.duration = 5  # Duration for which the power-up is active
+
 
     def affect_player(self, surface, player):
         pass
@@ -40,11 +40,14 @@ class DeSpawner(PowerUp):
         if self.active and time.time() - self.start_time >= self.duration:
             self.deactivate(spawn_chances)
 
-    def deactivate(self, spawn_chances):
+    def deactivate(self, spawn_chances,player):
         self.active = False
         # Restore the original spawn rates
         for enemy_type in spawn_chances:
             spawn_chances[enemy_type] /= self.reduction_factor
+        print("DeSpawner deactivated")
+        player.image = player_image_normal
+        
 
     def __repr__(self):
         return "DeSpawner"

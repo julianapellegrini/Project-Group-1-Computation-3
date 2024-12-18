@@ -19,7 +19,8 @@ class Extra_Fish(PowerUp):
     def deactivate(self, player):
         self.active = False
         player.extra_fish = False
-        pygame.image = player_image_normal
+        player.image = player_image_normal
+        print("Extra Fish deactivated")
 
     # For open chest method
     def __repr__(self):

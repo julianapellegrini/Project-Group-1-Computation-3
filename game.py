@@ -82,7 +82,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     chest_spawn_interval = 3000 # 20% to chance every 20 seconds
     last_chest_spawn_time = pygame.time.get_ticks()
     chest_group = pygame.sprite.Group()
-    chest_spawn_probability = 1.00  # 5% chance to spawn a chest every x seconds
+    chest_spawn_probability = 0.2  # 5% chance to spawn a chest every x seconds
 
     # MAIN GAME LOOP
     running = True
@@ -129,8 +129,8 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
 
 
         # Check if it's time to spawn a powerup
-        current_time_powerup = pygame.time.get_ticks()
-        if current_time_powerup - last_powerup_spawn_time >= powerup_spawn_interval:
+        current_time_powerup_icon = pygame.time.get_ticks()
+        if current_time_powerup_icon - last_powerup_spawn_time >= powerup_spawn_interval:
             # use select_powerup() to get a powerup
             new_powerup = select_powerup()
             # clear the powerup group and add the new powerup
@@ -140,15 +140,17 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
             for powerup in powerup_group:
                 powerup.spawn(screen)
             # set the last powerup spawn time to the current time
-            last_powerup_spawn_time = current_time_powerup
+            last_powerup_spawn_time = current_time_powerup_icon
 
+        current_time_powerup = pygame.time.get_ticks()
         for powerup in powerup_group:
             # draw the powerup on the screen
             powerup.spawn(screen)
             if powerup.rect.colliderect(player.rect):
                 if player.powerup is None:
                     # start timer
-                    player.powerup_start = time.time()
+
+                    player.powerup_start = pygame.time.get_ticks()
                     # set player powerup to the powerup and affect the player and game
                     player.powerup = powerup
                     if powerup != DeSpawner():
@@ -159,6 +161,14 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                     powerup_group.remove(powerup)
                 else:
                     print("Player already has a powerup")
+
+        if player.powerup and current_time_powerup - player.powerup_start >= player.powerup.duration:
+            if player.powerup == DeSpawner():
+                player.powerup.deactivate(player,spawn_chances)
+            else:
+                player.powerup.deactivate(player)
+            player.powerup = None
+
 
         # automatically shoot bullets from the player_related
         player.shoot(bullets)
@@ -206,7 +216,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         for enemy in enemies:
             if pygame.sprite.collide_rect(player, enemy):
                 # If the player_related is not invincible, reduce health
-                if not player.invincible:
+                if player.powerup != Invincibility():
                     player.health -= 0.3
                 if player.health <= 0:
                     pygame.quit()

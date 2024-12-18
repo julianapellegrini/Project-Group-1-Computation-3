@@ -3,8 +3,10 @@ import math
 from player_related.bullet import Bullet
 from player_related.inventory import Inventory
 from player_related.weapons import Snowball
-from powerups.invincibility import Invincibility
+from powerups.extra_fish import Extra_Fish
+from powerups.despawner import DeSpawner
 import time
+
 
 
 # making Player a child of the Sprite class
@@ -47,11 +49,7 @@ class Player(pygame.sprite.Sprite):
         # Powerup timer
         self.powerup_start = None
 
-        # Invincibility Powerup
-        self.invincible = False
 
-        # Extra Fish Powerup
-        self.extra_fish = False
 
     # Inventory methods
 
@@ -70,7 +68,7 @@ class Player(pygame.sprite.Sprite):
     def change_weapon(self, weapon):
         self.weapon = weapon
 
-    def update(self, surface):
+    def update(self, surface,):
 
         # getting the keys input:
 
@@ -86,12 +84,7 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_d] and self.rect.right < width:
             self.rect.x += self.speed
 
-        # Powerup image
-        if self.powerup is not None:
-            # Check if the powerup has expired
-            if time.time() - self.powerup_start >= self.powerup.duration:
-                self.powerup.deactivate(self)
-                self.powerup = None
+        
 
     def shoot(self, bullets):
         """
@@ -107,7 +100,7 @@ class Player(pygame.sprite.Sprite):
                 angles = [0, math.pi, math.pi / 2, 3 * math.pi / 2]
                 
                 # If the extra fish powerup is active, add the diagonal angles
-                if self.extra_fish:
+                if self.powerup == Extra_Fish():
                     # Add angles for the corners
                     # in order: top right diagonal, top left diagonal, bottom left diagonal, top left diagonal
                     angles.extend([math.pi / 4, 3 * math.pi / 4, 5 * math.pi / 4, 7 * math.pi / 4])

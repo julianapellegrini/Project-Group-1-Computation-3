@@ -1,5 +1,6 @@
 import time
 from powerups.powerup import PowerUp
+from config import *
 
 
 class Speed_Boost(PowerUp):
@@ -26,7 +27,9 @@ class Speed_Boost(PowerUp):
     def deactivate(self, player):
         self.active = False
         player.speed /= 2
-        return
+        print("Speed Boost deactivated")
+        player.image = player_image_normal
+        
     
     # For open chest method
     def __repr__(self):
