@@ -58,6 +58,9 @@ def map_layout(player, interface_w_save, interface_no_save):
             if back_button.is_clicked(mouse, ev):
                 select_sound()
                 if confirm():
+                    pygame.mixer.music.load("audio/start-screen.mp3")
+                    pygame.mixer.music.set_volume(0.3)
+                    pygame.mixer.music.play(loops=-1)
                     choose_interface(player, interface_w_save, interface_no_save)
 
             if igloo_button.is_clicked(mouse, ev):
