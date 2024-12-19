@@ -7,7 +7,6 @@ from powerups.speed_boost import Speed_Boost
 from powerups.extra_fish import Extra_Fish
 from powerups.invincibility import Invincibility
 from interfaces_menus.pause import pause_screen
-import time
 from chest import Chest
 
 # initializing pygame
@@ -143,6 +142,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         current_time_chest = pygame.time.get_ticks()
         if current_time_chest - last_chest_spawn_time > chest_spawn_interval:
             if random.random() < chest_spawn_probability:  # Check if chest should spawn based on probability
+                chest_group.empty()  # Clear the chest group so only one chest is on screen at a time
                 chest = Chest()  # Create a new Chest object
                 chest.spawn(screen)  # Set its position and draw it
                 chest_group.add(chest)  # Add it to the chest group
@@ -192,7 +192,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         # check if the powerup has been active for the specified duration
         current_time_powerup = pygame.time.get_ticks()
         if player.powerup is not None:
-            if (current_time_powerup - player.powerup_start >= powerup_duration):
+            if current_time_powerup - player.powerup_start >= powerup_duration:
                 if isinstance(player.powerup, DeSpawner):
                     player.powerup.deactivate(spawn_chances, player)
                 else:
@@ -203,7 +203,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         player.shoot(bullets)
 
         # spawn enemies
-        if enemy_cooldown <= 0 and current_enemies < 10:
+        if enemy_cooldown <= 0 and current_enemies < 5:
             enemy_type = random.choices(list(spawn_chances.keys()), list(spawn_chances.values()))[0]
             enemy = enemy_type()
             enemies.add(enemy)
