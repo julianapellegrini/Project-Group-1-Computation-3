@@ -59,6 +59,8 @@ def village(player, map_layout):
             player.rect.left = width - player.rect.width
             return "map"
 
+        print(player.weapon)
+
         # draw the player
         pygame.draw.rect(screen, bice_blue, player.rect)
 

@@ -8,7 +8,6 @@ from powerups.despawner import DeSpawner
 import time
 
 
-
 # making Player a child of the Sprite class
 class Player(pygame.sprite.Sprite):
 
@@ -24,10 +23,10 @@ class Player(pygame.sprite.Sprite):
 
         # we call surface to represent the player_related image
         self.image = player_image_normal  # Default image no powerup
-        self.image = pygame.transform.scale(self.image, (player_size[0] , player_size[-1] ))
+        self.image = pygame.transform.scale(self.image, (player_size[0], player_size[-1]))
 
         # drawing the image of the player_related
-        
+
         self.rect = self.image.get_rect()
         self.rect.center = (width // 2, height // 2)
 
@@ -36,6 +35,10 @@ class Player(pygame.sprite.Sprite):
         self.speed = 6
         self.health = 100
         self.bullet_cooldown = 0
+
+        # Level
+
+        self.level = 1
 
         # Player has an inventory
         self.inventory = Inventory()
@@ -51,8 +54,6 @@ class Player(pygame.sprite.Sprite):
 
         # Powerup timer
         self.powerup_start = None
-
-
 
     # Inventory methods
 
@@ -71,7 +72,7 @@ class Player(pygame.sprite.Sprite):
     def change_weapon(self, weapon):
         self.weapon = weapon
 
-    def update(self, surface,):
+    def update(self, surface, ):
 
         # getting the keys input:
 
@@ -87,8 +88,6 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_d] and self.rect.right < width:
             self.rect.x += self.speed
 
-        
-
     def shoot(self, bullets):
         """
 
@@ -101,7 +100,7 @@ class Player(pygame.sprite.Sprite):
                 # defining the directions in which the bullets will fly
                 # these 4 directions are, in order, right, left, up, down
                 angles = [0, math.pi, math.pi / 2, 3 * math.pi / 2]
-                
+
                 # If the extra fish powerup is active, add the diagonal angles
                 if self.powerup == Extra_Fish():
                     # Add angles for the corners
@@ -149,5 +148,3 @@ class Normal_Penguin(Player):
         self.image = pygame.image.load('images/normal_penguin_image.png')
         self.image = pygame.transform.scale(self.image, player_size)
         self.speed = 8
-
-

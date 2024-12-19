@@ -2,10 +2,9 @@ from utils import *
 from config import *
 from interfaces_menus.button import Button, select_sound
 from player_related.weapons import Snowball, Slingshot
-from player_related.player import Player
 
 
-def weapon_selector():
+def weapon_selector(player):
 
     # set background
     background = pygame.image.load("images/weapon_selector_background.png")
@@ -34,9 +33,6 @@ def weapon_selector():
 
     # tracker for current weapon
     selector_current = 0
-
-    # player_related instance to add weapon
-    player = Player()
 
     # set running
     running = True
