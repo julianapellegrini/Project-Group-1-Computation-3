@@ -123,7 +123,6 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         enemy_defeated_text = pixel_font_small.render(f"Enemies defeated: {enemies_defeated}", True, oxford_blue)
         screen.blit(enemy_defeated_text, (10, 110))
 
-
         # handling events:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -181,7 +180,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                     else:
                         powerup.affect_game(enemies, spawn_chances, player)
                         player.powerup = powerup
-                        
+
                     # remove the powerup from the group
                     powerup_group.remove(powerup)
                 else:
@@ -196,13 +195,12 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                 else:
                     player.powerup.deactivate(player)
                 player.powerup = None
-                
 
-        # automatically shoot bullets from the player_related
+        # automatically shoot bullets from the player
         player.shoot(bullets)
 
         # spawn enemies
-        if enemy_cooldown <= 0:
+        if enemy_cooldown <= 0 and current_enemies < 10:
             enemy_type = random.choices(list(spawn_chances.keys()), list(spawn_chances.values()))[0]
             enemy = enemy_type()
             enemies.add(enemy)
