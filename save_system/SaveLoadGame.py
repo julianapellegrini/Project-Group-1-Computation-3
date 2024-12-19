@@ -15,4 +15,4 @@ class SaveManager:
         # get inventory data from save file
         with open(self.save_file, "r") as file:
             self.player_data = [eval(line) for line in file]
-        return self.player_data[-1] if self.player_data else None
+        return self.player_data
