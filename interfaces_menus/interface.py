@@ -70,7 +70,8 @@ def start_screen(player):
                 pygame.quit()
                 return
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                interface_no_save(player)  # Transition to next screen
+                choose_interface(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
+                # Transition to next screen
 
         pygame.display.update()
 
@@ -189,10 +190,10 @@ def interface_w_save(player):
     center_x = resolution[0] // 2
 
     # initialize buttons
-    load_game_button = Button(center_x - 75, 230, 150, 60, "Load Game", brown, "fonts/Grand9KPixel.ttf", 35, True,
+    load_game_button = Button(center_x - 155, 270, 150, 70, "Load Game", brown, "fonts/Grand9KPixel.ttf", 19, True,
                               light_brown,
                               image=button_sprite)
-    new_game_button = Button(center_x - 75, 311, 150, 60, "New Game", brown, "fonts/Grand9KPixel.ttf", 35, True,
+    new_game_button = Button(center_x + 5, 270, 150, 70, "New Game", brown, "fonts/Grand9KPixel.ttf", 21, True,
                              light_brown,
                              image=button_sprite)
     rules_button = Button(center_x - 75, 350, 140, 60, "Rules", brown, "fonts/Grand9KPixel.ttf", 25, True, light_brown,
