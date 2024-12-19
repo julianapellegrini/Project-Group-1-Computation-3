@@ -252,7 +252,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                 if not isinstance(player.powerup, Invincibility):
                     player.health -= 0.3
                 if player.health <= 0:
-                    pygame.quit()
+                    map_layout(player, interface_w_save, interface_no_save)
                     return
 
         # draw health bars
@@ -263,14 +263,23 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         # draw the pause button
         screen.blit(pause_button_image, pause_button_position)
 
-        # update display
-        pygame.display.flip()
-
         # Update timer
         if seconds == 59:
             minutes += 1
             seconds = 0
         else:
             seconds += 1 / fps
+
+        # END GAME CONDITIONS
+        # MAKE IT DEPEND ON THE LEVEL LATER
+        if enemies_defeated >= 20 or minutes >= 3:
+            player.balance += coins_earned
+            player.level += 1
+            player.health = 100
+            map_layout(player, interface_w_save, interface_no_save)
+            return
+
+        # update display
+        pygame.display.flip()
 
     pygame.quit()
