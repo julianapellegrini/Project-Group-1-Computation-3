@@ -73,6 +73,9 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     # Enemies defeated
     enemies_defeated = 0
 
+    # Coins earned
+    coins_earned = 0
+
     # Current enemies on screen to establish a limit
     current_enemies = 0
 
@@ -111,9 +114,9 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         # setting up the background
         screen.blit(background, (0, 0))
 
-        # draw balance text
-        balance_text = pixel_font_small.render(f"Balance: {player.balance}", True, oxford_blue)
-        screen.blit(balance_text, (10, 10))
+        # draw coins text
+        coins_text = pixel_font_small.render(f"Coins: {coins_earned}", True, oxford_blue)
+        screen.blit(coins_text, (10, 10))
 
         # draw timer text
         timer_text = pixel_font_small.render(f"Time: {int(minutes)}:{int(seconds)}", True, oxford_blue)
@@ -238,7 +241,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                 bullet.kill()
                 if enemy.health <= 0:
                     enemy.kill()
-                    player.balance += 5
+                    coins_earned += 5
                     enemies_defeated += 1
                     current_enemies -= 1
 
