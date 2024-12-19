@@ -60,9 +60,9 @@ class Player(pygame.sprite.Sprite):
     def load_data(self, data):
         # load player data from save file
         self.inventory.items = eval(data[0])
-        self.balance = data[1]
+        self.balance = int(data[1])
         self.weapon = data[2]
-        self.level = data[3]
+        self.level = int(data[3])
 
     def add_item(self, item):
         # Add the item to the inventory

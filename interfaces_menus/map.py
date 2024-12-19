@@ -93,7 +93,7 @@ def map_layout(player, interface_w_save, interface_no_save):
             igloo_button.scale_down()
 
         # draw all buttons
-        for level_button in level_buttons:
+        for level_button in level_buttons[:player.level]:
             level_button.draw(screen, mouse)
 
         back_button.draw(screen, mouse)

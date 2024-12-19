@@ -4,7 +4,7 @@ from player_related.player import Player
 
 def main():
 
-    # start player_related instance here so save works for the whole game
+    # start player instance here so save works for the whole game
     player = Player()
 
     # pass player_related instance to the start screen
