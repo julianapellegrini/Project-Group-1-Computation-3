@@ -105,10 +105,11 @@ class Player(pygame.sprite.Sprite):
                 angles = [0, math.pi, math.pi / 2, 3 * math.pi / 2]
 
                 # If the extra fish powerup is active, add the diagonal angles
-                if self.powerup == Extra_Fish():
+                if isinstance(self.powerup, Extra_Fish):
                     # Add angles for the corners
-                    # in order: top right diagonal, top left diagonal, bottom left diagonal, top left diagonal
+                    # in order: top right diagonal, top left diagonal, bottom left diagonal, bottom right diagonal
                     angles.extend([math.pi / 4, 3 * math.pi / 4, 5 * math.pi / 4, 7 * math.pi / 4])
+                
                 for angle in angles:
                     # creating a bullet for each angle
                     bullet = Bullet(self.rect.centerx, self.rect.centery, angle)

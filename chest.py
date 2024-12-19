@@ -104,16 +104,20 @@ class Chest(pygame.sprite.Sprite):
                                 elif option in self.powerups:
                                     if option == "Despawner":
                                         powerup = DeSpawner()
-                                        powerup.affect_game(surface,enemies,spawn_rate, player) 
+                                        powerup.affect_game(enemies,spawn_rate, player)
+                                        player.powerup = powerup
                                     elif option == "Invincibility":
                                         powerup = Invincibility()
                                         powerup.affect_player(surface,player)
+                                        player.powerup = powerup
                                     elif option == "Extra Fish":
                                         powerup = Extra_Fish()
                                         powerup.affect_player(surface,player)
+                                        player.powerup = powerup
                                     elif option == "Speed Boost":
                                         powerup = Speed_Boost()
                                         powerup.affect_player(surface,player)
+                                        player.powerup = powerup
                                     print(f"Applied powerup: {option}")
                                 paused = False  # Exit the loop after selecting one item
                                 break

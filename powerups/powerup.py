@@ -4,12 +4,11 @@ import random
 
 
 class PowerUp(ABC, pygame.sprite.Sprite):
-    def __init__(self, icon_path, image_path, probability, duration):
+    def __init__(self, icon_path, image_path, probability):
         super().__init__()
         # probability of powerup appearing
         self.probability = probability
-        # duration of powerup
-        self.duration = duration
+
         # powerup state, default is inactive
         self.active = False
         # check if powerup is spawned already
