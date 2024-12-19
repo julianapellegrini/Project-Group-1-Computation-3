@@ -14,5 +14,5 @@ class SaveManager:
     def load_game(self):
         # get inventory data from save file
         with open(self.save_file, "r") as file:
-            self.player_data = [eval(line) for line in file]
+            self.player_data = [line.strip() for line in file]
         return self.player_data

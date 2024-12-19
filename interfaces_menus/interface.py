@@ -237,6 +237,7 @@ def interface_w_save(player):
                     saved_data = save_manager.load_game()
                     if saved_data:
                         player.load_data(saved_data)
+                        print(player.inventory.items)
                     map_layout(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
                 else:  # print message if no save file found
                     print("No save file found")
