@@ -60,7 +60,6 @@ class Player(pygame.sprite.Sprite):
     def load_inventory(self, items):
         self.inventory.items = items
         print("Loaded inventory:", self.inventory.items)
-
     def add_item(self, item):
         # Add the item to the inventory
         self.inventory.add_item(item)
