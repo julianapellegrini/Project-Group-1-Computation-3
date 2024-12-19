@@ -64,9 +64,21 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     pause_button_image = pygame.transform.scale(pause_button_image, (70, 70))
     pause_button_position = (resolution[0] - pause_button_image.get_width() - 10, 10)
 
-    # Balance text
+    # Game variables
+
+    # Timer variables
+    minutes = 0
+    seconds = 0
+
+    # Enemies defeated
+    enemies_defeated = 0
+
+    # Current enemies on screen to establish a limit
+    current_enemies = 0
+
+    # Fonts
     pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 50)
-    balance_text = pixel_font.render(f"Balance: {player.balance}", True, (255, 255, 255))
+    pixel_font_small = pygame.font.Font("fonts/Grand9KPixel.ttf", 20)
 
     # Settings for powerups
     powerup_spawn_interval = 10000  # every 10 seconds
@@ -76,7 +88,6 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
 
     # powerups
     powerup_types = [DeSpawner, Speed_Boost, Extra_Fish, Invincibility]
-    #powerup_types = [Extra_Fish]  # temporary while others aren't done
 
     # powerup spawn function
     def select_powerup():
@@ -101,8 +112,16 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         screen.blit(background, (0, 0))
 
         # draw balance text
-        balance_text = pixel_font.render(f"Balance: {player.balance}", True, (255, 255, 255))
+        balance_text = pixel_font_small.render(f"Balance: {player.balance}", True, oxford_blue)
         screen.blit(balance_text, (10, 10))
+
+        # draw timer text
+        timer_text = pixel_font_small.render(f"Time: {int(minutes)}:{int(seconds)}", True, oxford_blue)
+        screen.blit(timer_text, (10, 60))
+
+        # draw enemies defeated text
+        enemy_defeated_text = pixel_font_small.render(f"Enemies defeated: {enemies_defeated}", True, oxford_blue)
+        screen.blit(enemy_defeated_text, (10, 110))
 
         # handling events:
         for event in pygame.event.get():
@@ -161,7 +180,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                     else:
                         powerup.affect_game(enemies, spawn_chances, player)
                         player.powerup = powerup
-                        
+
                     # remove the powerup from the group
                     powerup_group.remove(powerup)
                 else:
@@ -176,16 +195,16 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                 else:
                     player.powerup.deactivate(player)
                 player.powerup = None
-                
 
-        # automatically shoot bullets from the player_related
+        # automatically shoot bullets from the player
         player.shoot(bullets)
 
         # spawn enemies
-        if enemy_cooldown <= 0:
+        if enemy_cooldown <= 0 and current_enemies < 10:
             enemy_type = random.choices(list(spawn_chances.keys()), list(spawn_chances.values()))[0]
             enemy = enemy_type()
             enemies.add(enemy)
+            current_enemies += 1
             enemy_cooldown = fps * 2  # Spawn every 2 seconds
 
         # Spawn a mini-boss
@@ -220,6 +239,8 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                 if enemy.health <= 0:
                     enemy.kill()
                     player.balance += 5
+                    enemies_defeated += 1
+                    current_enemies -= 1
 
         # checking for collisions between player_related and enemies
         for enemy in enemies:
@@ -241,5 +262,12 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
 
         # update display
         pygame.display.flip()
+
+        # Update timer
+        if seconds == 59:
+            minutes += 1
+            seconds = 0
+        else:
+            seconds += 1 / fps
 
     pygame.quit()

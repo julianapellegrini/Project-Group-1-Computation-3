@@ -2,7 +2,7 @@ from config import *
 import math
 from player_related.bullet import Bullet
 from player_related.inventory import Inventory
-from player_related.weapons import Snowball
+from player_related.weapons import Snowball, Slingshot
 from powerups.extra_fish import Extra_Fish
 from powerups.despawner import DeSpawner
 import time
@@ -61,8 +61,14 @@ class Player(pygame.sprite.Sprite):
         # load player data from save file
         self.inventory.items = eval(data[0])
         self.balance = int(data[1])
-        self.weapon = data[2]
         self.level = int(data[3])
+
+        # Load the weapon
+        weapon_name = data[2].split("(")[0]
+        if weapon_name == "Snowball":
+            self.weapon = Snowball()
+        else:
+            self.weapon = Slingshot()
 
     def add_item(self, item):
         # Add the item to the inventory
