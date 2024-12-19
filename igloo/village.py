@@ -62,7 +62,7 @@ def village(player, map_layout):
         print(player.weapon)
 
         # draw the player
-        pygame.draw.rect(screen, bice_blue, player.rect)
+        screen.blit(player.image, player.rect)
 
         # update the display
         pygame.display.flip()
