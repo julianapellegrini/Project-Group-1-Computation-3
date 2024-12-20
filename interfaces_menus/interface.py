@@ -290,6 +290,15 @@ def credits_():
     textbg = pygame.transform.scale(textbg, (520, 620))
     textbg_rect = textbg.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
+    credit = pygame.image.load('images/credit.png')
+    credit = pygame.transform.scale(credit, (500, 600))
+    credit_rect = credit.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
+
+    # set font
+    pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 50)
+    text = pixel_font.render("CREDITS", True, brown)
+    text_rect = text.get_rect(center=(600, 100))
+
     while True:
 
         # display background
@@ -320,11 +329,15 @@ def credits_():
             back_button.draw(screen, mouse)
 
             screen.blit(textbg, textbg_rect)
+            screen.blit(credit, credit_rect)
+            screen.blit(text, text_rect)
 
         # drawing the back button
         back_button.draw(screen, mouse)
 
         screen.blit(textbg, textbg_rect)
+        screen.blit(credit, credit_rect)
+        screen.blit(text, text_rect)
 
         # updating the display
         pygame.display.update()
