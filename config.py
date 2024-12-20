@@ -42,3 +42,8 @@ penguin_infinity_stone = pygame.image.load('powerup_images/despawner_image.png')
 player_image_powered = pygame.transform.scale(player_image_powered, player_size)
 player_image_normal = pygame.transform.scale(player_image_normal, player_size)
 penguin_infinity_stone = pygame.transform.scale(penguin_infinity_stone, (player_size[0] + 100, player_size[-1] + 100))
+
+# DEFAULT AUDIO VALUES
+MUSIC_VOLUME = 0.3
+SOUND_VOLUME = 0.2
+
