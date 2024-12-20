@@ -2,6 +2,7 @@ from igloo.fish_info_screen import fish_info_screen
 from interfaces_menus.interface import *
 from interfaces_menus.button import Button, select_sound
 import coin_tracker
+from player_related import player
 
 
 def shop_layout():
@@ -59,7 +60,7 @@ def shop_layout():
                 return
             if fish_info_button.is_clicked(mouse, ev):
                 select_sound()
-                fish_info_screen()
+                fish_info_screen(player)
 
             # clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)

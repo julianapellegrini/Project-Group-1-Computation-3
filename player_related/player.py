@@ -12,7 +12,6 @@ ptypes = ['gray', 'brown', 'eyebrow']  # just for reference
 
 # making Player a child of the Sprite class
 class Player(pygame.sprite.Sprite):
-
     def __init__(self, ptype):
         # calling the mother class' init
         super().__init__()
@@ -80,8 +79,11 @@ class Player(pygame.sprite.Sprite):
         # counter so we can cycle through the images for movement
         self.animation_counter = 0
 
-    # Inventory methods
+    # Inventory of fish caught
+    def add_fish(self, fish):
+        self.inventory.add_item(fish)
 
+    # Inventory methods
     def load_data(self, data):
         # load player data from save file
         self.inventory.items = eval(data[0])
