@@ -1,11 +1,9 @@
 from igloo.fish_info_screen import fish_info_screen
 from interfaces_menus.interface import *
 from interfaces_menus.button import Button, select_sound
-import coin_tracker
-from player_related import player
 
 
-def shop_layout():
+def shop_layout(player):
 
     # initializing pygame
     pygame.init()
@@ -42,7 +40,7 @@ def shop_layout():
         screen.blit(coin_image, (505, 310))
 
         # Showing the text of total coins
-        total_coins_text = pixel_font.render(f"{coin_tracker.get_total_coins()}", True, oxford_blue)
+        total_coins_text = pixel_font.render(f"{player.balance}", True, oxford_blue)
         screen.blit(total_coins_text, (630, 312))
 
         # get player_related's mouse position

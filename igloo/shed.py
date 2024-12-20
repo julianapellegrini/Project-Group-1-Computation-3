@@ -66,7 +66,7 @@ def shed(player):
 
             if shop_button.is_clicked(mouse, ev):
                 select_sound()
-                shop_layout()
+                shop_layout(player)
 
             if table_button.is_clicked(mouse, ev):
                 select_sound()
