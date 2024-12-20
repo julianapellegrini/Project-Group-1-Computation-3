@@ -32,8 +32,8 @@ def fish_info_screen(player):
     clownfish_image = pygame.transform.scale(clownfish_image, (100, 100))
 
     # set up back button
-    back_button = Button(950, 600, 200, 100, "Back", None, "fonts/Grand9KPixel.ttf", 45, True, bice_blue,
-                         image="images/ice-banner.png")
+    back_button = Button(950, 600, 200, 100, "Back", brown, "fonts/Grand9KPixel.ttf", 30, True, light_brown,
+                         image="images/Wood-button1.png")
 
     # font for text
     pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 30)
@@ -83,6 +83,12 @@ def fish_info_screen(player):
             if back_button.is_clicked(mouse, ev):
                 select_sound()
                 return
+
+            # putting visual effects on buttons
+            if back_button.is_hovered(pygame.mouse.get_pos()):
+                back_button.scale_up()
+            else:
+                back_button.scale_down()
 
         # Draw back button
         back_button.draw(screen, mouse)
