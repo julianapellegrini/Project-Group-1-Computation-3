@@ -17,10 +17,13 @@ def shop_layout(player):
                          image="images/Wood-button1.png")
 
     fish_info_button = Button(338, 434, 100, 100, "", None, "fonts/Grand9KPixel.ttf", 45, True, bice_blue,
-                              image="images/packet_fishes.png")
+                              image="images_shop/packet_fishes.png")
 
     weapon_button = Button(830, 320, 100, 100, "", None, "fonts/Grand9KPixel.ttf", 45, True, bice_blue,
-                           image="images/icon_weapon.png")
+                           image="images_shop/icon_weapon.png")
+
+    improve_combat_button = Button(331, 310, 100, 100, "", None, "fonts/Grand9KPixel.ttf", 45, True, bice_blue,
+                           image="images_shop/combat_improvements.png")
 
     # load coin image
     coin_image = pygame.image.load("images/snowflake_coin.png")
@@ -68,6 +71,9 @@ def shop_layout(player):
             if weapon_button.is_clicked(mouse, ev):
                 select_sound()
                 weapon_shop(player)
+            if improve_combat_button.is_clicked(mouse, ev):
+                select_sound()
+                improve_combat_screen(player)
 
             # clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
@@ -75,7 +81,7 @@ def shop_layout(player):
             screen.blit(background, previous_rect, previous_rect)
 
             # putting visual effects on buttons
-            for button in [back_button, fish_info_button, weapon_button]:
+            for button in [back_button, fish_info_button, weapon_button, improve_combat_button]:
                 if button.is_hovered(pygame.mouse.get_pos()):
                     button.scale_up()
                 else:
@@ -88,6 +94,7 @@ def shop_layout(player):
         back_button.draw(screen, mouse)
         fish_info_button.draw(screen, mouse)
         weapon_button.draw(screen, mouse)
+        improve_combat_button.draw(screen, mouse)
 
         # update the display
         pygame.display.update()
