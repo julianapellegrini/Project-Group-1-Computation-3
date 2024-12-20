@@ -3,7 +3,6 @@ from interfaces_menus.button import Button, select_sound
 from interfaces_menus.confirm_screen import confirm
 from game import game_loop
 from igloo.village import area
-import pygame
 from config import *
 from interfaces_menus.levels import Level
 
@@ -19,24 +18,24 @@ def map_layout(player, interface_w_save, interface_no_save):
     screen = pygame.display.set_mode(resolution)
 
     # path for the images of the buttons
-    button_sprite = "images/ice-banner.png"
+    button_sprite = "images/Wood-button1.png"
     igloo_sprite = "images/igloo_button.png"
 
     # setting up the back button
-    back_button = Button(950, 600, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
+    back_button = Button(950, 600, 150, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
                          image=button_sprite)
 
     # setting up the igloo button
-    igloo_button = Button(990, 0, 190, 190, None, None, None, 35, False, None,
+    igloo_button = Button(990, 10, 170, 170, None, None, None, 35, False, None,
                           image=igloo_sprite)
 
     # creating level buttons
     level_buttons = [
-        Level(1, 50, 250, 100, 100, royal_blue, "images/level-button.png"),
-        Level(2, 225, 175, 100, 100, royal_blue, "images/level-button.png"),
-        Level(3, 520, 310, 100, 100, royal_blue, "images/level-button.png"),
-        Level(4, 830, 200, 100, 100, royal_blue, "images/level-button.png"),
-        Level(5, 610, 30, 100, 100, royal_blue, "images/level-button.png")
+        Level(1, 50, 250, 100, 100, brown, "images/level-button.png"),
+        Level(2, 225, 175, 100, 100, brown, "images/level-button.png"),
+        Level(3, 520, 310, 100, 100, brown, "images/level-button.png"),
+        Level(4, 830, 200, 100, 100, brown, "images/level-button.png"),
+        Level(5, 610, 30, 100, 100, brown, "images/level-button.png")
         ]
 
     while True:
