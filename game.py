@@ -63,6 +63,10 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     pause_button_image = pygame.transform.scale(pause_button_image, (70, 70))
     pause_button_position = (resolution[0] - pause_button_image.get_width() - 10, 10)
 
+    # load the image of coin
+    coin_image = pygame.image.load("images/snowflake_coin.png")
+    coin_image = pygame.transform.scale(coin_image,(25, 25))
+
     # Game variables
 
     # Timer variables
@@ -112,6 +116,10 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
 
         # setting up the background
         screen.blit(background, (0, 0))
+
+        # showing the coin
+        screen.blit(coin_image, (105, 13))
+
 
         # draw coins text
         coins_text = pixel_font_small.render(f"Coins: {coins_earned}", True, oxford_blue)
