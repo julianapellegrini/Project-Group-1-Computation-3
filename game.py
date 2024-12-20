@@ -243,7 +243,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         for bullet in bullets:
             collided_enemies = pygame.sprite.spritecollide(bullet, enemies, False)
             for enemy in collided_enemies:
-                enemy.health -= 5
+                enemy.health -= player.weapon.damage
                 bullet.kill()
                 if enemy.health <= 0:
                     enemy.kill()

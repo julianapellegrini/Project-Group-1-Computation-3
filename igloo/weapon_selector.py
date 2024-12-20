@@ -1,7 +1,8 @@
 from utils import *
 from config import *
 from interfaces_menus.button import Button, select_sound
-from player_related.weapons import Snowball, Slingshot
+from player_related.weapons import Snowball, Slingshot, Fish_bazooka, Ice_Ninja_Stars
+
 
 
 def weapon_selector(player):
@@ -29,7 +30,7 @@ def weapon_selector(player):
                          image="images/arrow_right.png")
 
     # list weapons
-    weapons = [Snowball(), Slingshot()]
+    weapons = [Snowball(), Slingshot(), Fish_bazooka(), Ice_Ninja_Stars()]
 
     # tracker for current weapon
     selector_current = 0

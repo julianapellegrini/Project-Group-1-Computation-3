@@ -4,7 +4,7 @@ from powerups.despawner import DeSpawner
 from powerups.invincibility import Invincibility
 from powerups.extra_fish import Extra_Fish
 from powerups.speed_boost import Speed_Boost
-from player_related.weapons import Snowball, Slingshot
+from player_related.weapons import Snowball, Slingshot, Fish_bazooka, Ice_Ninja_Stars
 
 class Chest(pygame.sprite.Sprite):
     def __init__(self):
@@ -121,6 +121,10 @@ class Chest(pygame.sprite.Sprite):
                                         player.weapon = Slingshot()
                                     elif option == "Snowball":
                                         player.weapon = Snowball()
+                                    elif option == "Fish Bazooka":
+                                        player.weapon = Fish_bazooka()
+                                    elif option == "Ice Ninja Stars":
+                                        player.weapon = Ice_Ninja_Stars()
                                     print(f"Player weapon changed to {option}")
                                 # If user selects a powerup, apply the powerup
                                 elif option in self.powerups:
