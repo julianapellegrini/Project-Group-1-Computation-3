@@ -1,27 +1,31 @@
 from interfaces_menus.button import Button, select_sound
 from config import *
 from utils import *
+from interfaces_menus.interface import *
+from interfaces_menus.moving_bg import *
 
-
+scroll = 0
 # function to confirm player choice
 def confirm():
 
+    global scroll
     # set screen
     screen = pygame.display.set_mode(resolution)
-
-    # scale and set background
-    background = pygame.image.load('images/menu.png')
-    background = pygame.transform.scale(background, resolution)
+    load_backgrounds()
 
     # create confirmation buttons
-    yes_button = Button(400, 300, 150, 60, "Yes", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue, image="images/ice-banner.png")
-    no_button = Button(600, 300, 150, 60, "No", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue, image="images/ice-banner.png")
+    yes_button = Button(400, 300, 150, 60, "Yes", brown, "fonts/Grand9KPixel.ttf", 35, True, light_brown, image="images/Wood-button1.png")
+    no_button = Button(600, 300, 150, 60, "No", brown, "fonts/Grand9KPixel.ttf", 35, True, light_brown, image="images/Wood-button1.png")
 
     # set font
-    pixel_font = pygame.font.SysFont("fonts/Grand9KPixel.ttf", 30)
+    pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 30)
 
     # create confirmation text
-    text = pixel_font.render("Are you sure?", True, bice_blue)
+    text = pixel_font.render("Are you sure?", True, brown)
+
+    background = pygame.image.load('images/smaller_box.png')
+    background = pygame.transform.scale(background, (750, 200))
+    background_rect = background.get_rect(center=((resolution[0] // 2) - 10, (resolution[1] // 2) - 40))
 
     # main loop
     while True:
@@ -29,8 +33,12 @@ def confirm():
         # get mouse position
         mouse = pygame.mouse.get_pos()
 
-        # draw background
-        screen.blit(background, (0, 0))
+        # display background
+        draw_bg(screen, scroll)
+        scroll += 0.5
+
+        # text bg
+        screen.blit(background, background_rect)
 
         # draw text
         text_rect = text.get_rect(center=(575, 260))

@@ -1,12 +1,12 @@
-from interfaces_menus.interface import *
 from interfaces_menus.button import Button, select_sound
-from utils import under_construction
 from igloo.village import area
 from config import *
 
 
 # creating the pause game button
 def pause_screen(screen, resolution, player, map_layout, interface_w_save, interface_no_save):
+
+    from interfaces_menus.interface import settings
 
     # load the pause button image
     pause_button = Button(resolution[0] - 90, 10, 80, 80, "", None, None, 0, False, None, 'images/pause_button.png')
@@ -28,18 +28,22 @@ def pause_screen(screen, resolution, player, map_layout, interface_w_save, inter
                         'images/map_button.png')
 
     # load the pause background image
-    background = pygame.image.load('images/pause__background.png')
-    background = pygame.transform.scale(background, resolution)
+    background1 = pygame.image.load("images/ice-background2.png")
+    background1 = pygame.transform.scale(background1, (width, height))
+
+    background = pygame.image.load('images/smaller_box.png')
+    background = pygame.transform.scale(background, (750, 200))
+    background_rect = background.get_rect(center=(resolution[0] // 2, (resolution[1] // 2) + 15))
 
     # create the confirmation buttons
-    yes_button = Button(resolution[0] // 2.5 - 100, resolution[1] // 2, 150, 60, "Yes", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue, 'images/ice-banner.png')
-    no_button = Button(resolution[0] // 2.2 + 100, resolution[1] // 2, 150, 60, "No", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue, 'images/ice-banner.png')
+    yes_button = Button(resolution[0] // 2.5 - 100, resolution[1] // 2, 150, 60, "Yes", brown, "fonts/Grand9KPixel.ttf", 30, True, light_brown, 'images/Wood-button1.png')
+    no_button = Button(resolution[0] // 2.2 + 100, resolution[1] // 2, 150, 60, "No", brown, "fonts/Grand9KPixel.ttf", 30, True, light_brown, 'images/Wood-button1.png')
 
     # set font
-    pixel_font = pygame.font.SysFont("fonts/Grand9KPixel.ttf", 50)
+    pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 30)
 
     # create confirmation text
-    text = pixel_font.render("Are you sure you want to quit?", True, bice_blue)
+    text = pixel_font.render("Are you sure you want to quit?", True, brown)
 
     # main loop to maintain the pause
     paused = True
@@ -70,7 +74,7 @@ def pause_screen(screen, resolution, player, map_layout, interface_w_save, inter
                         paused = False
                     elif setting_button.is_clicked(mouse_pos, ev):
                         select_sound()
-                        under_construction()
+                        settings(player)
                     elif igloo_button.is_clicked(mouse_pos, ev):
                         select_sound()
                         confirming = True
@@ -81,7 +85,8 @@ def pause_screen(screen, resolution, player, map_layout, interface_w_save, inter
                         action = "map"
 
         # render the pause screen
-        screen.blit(background, (0, 0))
+        screen.blit(background1, (0, 0))
+        screen.blit(background, background_rect)
 
         if confirming:
             # draw the confirmation text and buttons

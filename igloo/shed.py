@@ -25,23 +25,23 @@ def shed(player):
     save_manager = SaveManager()
 
     # setting up the buttons
-    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
-                         image="images/ice-banner.png")
+    back_button = Button(1000, 650, 150, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+                         image="images/Wood-button1.png")
 
-    shop_button = Button(460, 370, 100, 60, "Shop", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
-                         image="images/ice-banner.png")
+    shop_button = Button(460, 370, 100, 60, "Shop", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+                         image="images/Wood-button1.png")
 
-    table_button = Button(750, 600, 150, 60, "Skins", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
-                          image="images/ice-banner.png")
+    table_button = Button(750, 600, 150, 60, "Skins", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+                          image="images/Wood-button1.png")
 
-    fish_button = Button(700, 200, 150, 60, "Fishing Hole", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
-                         image="images/ice-banner.png")
+    fish_button = Button(700, 200, 150, 60, "Fishing Hole", brown, "fonts/Grand9KPixel.ttf", 18, True, light_brown,
+                         image="images/Wood-button1.png")
 
-    weapons_button = Button(850, 455, 150, 60, "Weapons", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
-                            image="images/ice-banner.png")
+    weapons_button = Button(850, 455, 150, 60, "Weapons", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+                            image="images/Wood-button1.png")
 
-    save_game_button = Button(662, 364, 150, 60, "Save Game", None, "fonts/Grand9KPixel.ttf", 20, True, bice_blue,
-                              image="images/ice-banner.png")
+    save_game_button = Button(662, 364, 150, 60, "Save Game", brown, "fonts/Grand9KPixel.ttf", 18, True, light_brown,
+                              image="images/Wood-button1.png")
 
     running = True
 

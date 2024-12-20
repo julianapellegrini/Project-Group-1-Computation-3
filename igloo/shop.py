@@ -14,8 +14,8 @@ def shop_layout():
     screen = pygame.display.set_mode(resolution)
 
     # setting up buttons
-    back_button = Button(950, 600, 200, 100, "Back", None, "fonts/Grand9KPixel.ttf", 45, True, bice_blue,
-                         image="images/ice-banner.png")
+    back_button = Button(950, 600, 200, 100, "Back", brown, "fonts/Grand9KPixel.ttf", 30, True, light_brown,
+                         image="images/Wood-button1.png")
 
     fish_info_button = Button(300, 300, 200, 100, "", None, "fonts/Grand9KPixel.ttf", 45, True, bice_blue,
                               image="images/packet_fishes.png")

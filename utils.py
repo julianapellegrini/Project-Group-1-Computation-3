@@ -1,5 +1,5 @@
-import pygame
-from config import resolution, white, dark_red
+from config import *
+
 
 
 # Function to draw a stick figure with a construction hat
@@ -168,3 +168,4 @@ def under_construction():
 
         # finally, as always, updating our screen
         pygame.display.update()
+

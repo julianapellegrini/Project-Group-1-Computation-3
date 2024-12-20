@@ -19,10 +19,10 @@ def fishing(player):
     clock = pygame.time.Clock()
 
     # setting up the buttons
-    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
-                         image="images/ice-banner.png")
-    fish_button = Button(700, 200, 150, 60, "Fish", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
-                         image="images/ice-banner.png")
+    back_button = Button(1000, 650, 150, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 35, True, light_brown,
+                         image="images/Wood-button1.png")
+    fish_button = Button(700, 200, 150, 60, "Fish", brown, "fonts/Grand9KPixel.ttf", 35, True, light_brown,
+                         image="images/Wood-button1.png")
 
     # game loop
     running = True
