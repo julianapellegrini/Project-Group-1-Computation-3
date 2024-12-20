@@ -65,33 +65,55 @@ class Chest(pygame.sprite.Sprite):
         # Display the overlay
         surface.blit(overlay, (0, 0))
 
-        # Display the options
-        font = pygame.font.Font(None, 36)
-        text_y = 100
-        option_rects = []
+        # Define dimensions for images and their positions
+        option_width = 150
+        option_height = 150
+        padding = 20
+        total_width = len(self.options) * (option_width + padding) - padding
+        start_x = (surface.get_width() - total_width) // 2
+        y_position = (surface.get_height() - option_height) // 2 - 50  # Offset upward for names
+
+        # Load and display the options as images
+        option_images = []
         for option in self.options:
+            image_path = f"chest_option_images/{option.lower().replace(' ', '_')}.png"  # Example image naming convention
+            option_image = pygame.image.load(image_path).convert_alpha()
+            option_image = pygame.transform.scale(option_image, (option_width, option_height))
+            option_images.append(option_image)
+
+        option_rects = []
+        font = pygame.font.Font(None, 36)
+        for i, (option_image, option) in enumerate(zip(option_images, self.options)):
+            # Calculate x position for this option
+            x_position = start_x + i * (option_width + padding)
+
+            # Draw the option image
+            surface.blit(option_image, (x_position, y_position))
+
+            # Draw the option name below the image
             text = font.render(option, True, (255, 255, 255))
-            text_rect = text.get_rect(topleft=(100, text_y))
-            option_rects.append((text_rect, option))
-            surface.blit(text, text_rect.topleft)
-            text_y += 50
+            text_rect = text.get_rect(center=(x_position + option_width // 2, y_position + option_height + 20))
+            surface.blit(text, text_rect)
+
+            # Save the clickable area (the image)
+            option_rects.append(pygame.Rect(x_position, y_position, option_width, option_height))
 
         # Update the display
         pygame.display.flip()
 
-        # Wait for the player to collect the items
+        # Wait for the player to select an item
         while paused:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:  # Press Enter to continue
+                    if event.key == pygame.K_RETURN:  # Press Enter to continue without selecting
                         paused = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:  # Left mouse button
                         mouse_pos = event.pos
-                        for rect, option in option_rects:
+                        for rect, option in zip(option_rects, self.options):
                             if rect.collidepoint(mouse_pos):
                                 # If user selects a weapon, change the player's weapon
                                 if option in self.weapons:
@@ -121,10 +143,12 @@ class Chest(pygame.sprite.Sprite):
                                     # Set the start time for the powerup
                                     player.powerup_start = pygame.time.get_ticks()
                                     print(f"Applied powerup: {option}")
-                                paused = False  # Exit the loop after selecting one item
+                                paused = False  # Exit the loop after selecting an item
                                 break
-                    if not paused:
-                        break  # Exit the outer loop as well
+                        if not paused:
+                            break  # Exit the outer loop as well
+
+
 
     # Method to use when actually colliding with the chest
     def open(self, surface, enemies, spawn_chances, player):

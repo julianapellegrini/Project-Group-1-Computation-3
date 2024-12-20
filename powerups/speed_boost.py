@@ -2,12 +2,14 @@ import pygame
 from powerups.powerup import PowerUp
 from config import *
 
+
 class Speed_Boost(PowerUp):
     def __init__(self):
         super().__init__('powerup_images/speed_boost_icon.png', 'powerup_images/despawner_image.png', 0.3)
         self.active = False
         self.start_time = None
         self.duration = 5  # Duration for which the power-up is active
+        
 
     def affect_player(self, surface, player):
         # Activate the power-up
