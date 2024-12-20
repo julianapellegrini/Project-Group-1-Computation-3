@@ -8,6 +8,7 @@ from powerups.extra_fish import Extra_Fish
 from powerups.invincibility import Invincibility
 from interfaces_menus.pause import pause_screen
 from chest import Chest
+import coin_tracker
 
 # initializing pygame
 pygame.init()
@@ -284,6 +285,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
             player.balance += coins_earned
             player.level += 1
             player.health = 100
+            coin_tracker.add_coins(coins_earned) # update the total coins accumulated
             map_layout(player, interface_w_save, interface_no_save)
             return
 

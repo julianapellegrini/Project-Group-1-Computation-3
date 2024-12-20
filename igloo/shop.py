@@ -1,5 +1,6 @@
 from interfaces_menus.interface import *
 from interfaces_menus.button import Button, select_sound
+import coin_tracker
 
 
 def shop_layout():
@@ -14,6 +15,13 @@ def shop_layout():
     back_button = Button(950, 600, 200, 100, "Back", None, "fonts/Grand9KPixel.ttf", 45, True, bice_blue,
                          image="images/ice-banner.png")
 
+    # load coin image
+    coin_image = pygame.image.load("images/snowflake_coin.png")
+    coin_image = pygame.transform.scale(coin_image, (90, 90))
+
+    # font
+    pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 50)
+
     while True:
 
         # displaying the screen
@@ -24,6 +32,13 @@ def shop_layout():
 
         # display the background
         screen.blit(background, (0, 0))
+
+        # draw the coin image
+        screen.blit(coin_image, (505, 310))
+
+        # Showing the text of total coins
+        total_coins_text = pixel_font.render(f"{coin_tracker.get_total_coins()}", True, oxford_blue)
+        screen.blit(total_coins_text, (630, 312))
 
         # get player_related's mouse position
         mouse = pygame.mouse.get_pos()
