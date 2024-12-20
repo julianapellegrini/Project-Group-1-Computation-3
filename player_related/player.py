@@ -1,11 +1,11 @@
+import pygame.image
+
 from config import *
 import math
 from player_related.bullet import Bullet
 from player_related.inventory import Inventory
 from player_related.weapons import Snowball, Slingshot
 from powerups.extra_fish import Extra_Fish
-from powerups.despawner import DeSpawner
-import time
 
 
 # making Player a child of the Sprite class
@@ -21,9 +21,29 @@ class Player(pygame.sprite.Sprite):
         # (FAIL) character = pygame.image.load("images/girl.jpeg")
         # FAIL self.image.blit(character)
 
-        # we call surface to represent the player_related image
-        self.image = player_image_normal  # Default image no powerup
-        self.image = pygame.transform.scale(self.image, (player_size[0], player_size[-1]))
+        # Load images for different directions and to switch between them
+        self.image_up = pygame.image.load('images_penguins/grayup.png')
+        self.image_d_stop = pygame.image.load('images_penguins/graydownstop.png')
+        self.image_d_1 = pygame.image.load('images_penguins/graydown1.png')
+        self.image_d_2 = pygame.image.load('images_penguins/graydown2.png')
+        self.image_l_1 = pygame.image.load('images_penguins/grayleft1.png')
+        self.image_l_2 = pygame.image.load('images_penguins/grayleft2.png')
+        self.image_r_1 = pygame.image.load('images_penguins/grayright1.png')
+        self.image_r_2 = pygame.image.load('images_penguins/grayright2.png')
+
+        # scaling the images
+        self.image_up = pygame.transform.scale(self.image_up, player_size)
+        self.image_d_stop = pygame.transform.scale(self.image_d_stop, player_size)
+        self.image_d_1 = pygame.transform.scale(self.image_d_1, player_size)
+        self.image_d_2 = pygame.transform.scale(self.image_d_2, player_size)
+        self.image_l_1 = pygame.transform.scale(self.image_l_1, player_size)
+        self.image_l_2 = pygame.transform.scale(self.image_l_2, player_size)
+        self.image_r_1 = pygame.transform.scale(self.image_r_1, player_size)
+        self.image_r_2 = pygame.transform.scale(self.image_r_2, player_size)
+
+        # Set the default image
+        self.image = self.image_d_stop
+        self.image = pygame.transform.scale(self.image, (player_size[0], player_size[1]))
 
         # drawing the image of the player_related
 
@@ -55,6 +75,9 @@ class Player(pygame.sprite.Sprite):
         # Powerup timer
         self.powerup_start = None
 
+        # counter so we can cycle through the images for movement
+        self.animation_counter = 0
+
     # Inventory methods
 
     def load_data(self, data):
@@ -81,21 +104,36 @@ class Player(pygame.sprite.Sprite):
     def change_weapon(self, weapon):
         self.weapon = weapon
 
-    def update(self, surface, ):
-
-        # getting the keys input:
-
+    def update(self, surface):
         keys = pygame.key.get_pressed()
 
-        # checking which keys were pressed and moving the player_related accordingly
+        # add to animation counter
+        self.animation_counter += 1
+
         if keys[pygame.K_w] and self.rect.top > 0:
             self.rect.y -= self.speed
+            if self.animation_counter % 20 < 10:
+                self.image = self.image_d_1
+            else:
+                self.image = self.image_d_2
         if keys[pygame.K_s] and self.rect.bottom < height:
             self.rect.y += self.speed
+            if self.animation_counter % 20 < 10:
+                self.image = self.image_d_1
+            else:
+                self.image = self.image_d_2
         if keys[pygame.K_a] and self.rect.left > 0:
             self.rect.x -= self.speed
+            if self.animation_counter % 20 < 10:
+                self.image = self.image_l_1
+            else:
+                self.image = self.image_l_2
         if keys[pygame.K_d] and self.rect.right < width:
             self.rect.x += self.speed
+            if self.animation_counter % 20 < 10:
+                self.image = self.image_r_1
+            else:
+                self.image = self.image_r_2
 
     def shoot(self, bullets):
         """
