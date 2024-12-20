@@ -1,35 +1,15 @@
 from utils import *  # no need to import pygame because the import is in utils
 from config import *  # importing colors and the like
-from utils import under_construction
 from interfaces_menus.map import map_layout
 from interfaces_menus.button import Button, select_sound
 from save_system.SaveLoadGame import SaveManager
 from interfaces_menus.confirm_screen import confirm
 from interfaces_menus.choose_interface import choose_interface
 from save_system.check_save import check_save_file
+from interfaces_menus.moving_bg import bg_images, draw_bg, load_backgrounds
 
 # define scroll variables
 scroll = 0
-bg_images = []
-
-
-def load_backgrounds():
-    global bg_images
-    for i in range(1, 6):
-        bg_image = pygame.image.load(f"bg/Plan{i}.png").convert_alpha()
-        bg_image = pygame.transform.scale(bg_image, resolution)
-        bg_images.append(bg_image)
-
-
-def draw_bg(screen):
-    global bg_images
-    bg_width = bg_images[0].get_width()
-    for x in range(50):
-        speed = 1
-        for bg_image in bg_images:
-            screen.blit(bg_image, ((x * bg_width) - scroll * speed, 0))
-            speed += 0.3
-
 
 def start_screen(player):
     global scroll
@@ -58,7 +38,7 @@ def start_screen(player):
         clock.tick(fps)  # Cap FPS
 
         # Draw background and update scroll
-        draw_bg(screen)
+        draw_bg(screen, scroll)
         scroll += 0.5
 
         # Display text
@@ -106,13 +86,8 @@ def interface_no_save(player):
     while True:
 
         # display background
-        draw_bg(screen)
+        draw_bg(screen, scroll)
         scroll += 0.5
-
-        # LOGO:
-        # title = pygame.image.load(wood_banner)
-        # title = pygame.transform.scale(title, (450, 120))
-        # screen.blit(title, (center_x - 225, 40))
 
         # Get mouse position
         mouse = pygame.mouse.get_pos()
@@ -213,13 +188,8 @@ def interface_w_save(player):
     while True:
 
         # display background
-        draw_bg(screen)
+        draw_bg(screen, scroll)
         scroll += 0.5
-
-        # LOGO:
-        # title = pygame.image.load(wood_banner)
-        # title = pygame.transform.scale(title, (450, 120))
-        # screen.blit(title, (center_x - 225, 40))
 
         # Get mouse position
         mouse = pygame.mouse.get_pos()
@@ -233,13 +203,13 @@ def interface_w_save(player):
             if load_game_button.is_clicked(mouse, ev):
                 select_sound()
                 # check if save file exists so game doesn't crash at load
-                if check_save_file():  # load game if save file exists
+                if check_save_file():
                     saved_data = save_manager.load_game()
                     if saved_data:
                         player.load_data(saved_data)
                         print(player.inventory.items)
                     map_layout(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
-                else:  # print message if no save file found
+                else:
                     print("No save file found")
             if new_game_button.is_clicked(mouse, ev):
                 select_sound()
@@ -323,7 +293,7 @@ def credits_():
     while True:
 
         # display background
-        draw_bg(screen)
+        draw_bg(screen, scroll)
         scroll += 0.5
 
         # getting the position of the user's mouse
@@ -339,10 +309,6 @@ def credits_():
             if back_button.is_clicked(mouse, ev):
                 select_sound()
                 return
-
-            # Clear the button's previous position
-            previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
-            #   screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
 
             # Update and draw the button
             if back_button.is_hovered(mouse):
@@ -391,7 +357,7 @@ def rules_(player):
     while True:
 
         # display background
-        draw_bg(screen)
+        draw_bg(screen, scroll)
         scroll += 0.5
 
         # getting the position of the user's mouse
@@ -412,10 +378,6 @@ def rules_(player):
                 select_sound()
                 power_desc(player)
 
-            # Clear the button's previous position
-            # previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
-            # screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
-
             # draw bg, rules and title text
             screen.blit(textbg, textbg_rect)
             screen.blit(rules, rules_rect)
@@ -432,7 +394,7 @@ def rules_(player):
             else:
                 power_button.scale_down()
 
-            back_button.draw(screen, mouse)  # Draw the button after updating
+            back_button.draw(screen, mouse)
             power_button.draw(screen, mouse)
 
         screen.blit(textbg, textbg_rect)
@@ -472,7 +434,7 @@ def power_desc(player):
     while True:
 
         # display background
-        draw_bg(screen)
+        draw_bg(screen, scroll)
         scroll += 0.5
 
         # getting the position of the user's mouse
@@ -489,8 +451,6 @@ def power_desc(player):
                 select_sound()
                 return
 
-            # Clear the button's previous position
-            # previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
             screen.blit(textbg, textbg_rect)
             screen.blit(power, power_rect)
             screen.blit(text, text_rect)
@@ -501,7 +461,7 @@ def power_desc(player):
             else:
                 back_button.scale_down()
 
-            back_button.draw(screen, mouse)  # Draw the button after updating
+            back_button.draw(screen, mouse)
 
         screen.blit(textbg, textbg_rect)
         screen.blit(power, power_rect)
@@ -531,7 +491,7 @@ def settings(player):
     while True:
 
         # display background
-        draw_bg(screen)
+        draw_bg(screen, scroll)
         scroll += 0.5
         # getting the position of the user's mouse
         mouse = pygame.mouse.get_pos()
@@ -555,7 +515,7 @@ def settings(player):
             else:
                 back_button.scale_down()
 
-            back_button.draw(screen, mouse)  # Draw the button after updating
+            back_button.draw(screen, mouse)
 
         screen.blit(textbg, textbg_rect)
 
