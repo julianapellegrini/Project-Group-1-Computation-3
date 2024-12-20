@@ -117,10 +117,6 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         # setting up the background
         screen.blit(background, (0, 0))
 
-        # showing the coin
-        screen.blit(coin_image, (105, 13))
-
-
         # draw coins text
         coins_text = pixel_font_small.render(f"Coins: {coins_earned}", True, oxford_blue)
         screen.blit(coins_text, (10, 10))

@@ -31,6 +31,10 @@ def fish_info_screen(player):
     cod_image = pygame.transform.scale(cod_image, (100, 100))
     clownfish_image = pygame.transform.scale(clownfish_image, (100, 100))
 
+    # load and scale coin image
+    coin_image = pygame.image.load("images/snowflake_coin.png")
+    coin_image = pygame.transform.scale(coin_image, (40, 40))
+
     # set up back button
     back_button = Button(950, 600, 200, 100, "Back", brown, "fonts/Grand9KPixel.ttf", 30, True, light_brown,
                          image="images/Wood-button1.png")
@@ -44,35 +48,44 @@ def fish_info_screen(player):
         clock.tick(fps)
         screen.blit(background_image, (0, 0))
 
-        # draw small fish images and quantities at the top
-        screen.blit(salmon_image_small, (50, 10))
-        screen.blit(cod_image_small, (150, 10))
-        screen.blit(clownfish_image_small, (250, 10))
+        # drawing small fish images and quantities at the top
+        fishing_bucket_text = small_font.render("Fishing bucket:", True, oxford_blue)
+        screen.blit(fishing_bucket_text, (50, 20))
+
+        screen.blit(salmon_image_small, (250, 10))
+        screen.blit(cod_image_small, (350, 10))
+        screen.blit(clownfish_image_small, (450, 10))
 
         salmon_quantity_text = small_font.render(f"{player.inventory.items['Fishes']['Salmon']}", True, oxford_blue)
         cod_quantity_text = small_font.render(f"{player.inventory.items['Fishes']['Cod']}", True, oxford_blue)
         clownfish_quantity_text = small_font.render(f"{player.inventory.items['Fishes']['ClownFish']}", True,
                                                     oxford_blue)
 
-        screen.blit(salmon_quantity_text, (110, 25))
-        screen.blit(cod_quantity_text, (210, 25))
-        screen.blit(clownfish_quantity_text, (310, 25))
+        screen.blit(salmon_quantity_text, (310, 25))
+        screen.blit(cod_quantity_text, (410, 25))
+        screen.blit(clownfish_quantity_text, (510, 25))
 
-        # Draw fish images and text
+        # drawing fish images and text in middle
         screen.blit(salmon_image, (100, 100))
         screen.blit(cod_image, (100, 250))
         screen.blit(clownfish_image, (100, 400))
 
-        salmon_text = pixel_font.render("Salmon: 10 needed for 5 coins", True, oxford_blue)
-        cod_text = pixel_font.render("Cod: 5 needed for 3 coins", True, oxford_blue)
-        clownfish_text = pixel_font.render("ClownFish: 15 needed for 10 coins", True, oxford_blue)
+        salmon_text = pixel_font.render("Salmon: 10 for 25", True, oxford_blue)
+        cod_text = pixel_font.render("Cod: 5 for 10", True, oxford_blue)
+        clownfish_text = pixel_font.render("ClownFish: 15 for 40", True, oxford_blue)
 
         screen.blit(salmon_text, (250, 130))
         screen.blit(cod_text, (250, 280))
         screen.blit(clownfish_text, (250, 430))
 
-        # Get mouse position
+        # drawing coin images next to the text
+        screen.blit(coin_image, (540, 135))
+        screen.blit(coin_image, (450, 280))
+        screen.blit(coin_image, (579, 447))
+
+        # getting the mouse position
         mouse = pygame.mouse.get_pos()
+        print(mouse)
 
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
@@ -90,7 +103,7 @@ def fish_info_screen(player):
             else:
                 back_button.scale_down()
 
-        # Draw back button
+        # drawing the back button
         back_button.draw(screen, mouse)
 
         pygame.display.update()
