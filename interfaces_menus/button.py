@@ -1,15 +1,16 @@
-import pygame
 from config import *
-
 
 def select_sound():
     # playing sound
     hover_sound = pygame.mixer.Sound("audio/button-select.mp3")
-    hover_sound.set_volume(0.2)
+    hover_sound.set_volume(Button.sound_volume)
     hover_sound.play()
 
-
 class Button:
+
+    # default volume for button sound
+    sound_volume = 0.2
+
     def __init__(self, x, y, width, height, text, color, font, font_size, outline, outline_color, image=None):
         self.x = x
         self.y = y
@@ -26,8 +27,11 @@ class Button:
         self.is_scaled = False
         self.original_size = (self.x, self.y, self.width, self.height)
 
-    def draw(self, screen, mouse):
+    @staticmethod
+    def set_sound_volume(volume):
+        Button.sound_volume = volume
 
+    def draw(self, screen, mouse):
         if self.image:
             button_image = pygame.image.load(self.image)
             button_image = pygame.transform.scale(button_image, (self.width, self.height))
@@ -50,7 +54,6 @@ class Button:
         return self.is_hovered(mouse_pos) and event.type == pygame.MOUSEBUTTONDOWN
 
     def outline_(self):
-
         text_surface1 = self.scaled_font.render(self.text, True, self.outline_color)
         text_rect1 = text_surface1.get_rect(center=((self.x + self.width // 2) - 1, self.y + self.height // 2))
 
@@ -58,7 +61,7 @@ class Button:
         text_rect2 = text_surface2.get_rect(center=((self.x + self.width // 2) + 1, self.y + self.height // 2))
 
         text_surface3 = self.scaled_font.render(self.text, True, self.outline_color)
-        text_rect3 = text_surface3.get_rect(center=(self.x + self.width // 2, (self.y + self.height // 2)+1))
+        text_rect3 = text_surface3.get_rect(center=(self.x + self.width // 2, (self.y + self.height // 2) + 1))
 
         text_surface4 = self.scaled_font.render(self.text, True, self.outline_color)
         text_rect4 = text_surface4.get_rect(center=(self.x + self.width // 2, (self.y + self.height // 2) - 1))
@@ -67,7 +70,7 @@ class Button:
         return list1
 
     def scale_up(self):
-        if not self.is_scaled:  # Only scale up if not already scaled
+        if not self.is_scaled:
             # increase in size
             new_width = self.width * 1.1
             new_height = self.height * 1.1
@@ -82,7 +85,7 @@ class Button:
 
             # playing sound
             hover_sound = pygame.mixer.Sound("audio/hover.mp3")
-            hover_sound.set_volume(0.3)
+            hover_sound.set_volume(Button.sound_volume)
             hover_sound.play()
 
             self.is_scaled = True
@@ -92,4 +95,3 @@ class Button:
             # reset to original size and position
             self.x, self.y, self.width, self.height = self.original_size
             self.is_scaled = False
-

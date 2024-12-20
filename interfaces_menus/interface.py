@@ -7,6 +7,8 @@ from interfaces_menus.confirm_screen import confirm
 from interfaces_menus.choose_interface import choose_interface
 from save_system.check_save import check_save_file
 from interfaces_menus.moving_bg import bg_images, draw_bg, load_backgrounds
+from music import Music
+from interfaces_menus.slider import Slider
 
 # define scroll variables
 scroll = 0
@@ -497,43 +499,73 @@ def settings(player):
     textbg = pygame.transform.scale(textbg, (520, 620))
     textbg_rect = textbg.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
+    # title
+    pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 40)
+    text = pixel_font.render("SOUND SETTINGS", True, brown)
+    text_rect = text.get_rect(center=(600, 100))
+
+    # music text
+    pixel_font2 = pygame.font.Font("fonts/Grand9KPixel.ttf", 20)
+    music_text = pixel_font2.render("MUSIC", True, brown)
+    music_text_rect = text.get_rect(center=(750, 250))
+
+    # sound text
+    sound_text = pixel_font2.render("SOUND EFFECTS", True, brown)
+    sound_text_rect = text.get_rect(center=(700, 450))
+
     # setting up the back button
     back_button = Button(1000, 650, 150, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
                          image="images/Wood-button1.png")
 
-    while True:
+    # Initialize sliders for volume control
+    music_slider = Slider(500, 300, 200, 20, 0, 100, 30)
+    sound_slider = Slider(500, 500, 200, 20, 0, 100, 20)
 
+    while True:
         # display background
         draw_bg(screen, scroll)
         scroll += 0.5
+
         # getting the position of the user's mouse
         mouse = pygame.mouse.get_pos()
 
+        # Event handling for Pygame
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
-
             if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
                 return
-
-            if back_button.is_clicked(mouse, ev):
+            if back_button.is_clicked(pygame.mouse.get_pos(), ev):
                 select_sound()
                 return
 
-            screen.blit(textbg, textbg_rect)
-
-            # Update and draw the button
             if back_button.is_hovered(mouse):
                 back_button.scale_up()
             else:
                 back_button.scale_down()
 
-            back_button.draw(screen, mouse)
+            # Handle slider events
+            music_slider.handle_event(ev)
+            sound_slider.handle_event(ev)
 
+        # Update volume based on slider values
+        Music.volchange(music_slider.value / 100)
+        Button.set_sound_volume(sound_slider.value / 100)
+
+        # draw bg, title, subtitles
         screen.blit(textbg, textbg_rect)
+        screen.blit(text, text_rect)
+        screen.blit(music_text, music_text_rect)
+        screen.blit(sound_text, sound_text_rect)
 
-        # drawing the back button
-        back_button.draw(screen, mouse)
+        # Draw sliders and button
+        music_slider.draw(screen)
+        sound_slider.draw(screen)
+        back_button.draw(screen, pygame.mouse.get_pos())
 
-        # updating the display
         pygame.display.update()
+
+def set_sound_volume(volume):
+    # Implement this function to set the volume for sound effects
+    for sound in pygame.mixer.get_sounds():
+        sound.set_volume(volume)
