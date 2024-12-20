@@ -1,19 +1,16 @@
 import pygame
 import random
-from player_related.player import Player
-from powerups.powerup import PowerUp
 from powerups.despawner import DeSpawner
 from powerups.invincibility import Invincibility
 from powerups.extra_fish import Extra_Fish
 from powerups.speed_boost import Speed_Boost
-from player_related.weapons import Snowball
-from player_related.weapons import Slingshot
+from player_related.weapons import Snowball, Slingshot
 
 class Chest(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("images/chest_image.png") # load the image
-        self.image = pygame.transform.scale(self.image, (120, 120))  # scale the image
+        self.image = pygame.image.load("images/chest_image.png")  # load the image
+        self.image = pygame.transform.scale(self.image, (150, 150))  # scale the image
         self.rect = self.image.get_rect()
         self.spawned = False
         self.possible_items = {
@@ -30,7 +27,6 @@ class Chest(pygame.sprite.Sprite):
 
     def spawn(self, surface):
         # check if chest is not already spawned and spawn it
-        # if its already spawned it will be drawn again at the position it was spawned
         if not self.spawned:
             # define map boundaries
             map_width, map_height = surface.get_size()
@@ -39,7 +35,7 @@ class Chest(pygame.sprite.Sprite):
             random_x = random.randint(0, map_width - self.rect.width)
             random_y = random.randint(0, map_height - self.rect.height)
 
-            # set the rect position to the random coordinates, using the top left corner of the icon
+            # set the rect position to the random coordinates
             self.rect.topleft = (random_x, random_y)
 
             # set spawned to True
@@ -51,12 +47,14 @@ class Chest(pygame.sprite.Sprite):
         surface.blit(self.image, self.rect.topleft)
 
     def select_options(self):
+        # Separate the items and probabilities to then choose the items based on their probabilities
         items = list(self.possible_items.keys())
         probabilities = list(self.possible_items.values())
+        # Select 3 random items based on their probabilities
         self.options = random.choices(items, probabilities, k=3)
         print(f"Selected options: {self.options}")
 
-    def display_options(self, surface,enemies,spawn_rate, player):
+    def display_options(self, surface, enemies, spawn_chances, player):
         # Pause the game
         paused = True
 
@@ -80,7 +78,7 @@ class Chest(pygame.sprite.Sprite):
 
         # Update the display
         pygame.display.flip()
-    
+
         # Wait for the player to collect the items
         while paused:
             for event in pygame.event.get():
@@ -95,37 +93,40 @@ class Chest(pygame.sprite.Sprite):
                         mouse_pos = event.pos
                         for rect, option in option_rects:
                             if rect.collidepoint(mouse_pos):
+                                # If user selects a weapon, change the player's weapon
                                 if option in self.weapons:
                                     if option == "Slingshot":
                                         player.weapon = Slingshot()
                                     elif option == "Snowball":
                                         player.weapon = Snowball()
                                     print(f"Player weapon changed to {option}")
+                                # If user selects a powerup, apply the powerup
                                 elif option in self.powerups:
                                     if option == "Despawner":
                                         powerup = DeSpawner()
-                                        powerup.affect_game(enemies,spawn_rate, player)
+                                        powerup.affect_game(surface, enemies, spawn_chances, player)
                                         player.powerup = powerup
                                     elif option == "Invincibility":
                                         powerup = Invincibility()
-                                        powerup.affect_player(surface,player)
+                                        powerup.affect_player(surface, player)
                                         player.powerup = powerup
                                     elif option == "Extra Fish":
                                         powerup = Extra_Fish()
-                                        powerup.affect_player(surface,player)
+                                        powerup.affect_player(surface, player)
                                         player.powerup = powerup
                                     elif option == "Speed Boost":
                                         powerup = Speed_Boost()
-                                        powerup.affect_player(surface,player)
+                                        powerup.affect_player(surface, player)
                                         player.powerup = powerup
+                                    # Set the start time for the powerup
+                                    player.powerup_start = pygame.time.get_ticks()
                                     print(f"Applied powerup: {option}")
                                 paused = False  # Exit the loop after selecting one item
                                 break
                     if not paused:
                         break  # Exit the outer loop as well
 
-    def open(self, surface, enemies, spawn_rate, player):
+    # Method to use when actually colliding with the chest
+    def open(self, surface, enemies, spawn_chances, player):
         self.select_options()
-        self.display_options(surface,enemies,spawn_rate, player)
-
-        
+        self.display_options(surface, enemies, spawn_chances, player)

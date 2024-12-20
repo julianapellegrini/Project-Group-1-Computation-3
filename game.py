@@ -91,7 +91,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     powerup_spawn_interval = 10000  # every 10 seconds
     last_powerup_spawn_time = pygame.time.get_ticks()
     powerup_group = pygame.sprite.Group()
-    powerup_duration = 5000  # 5 seconds
+    #powerup_duration = 5000  # 5 seconds
 
     # powerups
     powerup_types = [DeSpawner, Speed_Boost, Extra_Fish, Invincibility]
@@ -177,8 +177,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                 powerup.spawn(screen)
             # set the last powerup spawn time to the current time
             last_powerup_spawn_time = current_time_powerup_icon
-
-        current_time_powerup = pygame.time.get_ticks()
+        
         for powerup in powerup_group:
             # draw the powerup on the screen
             powerup.spawn(screen)
@@ -190,23 +189,26 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                         powerup.affect_player(screen, player)
                         player.powerup = powerup
                     else:
-                        powerup.affect_game(enemies, spawn_chances, player)
+                        powerup.affect_game(screen, enemies, spawn_chances, player)
                         player.powerup = powerup
-
+                        
                     # remove the powerup from the group
                     powerup_group.remove(powerup)
                 else:
                     print("Player already has a powerup")
 
         # check if the powerup has been active for the specified duration
-        current_time_powerup = pygame.time.get_ticks()
         if player.powerup is not None:
-            if current_time_powerup - player.powerup_start >= powerup_duration:
+            current_time_powerup = pygame.time.get_ticks()  # Initialize current_time_powerup
+            if (current_time_powerup - player.powerup_start >= player.powerup.duration * 1000):  # Convert duration to milliseconds
                 if isinstance(player.powerup, DeSpawner):
                     player.powerup.deactivate(spawn_chances, player)
                 else:
                     player.powerup.deactivate(player)
-                player.powerup = None
+                player.powerup = None  # Reset the powerup
+
+        
+       
 
         # automatically shoot bullets from the player
         player.shoot(bullets)
