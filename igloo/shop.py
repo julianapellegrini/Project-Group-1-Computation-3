@@ -1,4 +1,5 @@
 from igloo.fish_info_screen import fish_info_screen
+from igloo.improve_combat_shop import improve_combat_screen
 from igloo.weapon_shop import weapon_shop
 from interfaces_menus.interface import *
 from interfaces_menus.button import Button, select_sound
