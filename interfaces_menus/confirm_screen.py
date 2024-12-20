@@ -23,6 +23,10 @@ def confirm():
     # create confirmation text
     text = pixel_font.render("Are you sure?", True, brown)
 
+    background = pygame.image.load('images/smaller_box.png')
+    background = pygame.transform.scale(background, (750, 200))
+    background_rect = background.get_rect(center=((resolution[0] // 2) - 10, (resolution[1] // 2) - 40))
+
     # main loop
     while True:
 
@@ -32,6 +36,9 @@ def confirm():
         # display background
         draw_bg(screen, scroll)
         scroll += 0.5
+
+        # text bg
+        screen.blit(background, background_rect)
 
         # draw text
         text_rect = text.get_rect(center=(575, 260))

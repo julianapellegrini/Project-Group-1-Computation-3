@@ -31,9 +31,9 @@ def pause_screen(screen, resolution, player, map_layout, interface_w_save, inter
     background1 = pygame.image.load("images/ice-background2.png")
     background1 = pygame.transform.scale(background1, (width, height))
 
-    background = pygame.image.load('images/textbg.png')
+    background = pygame.image.load('images/smaller_box.png')
     background = pygame.transform.scale(background, (750, 200))
-    background_rect = background.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
+    background_rect = background.get_rect(center=(resolution[0] // 2, (resolution[1] // 2) + 15))
 
     # create the confirmation buttons
     yes_button = Button(resolution[0] // 2.5 - 100, resolution[1] // 2, 150, 60, "Yes", brown, "fonts/Grand9KPixel.ttf", 30, True, light_brown, 'images/Wood-button1.png')
