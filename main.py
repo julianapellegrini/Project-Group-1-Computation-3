@@ -5,7 +5,7 @@ from player_related.player import Player
 def main():
 
     # start player instance here so save works for the whole game
-    player = Player()
+    player = Player('gray')  # gray is the default penguin type
 
     # pass player_related instance to the start screen
     start_screen(player)

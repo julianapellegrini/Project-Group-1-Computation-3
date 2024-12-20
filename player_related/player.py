@@ -7,11 +7,13 @@ from player_related.inventory import Inventory
 from player_related.weapons import Snowball, Slingshot
 from powerups.extra_fish import Extra_Fish
 
+ptypes = ['gray', 'brown', 'eyebrow']  # just for reference
+
 
 # making Player a child of the Sprite class
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self):
+    def __init__(self, ptype):
         # calling the mother class' init
         super().__init__()
 
@@ -22,14 +24,14 @@ class Player(pygame.sprite.Sprite):
         # FAIL self.image.blit(character)
 
         # Load images for different directions and to switch between them
-        self.image_up = pygame.image.load('images_penguins/grayup.png')
-        self.image_d_stop = pygame.image.load('images_penguins/graydownstop.png')
-        self.image_d_1 = pygame.image.load('images_penguins/graydown1.png')
-        self.image_d_2 = pygame.image.load('images_penguins/graydown2.png')
-        self.image_l_1 = pygame.image.load('images_penguins/grayleft1.png')
-        self.image_l_2 = pygame.image.load('images_penguins/grayleft2.png')
-        self.image_r_1 = pygame.image.load('images_penguins/grayright1.png')
-        self.image_r_2 = pygame.image.load('images_penguins/grayright2.png')
+        self.image_up = pygame.image.load(f'images_penguins/{ptype}up.png')
+        self.image_d_stop = pygame.image.load(f'images_penguins/{ptype}downstop.png')
+        self.image_d_1 = pygame.image.load(f'images_penguins/{ptype}down1.png')
+        self.image_d_2 = pygame.image.load(f'images_penguins/{ptype}down2.png')
+        self.image_l_1 = pygame.image.load(f'images_penguins/{ptype}left1.png')
+        self.image_l_2 = pygame.image.load(f'images_penguins/{ptype}left2.png')
+        self.image_r_1 = pygame.image.load(f'images_penguins/{ptype}right1.png')
+        self.image_r_2 = pygame.image.load(f'images_penguins/{ptype}right2.png')
 
         # scaling the images
         self.image_up = pygame.transform.scale(self.image_up, player_size)
@@ -188,11 +190,3 @@ class Player(pygame.sprite.Sprite):
         text = font.render(f'{int(health)}%', True, (255, 255, 255))
         text_rect = text.get_rect(center=(bar_x + bar_width // 2, bar_y + bar_height // 2))
         surface.blit(text, text_rect)
-
-
-class Normal_Penguin(Player):
-    def __init__(self):
-        super().__init__()
-        self.image = pygame.image.load('images/normal_penguin_image.png')
-        self.image = pygame.transform.scale(self.image, player_size)
-        self.speed = 8
