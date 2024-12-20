@@ -46,6 +46,8 @@ def shop_layout(player):
         # get player_related's mouse position
         mouse = pygame.mouse.get_pos()
 
+        print(mouse)
+
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
