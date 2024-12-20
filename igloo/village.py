@@ -19,7 +19,7 @@ def area(player, map_layout, interface_w_save, interface_no_save):
 def village(player, map_layout):
 
     # set the background
-    background = pygame.image.load("images/village.jpg")
+    background = pygame.image.load("images/village.png")
     background = pygame.transform.scale(background, resolution)
 
     # set clock for fps
