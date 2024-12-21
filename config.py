@@ -38,12 +38,10 @@ bullet_size = 7
 player_image_powered = pygame.image.load('images/normal_peguin_color.png')
 player_image_normal = pygame.image.load('images/normal_peguin_image.png')
 penguin_infinity_stone = pygame.image.load('powerup_images/despawner_image.png')
+
 # SCALED IMAGES
 player_image_powered = pygame.transform.scale(player_image_powered, player_size)
 player_image_normal = pygame.transform.scale(player_image_normal, player_size)
 penguin_infinity_stone = pygame.transform.scale(penguin_infinity_stone, (player_size[0] + 100, player_size[-1] + 100))
 
-# DEFAULT AUDIO VALUES
-MUSIC_VOLUME = 0.3
-SOUND_VOLUME = 0.2
 

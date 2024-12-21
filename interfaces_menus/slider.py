@@ -6,7 +6,7 @@ class Slider:
         self.min_val = min_val
         self.max_val = max_val
         self.value = start_val
-        self.button = pygame.Rect(x + (start_val - min_val) / (max_val - min_val) * width - height // 2, y - height // 2, height, height)
+        self.button = pygame.Rect((x + (start_val - min_val) / (max_val - min_val) * width - height // 2) - 3, y - 3, height + 7, height + 7)
         self.dragging = False
 
     def draw(self, screen):

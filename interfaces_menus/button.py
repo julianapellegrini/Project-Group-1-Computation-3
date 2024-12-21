@@ -1,17 +1,18 @@
 from config import *
 
+
 def select_sound():
     # playing sound
     hover_sound = pygame.mixer.Sound("audio/button-select.mp3")
     hover_sound.set_volume(Button.sound_volume)
     hover_sound.play()
 
-class Button:
 
-    # default volume for button sound
+class Button:
     sound_volume = 0.2
 
     def __init__(self, x, y, width, height, text, color, font, font_size, outline, outline_color, image=None):
+
         self.x = x
         self.y = y
         self.width = width
@@ -26,10 +27,6 @@ class Button:
         self.outline_color = outline_color
         self.is_scaled = False
         self.original_size = (self.x, self.y, self.width, self.height)
-
-    @staticmethod
-    def set_sound_volume(volume):
-        Button.sound_volume = volume
 
     def draw(self, screen, mouse):
         if self.image:
@@ -66,7 +63,8 @@ class Button:
         text_surface4 = self.scaled_font.render(self.text, True, self.outline_color)
         text_rect4 = text_surface4.get_rect(center=(self.x + self.width // 2, (self.y + self.height // 2) - 1))
 
-        list1 = [(text_surface1, text_rect1), (text_surface2, text_rect2), (text_surface3, text_rect3), (text_surface4, text_rect4)]
+        list1 = [(text_surface1, text_rect1), (text_surface2, text_rect2), (text_surface3, text_rect3),
+                 (text_surface4, text_rect4)]
         return list1
 
     def scale_up(self):
@@ -95,3 +93,4 @@ class Button:
             # reset to original size and position
             self.x, self.y, self.width, self.height = self.original_size
             self.is_scaled = False
+

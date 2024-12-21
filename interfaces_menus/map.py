@@ -6,12 +6,19 @@ from igloo.village import area
 from config import *
 from interfaces_menus.levels import Level
 
+
+
+
 def map_layout(player, interface_w_save, interface_no_save):
+
+    from interfaces_menus.interface import music_volume
+    global music_volume
+
     # initializing pygame
     pygame.init()
 
     pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
-    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.set_volume(music_volume)
     pygame.mixer.music.play(loops=-1)
 
     # creating the screen at the set resolution
@@ -58,7 +65,7 @@ def map_layout(player, interface_w_save, interface_no_save):
                 select_sound()
                 if confirm():
                     pygame.mixer.music.load("audio/start-screen.mp3")
-                    pygame.mixer.music.set_volume(0.3)
+                    pygame.mixer.music.set_volume(music_volume)
                     pygame.mixer.music.play(loops=-1)
                     choose_interface(player, interface_w_save, interface_no_save)
 

@@ -4,11 +4,12 @@ from utils import *
 from interfaces_menus.interface import *
 from interfaces_menus.moving_bg import *
 
-scroll = 0
+
 # function to confirm player choice
 def confirm():
 
-    global scroll
+    scroll = 0
+
     # set screen
     screen = pygame.display.set_mode(resolution)
     load_backgrounds()

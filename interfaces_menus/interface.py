@@ -13,6 +13,10 @@ from interfaces_menus.slider import Slider
 # define scroll variables
 scroll = 0
 
+# sound settings variables
+music_volume = 0.3
+sound_volume = 0.2
+
 def start_screen(player):
     global scroll
 
@@ -21,8 +25,7 @@ def start_screen(player):
 
     background_music = Music("audio/start-screen.mp3")
     background_music.play()
-    # default value for volume is 0.3
-    background_music.volchange(0.3)
+    background_music.volchange(music_volume)
 
     # Check if the music is playing
     is_playing = background_music.isplaying()
@@ -508,6 +511,8 @@ def power_desc(player):
 
 def settings(player):
     global scroll
+    global music_volume
+    global sound_volume
 
     # loading the powerup screen
     screen = pygame.display.set_mode(resolution)
@@ -538,6 +543,9 @@ def settings(player):
     music_slider = Slider(500, 300, 200, 20, 0, 100, 30)
     sound_slider = Slider(500, 500, 200, 20, 0, 100, 20)
 
+    # Create an instance of the Music class
+    background_music = Music("audio/start-screen.mp3")
+
     while True:
         # display background
         draw_bg(screen, scroll)
@@ -566,8 +574,10 @@ def settings(player):
             sound_slider.handle_event(ev)
 
         # Update volume based on slider values
-        Music.volchange(music_slider.value / 100)
-        Button.set_sound_volume(sound_slider.value / 100)
+        music_volume = music_slider.value / 100
+        sound_volume = sound_slider.value / 100
+        background_music.volchange(music_volume)
+        Button.sound_volume = sound_volume
 
         # draw bg, title, subtitles
         screen.blit(textbg, textbg_rect)
