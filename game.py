@@ -277,10 +277,10 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
             seconds += 1 / fps
 
         # END GAME CONDITIONS
-        # MAKE IT DEPEND ON THE LEVEL LATER
-        if enemies_defeated >= 20 or minutes >= 3:
+        if enemies_defeated >= level * 5 or minutes >= level * 2:
             player.balance += coins_earned
-            player.level += 1
+            if level == player.level:
+                player.level += 1
             player.health = player.health_cap
             player.speed = player.speed_cap
             map_layout(player, interface_w_save, interface_no_save)
