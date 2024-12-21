@@ -6,7 +6,7 @@ from player_related.weapons import Watergun
 def main():
 
     # start player instance here so save works for the whole game
-    player = Player('gray')  # gray is the default penguin type
+    player = Player()
 
     # pass player_related instance to the start screen
     start_screen(player)

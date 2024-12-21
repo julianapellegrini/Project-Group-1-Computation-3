@@ -6,6 +6,7 @@ from igloo.shop import shop_layout
 from igloo.fishing import fishing
 from save_system.SaveLoadGame import SaveManager
 from igloo.weapon_selector import weapon_selector
+from igloo.skin_selector import skin_selector
 
 
 def shed(player):
@@ -31,7 +32,7 @@ def shed(player):
     shop_button = Button(460, 370, 100, 60, "Shop", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
                          image="images/Wood-button1.png")
 
-    table_button = Button(750, 600, 150, 60, "Skins", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+    skin_button = Button(750, 600, 150, 60, "Skins", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
                           image="images/Wood-button1.png")
 
     fish_button = Button(700, 200, 150, 60, "Fishing Hole", brown, "fonts/Grand9KPixel.ttf", 18, True, light_brown,
@@ -68,9 +69,9 @@ def shed(player):
                 select_sound()
                 shop_layout(player)
 
-            if table_button.is_clicked(mouse, ev):
+            if skin_button.is_clicked(mouse, ev):
                 select_sound()
-                under_construction()
+                skin_selector(player)
 
             if fish_button.is_clicked(mouse, ev):
                 select_sound()
@@ -100,10 +101,10 @@ def shed(player):
             else:
                 shop_button.scale_down()
 
-            if table_button.is_hovered(mouse):
-                table_button.scale_up()
+            if skin_button.is_hovered(mouse):
+                skin_button.scale_up()
             else:
-                table_button.scale_down()
+                skin_button.scale_down()
 
             if fish_button.is_hovered(mouse):
                 fish_button.scale_up()
@@ -122,7 +123,7 @@ def shed(player):
 
             # draw the buttons after updating
             back_button.draw(screen, mouse)
-            table_button.draw(screen, mouse)
+            skin_button.draw(screen, mouse)
             shop_button.draw(screen, mouse)
             fish_button.draw(screen, mouse)
             weapons_button.draw(screen, mouse)
@@ -130,7 +131,7 @@ def shed(player):
 
         # drawing the buttons
         back_button.draw(screen, mouse)
-        table_button.draw(screen, mouse)
+        skin_button.draw(screen, mouse)
         shop_button.draw(screen, mouse)
         fish_button.draw(screen, mouse)
         weapons_button.draw(screen, mouse)

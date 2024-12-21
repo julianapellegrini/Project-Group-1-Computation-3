@@ -12,29 +12,12 @@ ptypes = ['gray', 'brown', 'eyebrow']  # just for reference
 
 # making Player a child of the Sprite class
 class Player(pygame.sprite.Sprite):
-    def __init__(self, ptype):
+    def __init__(self):
         # calling the mother class' init
         super().__init__()
 
-        # Load images for different directions and to switch between them
-        self.image_up = pygame.image.load(f'images_penguins/{ptype}up.png')
-        self.image_d_stop = pygame.image.load(f'images_penguins/{ptype}downstop.png')
-        self.image_d_1 = pygame.image.load(f'images_penguins/{ptype}down1.png')
-        self.image_d_2 = pygame.image.load(f'images_penguins/{ptype}down2.png')
-        self.image_l_1 = pygame.image.load(f'images_penguins/{ptype}left1.png')
-        self.image_l_2 = pygame.image.load(f'images_penguins/{ptype}left2.png')
-        self.image_r_1 = pygame.image.load(f'images_penguins/{ptype}right1.png')
-        self.image_r_2 = pygame.image.load(f'images_penguins/{ptype}right2.png')
-
-        # scaling the images
-        self.image_up = pygame.transform.scale(self.image_up, player_size)
-        self.image_d_stop = pygame.transform.scale(self.image_d_stop, player_size)
-        self.image_d_1 = pygame.transform.scale(self.image_d_1, player_size)
-        self.image_d_2 = pygame.transform.scale(self.image_d_2, player_size)
-        self.image_l_1 = pygame.transform.scale(self.image_l_1, player_size)
-        self.image_l_2 = pygame.transform.scale(self.image_l_2, player_size)
-        self.image_r_1 = pygame.transform.scale(self.image_r_1, player_size)
-        self.image_r_2 = pygame.transform.scale(self.image_r_2, player_size)
+        self.ptype = 'gray'  # default penguin type
+        self.load_images()  # actually loading the images
 
         # Set the default image
         self.image = self.image_d_stop
@@ -77,6 +60,28 @@ class Player(pygame.sprite.Sprite):
 
         # counter so we can cycle through the images for movement
         self.animation_counter = 0
+
+    # function to load images so the skin change works
+    def load_images(self):
+        # load images for different directions and to switch between them
+        self.image_up = pygame.image.load(f'images_penguins/{self.ptype}up.png')
+        self.image_d_stop = pygame.image.load(f'images_penguins/{self.ptype}downstop.png')
+        self.image_d_1 = pygame.image.load(f'images_penguins/{self.ptype}down1.png')
+        self.image_d_2 = pygame.image.load(f'images_penguins/{self.ptype}down2.png')
+        self.image_l_1 = pygame.image.load(f'images_penguins/{self.ptype}left1.png')
+        self.image_l_2 = pygame.image.load(f'images_penguins/{self.ptype}left2.png')
+        self.image_r_1 = pygame.image.load(f'images_penguins/{self.ptype}right1.png')
+        self.image_r_2 = pygame.image.load(f'images_penguins/{self.ptype}right2.png')
+
+        # scaling the images
+        self.image_up = pygame.transform.scale(self.image_up, player_size)
+        self.image_d_stop = pygame.transform.scale(self.image_d_stop, player_size)
+        self.image_d_1 = pygame.transform.scale(self.image_d_1, player_size)
+        self.image_d_2 = pygame.transform.scale(self.image_d_2, player_size)
+        self.image_l_1 = pygame.transform.scale(self.image_l_1, player_size)
+        self.image_l_2 = pygame.transform.scale(self.image_l_2, player_size)
+        self.image_r_1 = pygame.transform.scale(self.image_r_1, player_size)
+        self.image_r_2 = pygame.transform.scale(self.image_r_2, player_size)
 
     # Inventory of fish caught
     def add_fish(self, fish):
