@@ -39,13 +39,13 @@ def fish_info_screen(player):
     back_button = Button(950, 600, 200, 100, "Back", brown, "fonts/Grand9KPixel.ttf", 30, True, light_brown,
                          image="images/Wood-button1.png")
 
-    sell_cod_button = Button(900, 280, 200, 50, "SELL", royal_blue, "fonts/Grand9KPixel.ttf", 20, True, light_blue,
+    sell_cod_button = Button(900, 150, 200, 50, "SELL", royal_blue, "fonts/Grand9KPixel.ttf", 20, True, light_blue,
                              image="images/Wood-button1.png")
 
-    sell_salmon_button = Button(900, 130, 200, 50, "SELL", royal_blue, "fonts/Grand9KPixel.ttf", 20, True,
+    sell_salmon_button = Button(900, 270, 200, 50, "SELL", royal_blue, "fonts/Grand9KPixel.ttf", 20, True,
                                 light_blue, image="images/Wood-button1.png")
 
-    sell_clownfish_button = Button(900, 430, 200, 50, "SELL", royal_blue, "fonts/Grand9KPixel.ttf", 20, True,
+    sell_clownfish_button = Button(900, 390, 200, 50, "SELL", royal_blue, "fonts/Grand9KPixel.ttf", 20, True,
                                    light_blue, image="images/Wood-button1.png")
 
     # font for text
