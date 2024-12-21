@@ -1,13 +1,10 @@
 class Inventory:
     def __init__(self):
         self.items = {'Fishes': {'Salmon': 0, 'Cod': 0, 'ClownFish': 0},
-                      'Weapons': {}}
+                      'Weapons': {'Watergun': 0, 'Snowball': 0, 'Slingshot': 0, 'Fish Bazooka': 0, 'Ice Ninja Stars': 0}}
 
     def add_item(self, item):
         if item.name in self.items['Fishes']:
             self.items['Fishes'][item.name] += 1
         elif item.name in self.items['Weapons']:
-            self.items['Weapons'][item.name] = item
-
-    def add_weapon(self, weapon):
-        self.items['Weapons'][weapon.name] = weapon
+            self.items['Weapons'][item.name] += 1

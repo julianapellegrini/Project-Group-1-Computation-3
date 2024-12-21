@@ -67,13 +67,13 @@ class Player(pygame.sprite.Sprite):
 
         # Player has a Watergun in his inventory
         watergun = Watergun()
-        self.inventory.add_weapon(watergun)
+        self.inventory.add_item(watergun)
 
         # Player has currency
         self.balance = 0
 
-        '''# Weapons
-        self.weapon = Snowball()  # default weapon'''
+        # Weapons
+        self.weapon = watergun  # default weapon
 
         # Powerups
         self.powerup = None  # current powerup, default is None
