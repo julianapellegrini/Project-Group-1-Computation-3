@@ -10,18 +10,24 @@ class Invincibility(PowerUp):
         self.start_time = None
         self.duration = 5  # Duration for which the power-up is active
 
+
     def affect_player(self, surface, player):
         # Activate the power-up
         self.active = True
         self.start_time = pygame.time.get_ticks()
-        player.image = player_image_powered
-        player.invincible = True
+
+        
 
         # Position the power-up image around the player
+        # Load and scale the invincibility image
         self.image = pygame.image.load('powerup_images/invincibility_image.png')
         self.image = pygame.transform.scale(self.image, (player.rect.width + 30, player.rect.height + 30))
+        
+
+    def update_position(self, player):
+        # Update the position of the invincibility image to follow the player
         self.image_rect = self.image.get_rect(center=player.rect.center)
-        surface.blit(self.image, self.image_rect.topleft)
+
 
     def affect_game(self):
         pass  # No change to game

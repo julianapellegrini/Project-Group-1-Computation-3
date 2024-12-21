@@ -201,6 +201,11 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                 else:
                     player.powerup.deactivate(player)
                 player.powerup = None  # Reset the powerup
+        
+        # Draw the invincibility image if the player is invincible
+        if isinstance(player.powerup, Invincibility) and player.powerup.active:
+            player.powerup.update_position(player)
+            screen.blit(player.powerup.image, player.powerup.image_rect.topleft)
 
         
        
