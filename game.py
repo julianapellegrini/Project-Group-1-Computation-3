@@ -282,6 +282,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
             player.balance += coins_earned
             player.level += 1
             player.health = player.health_cap
+            player.speed = player.speed_cap
             map_layout(player, interface_w_save, interface_no_save)
             return
 
