@@ -1,13 +1,13 @@
 from utils import *
 from config import *
 from interfaces_menus.button import Button, select_sound
-from player_related.weapons import Snowball, Slingshot, Fish_bazooka, Ice_Ninja_Stars
+from player_related.weapons import Snowball, Slingshot, Fish_bazooka, Ice_Ninja_Stars, Watergun
 
 
 def weapon_selector(player):
 
     # set background
-    background = pygame.image.load("images/weapon_selector_background.png")
+    background = pygame.image.load("images/chest_background.png")
     # scale background
     background = pygame.transform.scale(background, resolution)
 
@@ -28,12 +28,20 @@ def weapon_selector(player):
     arrow_right = Button(900, 300, 200, 200, None, None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/arrow_right.png")
 
-    # Ensure 'Weapons' key exists in inventory
-    if 'Weapons' not in player.inventory.items:
-        player.inventory.items['Weapons'] = {}
-
     # list weapons from player's inventory
-    weapons = list(player.inventory.items['Weapons'].values())
+    weapons = []
+    for weapon, count in player.inventory.items['Weapons'].items():
+        if count == 1:
+            if weapon == "Watergun":
+                weapons.append(Watergun())
+            elif weapon == "Snowball":
+                weapons.append(Snowball())
+            elif weapon == "Slingshot":
+                weapons.append(Slingshot())
+            elif weapon == "Fish Bazooka":
+                weapons.append(Fish_bazooka())
+            elif weapon == "Ice Ninja Stars":
+                weapons.append(Ice_Ninja_Stars())
 
     # tracker for current weapon
     selector_current = 0

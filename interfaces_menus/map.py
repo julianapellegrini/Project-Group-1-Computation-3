@@ -105,5 +105,7 @@ def map_layout(player, interface_w_save, interface_no_save):
         back_button.draw(screen, mouse)
         igloo_button.draw(screen, mouse)
 
+        print(player.weapon)
+
         # update the display
         pygame.display.update()
