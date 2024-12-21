@@ -4,7 +4,7 @@ from powerups.despawner import DeSpawner
 from powerups.invincibility import Invincibility
 from powerups.extra_fish import Extra_Fish
 from powerups.speed_boost import Speed_Boost
-from player_related.weapons import Snowball, Slingshot
+from player_related.weapons import Snowball, Slingshot, Fish_bazooka, Ice_Ninja_Stars
 
 class Chest(pygame.sprite.Sprite):
     def __init__(self):
@@ -18,11 +18,11 @@ class Chest(pygame.sprite.Sprite):
             "Invincibility": 0.2,
             "Extra Fish": 0.10,
             "Speed Boost": 0.15,
-            "Snowball": 0.2,
-            "Slingshot": 0.1
+            "Permanant Speed Boost": 0.2,
+            "Permanant Health Boost": 0.1
         }
         self.options = []
-        self.weapons = ["Snowball", "Slingshot"]
+        self.upgrades = ["Permanant Health Boost", "Permanant Speed Boost"]
         self.powerups = ["Despawner", "Invincibility", "Extra Fish", "Speed Boost"]
 
     def spawn(self, surface):
@@ -68,7 +68,7 @@ class Chest(pygame.sprite.Sprite):
         # Define dimensions for images and their positions
         option_width = 150
         option_height = 150
-        padding = 20
+        padding = 100  # Increased padding for better spacing
         total_width = len(self.options) * (option_width + padding) - padding
         start_x = (surface.get_width() - total_width) // 2
         y_position = (surface.get_height() - option_height) // 2 - 50  # Offset upward for names
@@ -116,11 +116,13 @@ class Chest(pygame.sprite.Sprite):
                         for rect, option in zip(option_rects, self.options):
                             if rect.collidepoint(mouse_pos):
                                 # If user selects a weapon, change the player's weapon
-                                if option in self.weapons:
-                                    if option == "Slingshot":
-                                        player.weapon = Slingshot()
-                                    elif option == "Snowball":
-                                        player.weapon = Snowball()
+                                if option in self.upgrades:
+                                    if option == "Permanant Health Boost":
+                                        player.health_cap += 20
+                                        player.health = player.health_cap
+                                    elif option == "Permanant Speed Boost":
+                                        player.speed_cap += 2
+                                        player.speed = player.speed_cap
                                     print(f"Player weapon changed to {option}")
                                 # If user selects a powerup, apply the powerup
                                 elif option in self.powerups:
@@ -147,6 +149,7 @@ class Chest(pygame.sprite.Sprite):
                                 break
                         if not paused:
                             break  # Exit the outer loop as well
+
 
 
 

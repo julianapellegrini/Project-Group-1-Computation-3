@@ -29,7 +29,7 @@ class Speed_Boost(PowerUp):
 
     def deactivate(self, player):
         self.active = False
-        player.speed /= 2
+        player.speed = player.speed_cap
         player.image = player_image_normal
         player.powerup = None
         print("Speed Boost deactivated")

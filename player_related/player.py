@@ -4,7 +4,7 @@ from config import *
 import math
 from player_related.bullet import Bullet
 from player_related.inventory import Inventory
-from player_related.weapons import Snowball, Slingshot
+from player_related.weapons import Snowball, Slingshot, Watergun
 from powerups.extra_fish import Extra_Fish
 
 ptypes = ['gray', 'brown', 'eyebrow']  # just for reference
@@ -52,8 +52,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = (width // 2, height // 2)
 
         # GAMEPLAY VARIABLES
-
+        self.speed_cap = 6
         self.speed = 6
+        self.health_cap = 100
         self.health = 100
         self.bullet_cooldown = 0
 
@@ -64,11 +65,15 @@ class Player(pygame.sprite.Sprite):
         # Player has an inventory
         self.inventory = Inventory()
 
+        # Player has a Watergun in his inventory
+        watergun = Watergun()
+        self.inventory.add_weapon(watergun)
+
         # Player has currency
         self.balance = 0
 
-        # Weapons
-        self.weapon = Snowball()  # default weapon
+        '''# Weapons
+        self.weapon = Snowball()  # default weapon'''
 
         # Powerups
         self.powerup = None  # current powerup, default is None

@@ -117,10 +117,6 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         # setting up the background
         screen.blit(background, (0, 0))
 
-        # showing the coin
-        screen.blit(coin_image, (105, 13))
-
-
         # draw coins text
         coins_text = pixel_font_small.render(f"Coins: {coins_earned}", True, oxford_blue)
         screen.blit(coins_text, (10, 10))
@@ -247,7 +243,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         for bullet in bullets:
             collided_enemies = pygame.sprite.spritecollide(bullet, enemies, False)
             for enemy in collided_enemies:
-                enemy.health -= 5
+                enemy.health -= player.weapon.damage
                 bullet.kill()
                 if enemy.health <= 0:
                     enemy.kill()
@@ -285,7 +281,8 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         if enemies_defeated >= 20 or minutes >= 3:
             player.balance += coins_earned
             player.level += 1
-            player.health = 100
+            player.health = player.health_cap
+            player.speed = player.speed_cap
             map_layout(player, interface_w_save, interface_no_save)
             return
 
