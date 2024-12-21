@@ -17,6 +17,10 @@ scroll = 0
 music_volume = 0.3
 sound_volume = 0.2
 
+# default slider values to match the default volume
+music_slider_value = music_volume * 100
+sound_slider_value = sound_volume * 100
+
 def start_screen(player):
     global scroll
 
@@ -513,6 +517,8 @@ def settings(player):
     global scroll
     global music_volume
     global sound_volume
+    global music_slider_value
+    global sound_slider_value
 
     # loading the powerup screen
     screen = pygame.display.set_mode(resolution)
@@ -540,8 +546,8 @@ def settings(player):
                          image="images/Wood-button1.png")
 
     # Initialize sliders for volume control
-    music_slider = Slider(500, 300, 200, 20, 0, 100, 30)
-    sound_slider = Slider(500, 500, 200, 20, 0, 100, 20)
+    music_slider = Slider(500, 300, 200, 20, 0, 100, music_slider_value)
+    sound_slider = Slider(500, 500, 200, 20, 0, 100, sound_slider_value)
 
     # Create an instance of the Music class
     background_music = Music("audio/start-screen.mp3")
@@ -578,6 +584,10 @@ def settings(player):
         sound_volume = sound_slider.value / 100
         background_music.volchange(music_volume)
         Button.sound_volume = sound_volume
+
+        # saving the position of the slider
+        music_slider_value = music_slider.value
+        sound_slider_value = sound_slider.value
 
         # draw bg, title, subtitles
         screen.blit(textbg, textbg_rect)
