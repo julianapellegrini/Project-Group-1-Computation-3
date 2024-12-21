@@ -39,12 +39,23 @@ def weapon_shop(player):
     # setting up the  weapon buttons
     weapon_buttons = []
     for i, weapon in enumerate(weapons):
-        weapon_buttons.append(Button(650, 70 + i * 140, 120, 50, "BUY", royal_blue,
+        weapon_buttons.append(Button(650, 91 + i * 133, 120, 50, "BUY", royal_blue,
                                      "fonts/Grand9KPixel.ttf", 20, True, light_blue, image="images/Wood-button1.png"))
+
+    # font for text
+    font = pygame.font.Font("fonts/Grand9KPixel.ttf", 25)
 
     while True:
         # displaying the background
         screen.blit(background, (0, 0))
+
+        # drawing the brown background rectangle
+        rect_x, rect_y, rect_width, rect_height = 50, 45, 850, 650
+        pygame.draw.rect(screen, brown, (rect_x, rect_y, rect_width, rect_height))
+
+        # draw player's balance at the top-right
+        balance_text = font.render(f"Balance: {player.balance}", True, oxford_blue)
+        screen.blit(balance_text, (resolution[0] - 230, 30))
 
         # get player's mouse position
         mouse = pygame.mouse.get_pos()
@@ -83,16 +94,16 @@ def weapon_shop(player):
         back_button.draw(screen, mouse)
 
         for i, weapon in enumerate(weapons):
-            screen.blit(weapon.image, (80, 30 + i * 135))
+            screen.blit(weapon.image, (rect_x + 20, rect_y + i * 130))
             weapon_buttons[i].draw(screen, mouse)
 
             # draw weapon name and price
             weapon_text = f"{weapon.name}  -  {weapon.price}"
-            weapon_text_surface = pygame.font.Font("fonts/Grand9KPixel.ttf", 20).render(weapon_text, True, brown)
-            screen.blit(weapon_text_surface, (300, 80 + i * 140))
+            weapon_text_surface = pygame.font.Font("fonts/Grand9KPixel.ttf", 20).render(weapon_text, True, white)
+            screen.blit(weapon_text_surface, (rect_x + 200, rect_y + 50 + i * 133))
 
             # draw coin image next to the price
-            screen.blit(coin_image, (300 + weapon_text_surface.get_width() + 10, 78 + i * 140))
+            screen.blit(coin_image, (rect_x + 200 + weapon_text_surface.get_width() + 10, rect_y + 50 + i * 133))
 
         # update the display
         pygame.display.update()

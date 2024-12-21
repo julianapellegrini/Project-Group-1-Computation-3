@@ -52,7 +52,7 @@ def improve_combat_screen(player):
 
         # Get mouse position
         mouse = pygame.mouse.get_pos()
-        print(mouse)
+
         # Vertical rectangle dimensions
         rect_width, rect_height = 900, 650  # Increased height for each section to fit all content
         rect_x, rect_y = 40, 40  # Lowered the starting Y position
@@ -62,7 +62,7 @@ def improve_combat_screen(player):
         pygame.draw.rect(screen, (50, 50, 50), (rect_x, rect_y, rect_width, rect_height))
 
         # Draw player's balance at the top-right
-        balance_text = font.render(f"Balance: {player.balance}", True, (255, 255, 255))
+        balance_text = font.render(f"Balance: {player.balance}", True, oxford_blue)
         screen.blit(balance_text, (resolution[0] - 230, 30))
 
         # Loop through weapons and draw sections

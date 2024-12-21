@@ -35,7 +35,7 @@ def fish_info_screen(player):
     coin_image = pygame.image.load("images/snowflake_coin.png")
     coin_image = pygame.transform.scale(coin_image, (40, 40))
 
-    # set up back button
+    # set up the buttons
     back_button = Button(950, 600, 200, 100, "Back", brown, "fonts/Grand9KPixel.ttf", 30, True, light_brown,
                          image="images/Wood-button1.png")
 
@@ -61,9 +61,9 @@ def fish_info_screen(player):
         fishing_bucket_text = small_font.render("Fishing bucket:", True, oxford_blue)
         screen.blit(fishing_bucket_text, (50, 20))
 
-        screen.blit(cod_image_small, (250, 10))
-        screen.blit(salmon_image_small, (350, 10))
-        screen.blit(clownfish_image_small, (450, 10))
+        screen.blit(cod_image_small, (250, 15))
+        screen.blit(salmon_image_small, (350, 15))
+        screen.blit(clownfish_image_small, (450, 15))
 
         cod_quantity_text = small_font.render(f"{player.inventory.items['Fishes']['Cod']}", True, oxford_blue)
         salmon_quantity_text = small_font.render(f"{player.inventory.items['Fishes']['Salmon']}", True, oxford_blue)
@@ -74,23 +74,27 @@ def fish_info_screen(player):
         screen.blit(salmon_quantity_text, (410, 25))
         screen.blit(clownfish_quantity_text, (510, 25))
 
-        # drawing fish images and text in middle
-        screen.blit(cod_image, (100, 100))
-        screen.blit(salmon_image, (100, 250))
-        screen.blit(clownfish_image, (100, 400))
+        # drawing the brown background rectangle for the middle section
+        rect_x, rect_y, rect_width, rect_height = 80, 100, 1040, 400
+        pygame.draw.rect(screen, brown, (rect_x, rect_y, rect_width, rect_height))
 
-        cod_text = pixel_font.render("Cod: 5 for 10", True, oxford_blue)
-        salmon_text = pixel_font.render("Salmon: 10 for 25", True, oxford_blue)
-        clownfish_text = pixel_font.render("ClownFish: 15 for 40", True, oxford_blue)
+        # drawing fish images and text in the middle section
+        screen.blit(cod_image, (rect_x + 20, rect_y + 30))
+        screen.blit(salmon_image, (rect_x + 20, rect_y + 150))
+        screen.blit(clownfish_image, (rect_x + 20, rect_y + 270))
 
-        screen.blit(cod_text, (250, 130))
-        screen.blit(salmon_text, (250, 280))
-        screen.blit(clownfish_text, (250, 430))
+        cod_text = pixel_font.render("Cod: 5 for 10", True, white)
+        salmon_text = pixel_font.render("Salmon: 10 for 25", True, white)
+        clownfish_text = pixel_font.render("ClownFish: 15 for 40", True, white)
+
+        screen.blit(cod_text, (rect_x + 150, rect_y + 50))
+        screen.blit(salmon_text, (rect_x + 150, rect_y + 170))
+        screen.blit(clownfish_text, (rect_x + 150, rect_y + 290))
 
         # drawing coin images next to the text
-        screen.blit(coin_image, (450, 132))
-        screen.blit(coin_image, (527, 282))
-        screen.blit(coin_image, (573, 432))
+        screen.blit(coin_image, (rect_x + 350, rect_y + 52))
+        screen.blit(coin_image, (rect_x + 427, rect_y + 172))
+        screen.blit(coin_image, (rect_x + 473, rect_y + 292))
 
         # getting the mouse position
         mouse = pygame.mouse.get_pos()
