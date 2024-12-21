@@ -281,7 +281,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         if enemies_defeated >= 20 or minutes >= 3:
             player.balance += coins_earned
             player.level += 1
-            player.health = 100
+            player.health = player.health_cap
             map_layout(player, interface_w_save, interface_no_save)
             return
 

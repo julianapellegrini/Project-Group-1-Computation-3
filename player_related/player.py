@@ -52,8 +52,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = (width // 2, height // 2)
 
         # GAMEPLAY VARIABLES
-
+        self.speed_cap = 6
         self.speed = 6
+        self.health_cap = 100
         self.health = 100
         self.bullet_cooldown = 0
 
