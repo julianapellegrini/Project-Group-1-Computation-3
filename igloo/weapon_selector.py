@@ -28,6 +28,10 @@ def weapon_selector(player):
     arrow_right = Button(900, 300, 200, 200, None, None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/arrow_right.png")
 
+    # Ensure 'Weapons' key exists in inventory
+    if 'Weapons' not in player.inventory.items:
+        player.inventory.items['Weapons'] = {}
+
     # list weapons from player's inventory
     weapons = list(player.inventory.items['Weapons'].values())
 
@@ -55,19 +59,19 @@ def weapon_selector(player):
                 select_sound()
                 return
 
-            if select_button.is_clicked(mouse, ev):
+            if select_button.is_clicked(mouse, ev) and weapons:
                 select_sound()
                 player.change_weapon(weapons[selector_current])
                 print(player.weapon)
 
-            if arrow_left.is_clicked(mouse, ev):
+            if arrow_left.is_clicked(mouse, ev) and weapons:
                 select_sound()
                 if selector_current > 0:
                     selector_current -= 1
                 else:
                     selector_current = len(weapons) - 1
 
-            if arrow_right.is_clicked(mouse, ev):
+            if arrow_right.is_clicked(mouse, ev) and weapons:
                 select_sound()
                 if selector_current < len(weapons) - 1:
                     selector_current += 1
@@ -106,15 +110,10 @@ def weapon_selector(player):
             current_weapon.image = pygame.transform.scale(current_weapon.image, (150, 150))
             current_weapon.rect = current_weapon.image.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
-        # rescale current weapon
-        current_weapon = weapons[selector_current]
-        current_weapon.image = pygame.transform.scale(current_weapon.image, (150, 150))  # Adjust the scale as needed
-        current_weapon.rect = current_weapon.image.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
+            # add current weapon to group
+            weapons_group = pygame.sprite.Group(current_weapon)
 
-        # add current weapon to group
-        weapons_group = pygame.sprite.Group(weapons[selector_current])
-
-        # draw weapon
-        weapons_group.draw(screen)
+            # draw weapon
+            weapons_group.draw(screen)
 
         pygame.display.update()

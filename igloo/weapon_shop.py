@@ -3,12 +3,14 @@ from config import *
 from interfaces_menus.button import Button, select_sound
 
 
-class WeaponSale:
+class WeaponSale(pygame.sprite.Sprite):
     def __init__(self, name, price, image_path):
+        super().__init__()
         self.name = name
         self.price = price
         self.image = pygame.image.load(image_path)
         self.image = pygame.transform.scale(self.image, (150, 150))
+        self.rect = self.image.get_rect()
 
 
 def weapon_shop(player):

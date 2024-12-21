@@ -35,11 +35,10 @@ class Weapon(pygame.sprite.Sprite):
         self.damage = damage
 
 
-class Watergun:
+class Watergun(Weapon, pygame.sprite.Sprite):
     def __init__(self):
-        self.name = "Watergun"
-        self.image = pygame.image.load("images_weapons/watergun.png")
-        self.image = pygame.transform.scale(self.image, (150, 150))
+        super().__init__("Watergun", fps * 1.5, 4, "images_weapons/watergun.png")
+        self.damage = 4
 
 
 class Snowball(Weapon, pygame.sprite.Sprite):
