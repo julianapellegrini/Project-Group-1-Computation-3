@@ -74,7 +74,7 @@ def weapon_shop(player):
             for i, weapon_button in enumerate(weapon_buttons):
                 if weapon_button.is_clicked(mouse, ev):
                     select_sound()
-                    if player.balance >= weapons[i].price:
+                    if player.balance >= weapons[i].price and player.inventory.items['Weapons'][weapons[i].name] == 0:
                         player.balance -= weapons[i].price
                         player.inventory.add_item(weapons[i])
                         print(f"Bought {weapons[i].name}")
