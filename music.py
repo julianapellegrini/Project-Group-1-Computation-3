@@ -3,17 +3,17 @@ import pygame
 class Music:
     def __init__(self, file):
         self.sound = file
-
-    def play(self):
         pygame.init()
         pygame.mixer.init()
+
+    def play(self):
         pygame.mixer.music.load(self.sound)
         pygame.mixer.music.play()
 
-    @staticmethod
-    def volchange(volume):
+    def volchange(self, volume):
+        # changes the volume of the music (value between 0 and 1)
         pygame.mixer.music.set_volume(volume)
 
-    @staticmethod
-    def isplaying():
+    def isplaying(self):
+        # checks if theres music playing and returns a boolean
         return pygame.mixer.music.get_busy()

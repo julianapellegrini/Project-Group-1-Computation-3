@@ -18,9 +18,14 @@ def start_screen(player):
 
     # Initialize pygame and load music
     pygame.init()
-    pygame.mixer.music.load("audio/start-screen.mp3")
-    pygame.mixer.music.set_volume(0.3)
-    pygame.mixer.music.play(loops=-1)
+
+    background_music = Music("audio/start-screen.mp3")
+    background_music.play()
+    # default value for volume is 0.3
+    background_music.volchange(0.3)
+
+    # Check if the music is playing
+    is_playing = background_music.isplaying()
 
     # Set screen and other UI elements
     screen = pygame.display.set_mode(resolution)
@@ -34,6 +39,10 @@ def start_screen(player):
     press_text = pygame.transform.scale(press_text, (600, 50))
     press_rect = press_text.get_rect(center=(resolution[0] // 2, resolution[1] * 0.75))
 
+    icon = pygame.image.load('images/game-logo.png')
+    icon = pygame.transform.scale(icon, (456, 440))
+    icon_rect = icon.get_rect(center=(resolution[0] // 2, 300))
+
     clock = pygame.time.Clock()
     running = True
     while running:
@@ -45,6 +54,7 @@ def start_screen(player):
 
         # Display text
         screen.blit(press_text, press_rect)
+        screen.blit(icon, icon_rect)
 
         # Event handling
         for event in pygame.event.get():
@@ -67,6 +77,11 @@ def interface_no_save(player):
     # Loading the same image for the buttons
     button_sprite = "images/Wood-button1.png"
     #  wood_banner = "images/wood-banner.png"
+
+    # game logo
+    icon = pygame.image.load('images/game-logo.png')
+    icon = pygame.transform.scale(icon, (256, 230))
+    icon_rect = icon.get_rect(center=(resolution[0] // 2, 140))
 
     # Calculate the center x-coordinate
     center_x = resolution[0] // 2
@@ -93,6 +108,8 @@ def interface_no_save(player):
 
         # Get mouse position
         mouse = pygame.mouse.get_pos()
+
+        screen.blit(icon, icon_rect)
 
         # Event handling
         for ev in pygame.event.get():
