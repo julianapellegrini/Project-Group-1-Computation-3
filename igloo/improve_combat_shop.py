@@ -32,7 +32,7 @@ def improve_combat_screen(player):
     running = True
 
     # Weapon upgrade progress tracking
-    weapon_upgrades = {weapon.name: 0 for weapon in weapons}  # 0 to 6 progress
+    weapon_upgrades = {weapon.name: 0 for weapon in weapons}  # Tracks upgrades (0 to 6)
 
     while running:
         # Set FPS
@@ -45,19 +45,23 @@ def improve_combat_screen(player):
         mouse = pygame.mouse.get_pos()
 
         # Vertical rectangle dimensions
-        rect_width, rect_height = 800, 500
-        rect_x, rect_y = (resolution[0] - rect_width) // 2, 100
+        rect_width, rect_height = 900, 650  # Increased height for each section to fit all content
+        rect_x, rect_y = (resolution[0] - rect_width) // 2, 50  # Lowered the starting Y position
         section_height = rect_height // len(weapons)
 
         # Draw vertical rectangle
         pygame.draw.rect(screen, (50, 50, 50), (rect_x, rect_y, rect_width, rect_height))
 
+        # Draw player's balance at the top-right
+        balance_text = font.render(f"Balance: {player.balance}", True, (255, 255, 255))
+        screen.blit(balance_text, (resolution[0] - 250, 10))  # Adjusted position for better visibility
+
         # Loop through weapons and draw sections
         for i, weapon in enumerate(weapons):
             section_y = rect_y + i * section_height
 
-            # Draw section divider
-            pygame.draw.line(screen, (200, 200, 200), (rect_x, section_y), (rect_x + rect_width, section_y))
+            # Draw section background
+            pygame.draw.rect(screen, (70, 70, 70), (rect_x, section_y, rect_width, section_height))
 
             # Weapon Image
             weapon.image = pygame.transform.scale(weapon.image, (100, 100))  # Resize weapon image
@@ -65,15 +69,15 @@ def improve_combat_screen(player):
 
             # Weapon Name
             weapon_name_text = font.render(weapon.name, True, (255, 255, 255))
-            screen.blit(weapon_name_text, (rect_x + 140, section_y + 20))
+            screen.blit(weapon_name_text, (rect_x + 140, section_y + 10))  # Adjusted position
 
             # Weapon Damage
             weapon_damage_text = font.render(f"DMG: {weapon.damage}", True, (255, 255, 255))
-            screen.blit(weapon_damage_text, (rect_x + 140, section_y + 60))
+            screen.blit(weapon_damage_text, (rect_x + 140, section_y + 50))  # Adjusted position
 
             # Upgrade Progress Bar
-            bar_x, bar_y = rect_x + 300, section_y + (section_height - 30) // 2
-            bar_width, bar_height = 300, 30
+            bar_x, bar_y = rect_x + 300, section_y + 50  # Placed right in front of the damage text
+            bar_width, bar_height = 400, 30  # Wider progress bar
             pygame.draw.rect(screen, (100, 100, 100), (bar_x, bar_y, bar_width, bar_height))  # Background bar
 
             # Filled sections based on upgrade progress
@@ -83,12 +87,16 @@ def improve_combat_screen(player):
                 pygame.draw.rect(screen, (0, 200, 0), (bar_x + j * segment_width, bar_y, segment_width - 2, bar_height))
 
             # Upgrade Button
-            upgrade_button = Button(rect_x + 650, section_y + (section_height - 60) // 2, 150, 60, "+0.5 DMG", None,
+            button_x, button_y = bar_x + bar_width + 20, bar_y - 10  # Adjusted position near progress bar
+            upgrade_button = Button(button_x, button_y, 150, 60, "+0.5 DMG", None, 
                                      "fonts/Grand9KPixel.ttf", 25, True, bice_blue, image="images/ice-banner.png")
             upgrade_button.draw(screen, mouse)
 
-            # Coin image beside the button
-            screen.blit(coin_image, (rect_x + 610, section_y + (section_height - 40) // 2))
+            # Coin cost below the button
+            cost_text = font.render("50", True, (255, 255, 255))
+            coin_cost_x, coin_cost_y = button_x + 50, button_y + 65  # Position below the button
+            screen.blit(coin_image, (coin_cost_x + 30, coin_cost_y - 5))
+            screen.blit(cost_text, (coin_cost_x, coin_cost_y))
 
             # Handle weapon upgrade click
             for ev in pygame.event.get():
@@ -101,15 +109,11 @@ def improve_combat_screen(player):
                         player.balance -= 50
                         weapon.damage += 0.5
                         weapon_upgrades[weapon.name] += 1
-                        print(f"Upgraded {weapon.name} to {weapon.damage} damage. Coins left: {player.balance}")
+                        print(f"Upgraded {weapon.name} to {weapon.damage} damage. Balance left: {player.balance}")
                     elif weapon_upgrades[weapon.name] >= 6:
                         print(f"{weapon.name} is fully upgraded!")
                     else:
-                        print("Not enough coins!")
-
-        # Draw player's coin count at the top
-        coin_count_text = font.render(f"Coins: {player.balance}", True, (255, 255, 255))
-        screen.blit(coin_count_text, (20, 20))
+                        print("Not enough balance!")
 
         # Draw back button
         back_button.draw(screen, mouse)
@@ -122,5 +126,5 @@ def improve_combat_screen(player):
                 select_sound()
                 return
 
-        # Update display
+        # Update 
         pygame.display.update()
