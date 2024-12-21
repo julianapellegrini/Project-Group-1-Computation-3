@@ -16,12 +16,6 @@ class Player(pygame.sprite.Sprite):
         # calling the mother class' init
         super().__init__()
 
-        # VISUAL VARIABLES
-
-        # character attempt
-        # (FAIL) character = pygame.image.load("images/girl.jpeg")
-        # FAIL self.image.blit(character)
-
         # Load images for different directions and to switch between them
         self.image_up = pygame.image.load(f'images_penguins/{ptype}up.png')
         self.image_d_stop = pygame.image.load(f'images_penguins/{ptype}downstop.png')
