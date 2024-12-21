@@ -5,23 +5,30 @@ import math
 
 class Enemy(pygame.sprite.Sprite):
 
-    def __init__(self,max_health=10):
+    def __init__(self, enemy_type, max_health=10):
         super().__init__()
-        # creating a surface for the enemy
-        self.image = pygame.image.load('images/seal1.png')
-        self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
+        # loading the image
+        self.image1 = pygame.image.load(f'images_enemies/{enemy_type}1.png')
+        self.image2 = pygame.image.load(f'images_enemies/{enemy_type}2.png')
 
-        # getting rectangle for positioning
+        # Scale images
+        self.image1 = pygame.transform.scale(self.image1, (enemy_size[0], enemy_size[1]))
+        self.image2 = pygame.transform.scale(self.image2, (enemy_size[0], enemy_size[1]))
+
+        # Set the default image
+        self.image = self.image1
+
+        # Get rectangle for positioning
         self.rect = self.image.get_rect()
 
-        # starting the enemy at a random valid location on the screen
+        # Starting the enemy at a random valid location on the screen
         self.rect.x = random.randint(0, width - enemy_size[0])
-        self.rect.y = random.randint(0, height - enemy_size[-1])
+        self.rect.y = random.randint(0, height - enemy_size[1])
 
-        # setting a random initial speed for the enemy
+        # Setting a random initial speed for the enemy
         self.speed = random.randint(1, 3)
 
-        # set the healthbar
+        # Set the health bar
         self.health = max_health
         self.max_health = max_health
 
@@ -35,22 +42,23 @@ class Enemy(pygame.sprite.Sprite):
         dx = player.rect.x - self.rect.x
         dy = player.rect.y - self.rect.y
 
-        # getting the direction in radians
+        # Get the direction in radians
         direction = math.atan2(dy, dx)
 
-        # moving the enemy towards the player_related --> like bullet
+        # Move the enemy towards the player
         self.rect.x += self.speed * math.cos(direction)
         self.rect.y += self.speed * math.sin(direction)
 
-        self.rect.x = int(self.rect.x)
-        self.rect.y = int(self.rect.y)
+        # for now its not animated :')
+        self.image = self.image1
+
 
     def draw_health_bar(self, surface):
         # Define the size and position of the health bar
         bar_width = self.rect.width
-        bar_height = 10  # Increase the height of the health bar
+        bar_height = 10
         bar_x = self.rect.x
-        bar_y = self.rect.y - bar_height - 5  # Adjust the position
+        bar_y = self.rect.y - bar_height - 5
 
         # Ensure health does not go below 0
         health = max(self.health, 0)
@@ -74,39 +82,25 @@ class Enemy(pygame.sprite.Sprite):
 
 class Seal(Enemy):
     def __init__(self):
-        super().__init__(max_health=8)
-        self.image = pygame.image.load('images/seal1.png')
-        self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
+        super().__init__(enemy_type='cinza', max_health=8)
         self.speed = 3
-
 
 class Seal2(Enemy):
     def __init__(self):
-        super().__init__(max_health=13)
-        self.image = pygame.image.load('images/seal2.png')
-        self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
+        super().__init__(enemy_type='marrom', max_health=13)
         self.speed = 3
-
 
 class Seal_with_a_hat(Enemy):
     def __init__(self):
-        super().__init__(max_health=20)
-        self.image = pygame.image.load('images/seal3.png')
-        self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
-        self.speed = random.randint(1, 2)  # Slower speed
+        super().__init__(enemy_type='seal3', max_health=20)
+        self.speed = random.randint(1, 2)
 
 class Polar_bear(Enemy):
     def __init__(self):
-        super().__init__(max_health=25)
-        self.image = pygame.image.load('images/polar-bear.png')
-        self.image = pygame.transform.scale(self.image, (enemy_size[0], enemy_size[-1]))
+        super().__init__(enemy_type='polar_bear', max_health=25)
         self.speed = random.randint(1, 2)
 
-
-# Mini-Boss Subclass
 class Orca(Enemy):
     def __init__(self):
-        super().__init__(max_health=50)  # Very high health
-        self.image = pygame.image.load('images/orca.png')  # Unique image
-        self.image = pygame.transform.scale(self.image, (enemy_size[0] * 2, enemy_size[-1] * 2))  # Larger size
-        self.speed = 1  # Very slow
+        super().__init__(enemy_type='orca', max_health=50)
+        self.speed = 1

@@ -29,19 +29,19 @@ def shed(player):
     back_button = Button(1000, 650, 150, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
                          image="images/Wood-button1.png")
 
-    shop_button = Button(460, 370, 100, 60, "Shop", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+    shop_button = Button(580, 240, 100, 60, "Shop", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
                          image="images/Wood-button1.png")
 
-    skin_button = Button(750, 600, 150, 60, "Skins", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+    skin_button = Button(50, 310, 150, 60, "Skins", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
                           image="images/Wood-button1.png")
 
-    fish_button = Button(700, 200, 150, 60, "Fishing Hole", brown, "fonts/Grand9KPixel.ttf", 18, True, light_brown,
+    fish_button = Button(830, 250, 150, 60, "Fishing Hole", brown, "fonts/Grand9KPixel.ttf", 18, True, light_brown,
                          image="images/Wood-button1.png")
 
-    weapons_button = Button(850, 455, 150, 60, "Weapons", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+    weapons_button = Button(50, 380, 150, 60, "Weapons", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
                             image="images/Wood-button1.png")
 
-    save_game_button = Button(662, 364, 150, 60, "Save Game", brown, "fonts/Grand9KPixel.ttf", 18, True, light_brown,
+    save_game_button = Button(270, 190, 150, 60, "Save Game", brown, "fonts/Grand9KPixel.ttf", 18, True, light_brown,
                               image="images/Wood-button1.png")
 
     running = True
