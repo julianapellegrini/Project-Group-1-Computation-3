@@ -9,3 +9,8 @@ class Inventory:
             self.items['Weapons'][item.name] = item
         elif item.name in self.items['Powerups']:
             self.items['Powerups'][item.name] = item
+
+    def add_weapon(self, weapon):
+        if 'Weapons' not in self.items:
+            self.items['Weapons'] = {}
+        self.items['Weapons'][weapon.name] = weapon

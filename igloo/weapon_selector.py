@@ -4,7 +4,6 @@ from interfaces_menus.button import Button, select_sound
 from player_related.weapons import Snowball, Slingshot, Fish_bazooka, Ice_Ninja_Stars
 
 
-
 def weapon_selector(player):
 
     # set background
@@ -29,8 +28,8 @@ def weapon_selector(player):
     arrow_right = Button(900, 300, 200, 200, None, None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                          image="images/arrow_right.png")
 
-    # list weapons
-    weapons = [Snowball(), Slingshot(), Fish_bazooka(), Ice_Ninja_Stars()]
+    # list weapons from player's inventory
+    weapons = list(player.inventory.items['Weapons'].values())
 
     # tracker for current weapon
     selector_current = 0
@@ -100,6 +99,12 @@ def weapon_selector(player):
         select_button.draw(screen, mouse)
         arrow_left.draw(screen, mouse)
         arrow_right.draw(screen, mouse)
+
+        if weapons:
+            # rescale current weapon
+            current_weapon = weapons[selector_current]
+            current_weapon.image = pygame.transform.scale(current_weapon.image, (150, 150))
+            current_weapon.rect = current_weapon.image.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
         # rescale current weapon
         current_weapon = weapons[selector_current]

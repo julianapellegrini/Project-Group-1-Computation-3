@@ -64,7 +64,7 @@ def weapon_shop(player):
                     select_sound()
                     if player.balance >= weapons[i].price:
                         player.balance -= weapons[i].price
-                        player.inventory.add_item(weapons[i])
+                        player.inventory.add_weapon(weapons[i])
                         print(f"Bought {weapons[i].name}")
 
             # putting visual effects on buttons
