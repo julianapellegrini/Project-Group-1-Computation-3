@@ -94,7 +94,6 @@ def fish_info_screen(player):
 
         # getting the mouse position
         mouse = pygame.mouse.get_pos()
-        print(mouse)
 
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
