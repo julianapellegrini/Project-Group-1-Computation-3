@@ -123,7 +123,9 @@ def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_d
         screen.blit(enemies_text, enemies_text_rect)
 
         map_button.draw(screen, pygame.mouse.get_pos())
-        next_level_button.draw(screen, pygame.mouse.get_pos())
+
+        if level <= 4:
+            next_level_button.draw(screen, pygame.mouse.get_pos())
 
         # update button visuals
         if map_button.is_hovered(pygame.mouse.get_pos()):
