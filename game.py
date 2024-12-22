@@ -8,6 +8,7 @@ from powerups.extra_fish import Extra_Fish
 from powerups.invincibility import Invincibility
 from interfaces_menus.pause import pause_screen
 from chest import Chest
+from interfaces_menus.victory_screen import victory_screen
 
 # initializing pygame
 pygame.init()
@@ -209,7 +210,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                     player.powerup.deactivate(spawn_chances, player)
                 else:
                     player.powerup.deactivate(player)
-                player.powerup = None  # Reset the powerup
+                player.powerup = None
         
         # Draw the invincibility image if the player is invincible
         if isinstance(player.powerup, Invincibility) and player.powerup.active:
@@ -302,6 +303,10 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                 player.level += 1
             player.health = player.health_cap
             player.speed = player.speed_cap
+
+            # Call the victory screen
+            victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level)
+
             map_layout(player, interface_w_save, interface_no_save)
             return
 

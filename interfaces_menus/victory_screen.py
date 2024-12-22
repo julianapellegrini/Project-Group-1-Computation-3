@@ -2,10 +2,10 @@ from utils import *
 from config import *
 from interfaces_menus.button import Button, select_sound
 
-
-def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_defeated):
+def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level):
     # Load the victory background image
-    background1 = pygame.image.load("images/ice-background2.png")
+    # setting up the background:
+    background1 = pygame.image.load(f"images/level{level}bg.png")
     background1 = pygame.transform.scale(background1, (width, height))
 
     background = pygame.image.load('images/textbg.png')
