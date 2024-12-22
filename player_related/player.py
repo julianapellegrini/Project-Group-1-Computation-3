@@ -114,6 +114,10 @@ class Player(pygame.sprite.Sprite):
         self.inventory.items = eval(data[0])
         self.balance = int(data[1])
         self.level = int(data[3])
+        self.ptype = data[4]
+        self.load_images()
+        self.health_cap = int(data[5])
+        self.speed_cap = int(data[6])
 
         # Load the weapon
         weapon_name = data[2].split("(")[0]
