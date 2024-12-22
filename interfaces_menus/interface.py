@@ -446,7 +446,7 @@ def rules_(player):
     text = pixel_font.render("RULES", True, brown)
     text_rect = text.get_rect(center=(600, 100))
 
-    rules = pygame.image.load('images/rules.png')
+    rules = pygame.image.load('images/rules.jpeg')
     rules = pygame.transform.scale(rules, (500, 600))
     rules_rect = rules.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
@@ -642,7 +642,7 @@ def weapon_desc(player):
     text = pixel_font.render("WEAPONS", True, brown)
     text_rect = text.get_rect(center=(600, 100))
 
-    weapomscr = pygame.image.load('images/powers.png')
+    weapomscr = pygame.image.load('images/weaponscr.jpeg')
     weaponscr = pygame.transform.scale(weapomscr, (500, 600))
     weaponscr_rect = weaponscr.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
@@ -720,7 +720,7 @@ def chest_desc(player):
     text = pixel_font.render("CHESTS", True, brown)
     text_rect = text.get_rect(center=(600, 100))
 
-    chestscr = pygame.image.load('images/powers.png')
+    chestscr = pygame.image.load('images/chestscr.jpeg')
     chestscr = pygame.transform.scale(chestscr, (500, 600))
     chestscr_rect = chestscr.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
