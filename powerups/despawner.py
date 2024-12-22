@@ -10,8 +10,7 @@ class DeSpawner(PowerUp):
         self.active = False
         self.start_time = None
         self.duration = 5  # Duration for which the power-up is active
-        self.pop_sound =   pygame.mixer.Sound('powerup_sounds/enemy_pop.mp3')
-        self.pop_sound.set_volume(0.5)  
+
 
         
 
@@ -27,7 +26,6 @@ class DeSpawner(PowerUp):
         for enemy in list(enemies):
             if random.random() < 0.5:  # 50% chance to remove each enemy
                 enemies.remove(enemy)
-                self.pop_sound.play()
 
         # change the player's image
         player.load_images_pow()

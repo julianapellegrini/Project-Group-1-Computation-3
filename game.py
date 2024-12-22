@@ -20,13 +20,17 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     player's progress.
     :param level: The current level the player_related is playing.
     """
-    # Setup:
+
+    from interfaces_menus.interface import music_volume, sound_volume
+    global music_volume
+    global sound_volume
+
     # setting up the background:
     background = pygame.image.load(f"images/level{level}bg.png")
     background = pygame.transform.scale(background, (width, height))
 
-    pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
-    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.load("audio/battle-music.mp3")
+    pygame.mixer.music.set_volume(music_volume)
     pygame.mixer.music.play(loops=-1)
 
     # using the clock to control the time frame
@@ -186,6 +190,11 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                     else:
                         powerup.affect_game(screen, enemies, spawn_chances, player)
                         player.powerup = powerup
+
+                    # Play the sound effect
+                    powerup_sound = pygame.mixer.Sound('audio/power-up.mp3')
+                    powerup_sound.set_volume(sound_volume)
+                    powerup_sound.play()
                         
                     # remove the powerup from the group
                     powerup_group.remove(powerup)
