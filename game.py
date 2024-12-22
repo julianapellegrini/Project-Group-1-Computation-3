@@ -315,7 +315,6 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
             # Call the victory screen
             victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level, player, interface_w_save, interface_no_save)
 
-            map_layout(player, interface_w_save, interface_no_save)
             return
 
         # update display

@@ -3,9 +3,8 @@ from config import *
 from interfaces_menus.button import Button, select_sound
 
 
-
-def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level, player, interface_w_save, interface_no_save):
-
+def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level, player,
+                   interface_w_save, interface_no_save):
     # Load the victory background image
     background1 = pygame.image.load(f"images/level{level}bg.png")
     background1 = pygame.transform.scale(background1, (width, height))
@@ -20,25 +19,37 @@ def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_d
     powerup_sound.play()
 
     # Load the buttons images
-    back_button = Button(resolution[0] // 2 - 70, 550, 140, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 27, True, light_brown, image='images/Wood-button1.png')
-    next_level_button = Button(resolution[0] // 2 - 70, 450, 140, 60, "Next Level", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown, image='images/Wood-button1.png')
+    map_button = Button(resolution[0] // 2 - 70, 550, 140, 60, "Map", brown, "fonts/Grand9KPixel.ttf", 27, True,
+                        light_brown, image='images/Wood-button1.png')
+    next_level_button = Button(resolution[0] // 2 - 70, 450, 140, 60, "Next Level", brown, "fonts/Grand9KPixel.ttf", 20,
+                               True, light_brown, image='images/Wood-button1.png')
 
     # Set font
     pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 45)
     pixel_font_small = pygame.font.Font("fonts/Grand9KPixel.ttf", 30)
 
+    # Load icons
+    snowflake_coin = pygame.image.load('images/snowflake_coin.png')
+    snowflake_coin = pygame.transform.scale(snowflake_coin, (40, 40))
+
+    icon_hourglass = pygame.image.load('images/icon_hourglass.png')
+    icon_hourglass = pygame.transform.scale(icon_hourglass, (40, 40))
+
+    icon_enemy = pygame.image.load('images/icon_enemy.png')
+    icon_enemy = pygame.transform.scale(icon_enemy, (43, 43))
+
     # Create victory content
-    win_text = pixel_font.render("You Win!", True, (255, 255, 255))
-    win_text_rect = win_text.get_rect(center=(resolution[0] // 2, resolution[1] // 3))
+    win_text = pixel_font.render("Congratulations!!", True, oxford_blue)
+    win_text_rect = win_text.get_rect(center=(resolution[0] // 2, resolution[1] // 4))
 
     coins_text = pixel_font_small.render(f"{coins_earned}", True, (255, 255, 255))
-    coins_text_rect = coins_text.get_rect(center=(resolution[0] // 2, resolution[1] // 2.5))
+    coins_text_rect = coins_text.get_rect(center=(resolution[0] // 2.7, resolution[1] // 2.1))
 
     time_text = pixel_font_small.render(f"{int(minutes)}:{int(seconds)}", True, (255, 255, 255))
-    time_text_rect = time_text.get_rect(center=(resolution[0] // 2, resolution[1] // 2.2))
+    time_text_rect = time_text.get_rect(center=(resolution[0] // 1.9, resolution[1] // 2.1))
 
     enemies_text = pixel_font_small.render(f"{enemies_defeated}", True, (255, 255, 255))
-    enemies_text_rect = enemies_text.get_rect(center=(resolution[0] // 2, resolution[1] // 1.9))
+    enemies_text_rect = enemies_text.get_rect(center=(resolution[0] // 1.5, resolution[1] // 2.1))
 
     # Main loop to maintain the victory screen
     victory = True
@@ -49,8 +60,9 @@ def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_d
                 return
             elif ev.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
+                print(mouse_pos)
 
-                if back_button.is_clicked(mouse_pos, ev):
+                if map_button.is_clicked(mouse_pos, ev):
                     select_sound()
                     from interfaces_menus.map import map_layout
                     victory = False
@@ -68,16 +80,24 @@ def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_d
         screen.blit(background1, (0, 0))
         screen.blit(background, background_rect)
         screen.blit(win_text, win_text_rect)
+
+        # Draw icons and texts
+        screen.blit(snowflake_coin, (coins_text_rect.left - 40, coins_text_rect.top + 5))
         screen.blit(coins_text, coins_text_rect)
+
+        screen.blit(icon_hourglass, (time_text_rect.left - 40, time_text_rect.top))
         screen.blit(time_text, time_text_rect)
+
+        screen.blit(icon_enemy, (enemies_text_rect.left - 43, enemies_text_rect.top - 3))
         screen.blit(enemies_text, enemies_text_rect)
-        back_button.draw(screen, pygame.mouse.get_pos())
+
+        map_button.draw(screen, pygame.mouse.get_pos())
         next_level_button.draw(screen, pygame.mouse.get_pos())
 
-        if back_button.is_hovered(pygame.mouse.get_pos()):
-            back_button.scale_up()
+        if map_button.is_hovered(pygame.mouse.get_pos()):
+            map_button.scale_up()
         else:
-            back_button.scale_down()
+            map_button.scale_down()
 
         if next_level_button.is_hovered(pygame.mouse.get_pos()):
             next_level_button.scale_up()
