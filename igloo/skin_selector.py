@@ -30,10 +30,10 @@ def skin_selector(player):
     clock = pygame.time.Clock()
 
     # set buttons
-    back_button = Button(1000, 650, 150, 60, "Back", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
-                         image="images/ice-banner.png")
-    select_button = Button((resolution[0] - 150) // 2, 600, 150, 60, "Select", None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
-                           image="images/ice-banner.png")
+    back_button = Button(950, 600, 200, 100, "Back", brown, "fonts/Grand9KPixel.ttf", 30, True, light_brown,
+                         image="images/Wood-button1.png")
+    select_button = Button(480, 600, 250, 90, "Select", brown, "fonts/Grand9KPixel.ttf", 35, True, light_brown,
+                           image="images/Wood-button1.png")
 
     arrow_left = Button(100, 300, 200, 200, None, None, "fonts/Grand9KPixel.ttf", 35, True, bice_blue,
                         image="images/arrow_left.png")
