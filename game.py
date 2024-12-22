@@ -282,7 +282,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
 
         # drawing the bullet sprites:
         for bullet in bullets:
-            bullet.draw(screen)
+            bullet.draw(screen,player)
 
         # checking for collisions between bullets and enemies
         for bullet in bullets:

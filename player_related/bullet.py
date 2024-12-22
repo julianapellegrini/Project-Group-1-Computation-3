@@ -1,7 +1,7 @@
 from config import *
 import pygame
 import math
-
+from powerups.extra_fish import Extra_Fish
 
 # bullet class
 class Bullet(pygame.sprite.Sprite):
@@ -44,7 +44,7 @@ class Bullet(pygame.sprite.Sprite):
         self.direction = direction
         self.radius = bullet_size
         self.color = oxford_blue
-
+        self.powered_color = glowing_light_red
         self.rect = pygame.Rect(x - self.radius, y - self.radius, self.radius * 2, self.radius * 2)
         self.speed = 8
 
@@ -67,7 +67,7 @@ class Bullet(pygame.sprite.Sprite):
             self.kill()
 
     #  drawing the bullet on screen
-    def draw(self, screen):
+    def draw(self, screen,player):
 
         """
         Draws the bullet on the screen.
@@ -79,4 +79,9 @@ class Bullet(pygame.sprite.Sprite):
         """
 
         # drawing the bullet on screen
+        # drawing the bullet on screen
         pygame.draw.circle(screen, self.color, self.rect.center, self.radius)
+        if not isinstance(player.powerup, Extra_Fish):
+            pygame.draw.circle(screen, self.color, self.rect.center, self.radius)
+        else:
+            pygame.draw.circle(screen, self.powered_color, self.rect.center, self.radius)
