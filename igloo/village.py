@@ -48,11 +48,10 @@ def village(player, map_layout):
                 
         # update the player's position
         player.update(screen)
-        player.rect.y >= 300
 
-        # don't let the player go off the screen
-
-
+        # don't let the player go into the lake or push the other pengus
+        if player.rect.bottom <= 300:
+            player.rect.bottom = 300
 
         mouse = pygame.mouse.get_pos()
         print(mouse)
