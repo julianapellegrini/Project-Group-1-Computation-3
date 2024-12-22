@@ -4,7 +4,7 @@ from config import *
 import math
 from player_related.bullet import Bullet
 from player_related.inventory import Inventory
-from player_related.weapons import Snowball, Slingshot, Watergun, Fish_bazooka, Ice_Ninja_Stars
+from player_related.weapons import Snowball, Slingshot, Watergun, Fish_bazooka, Ice_Ninja_Stars, Sardine_Shooter
 from powerups.extra_fish import Extra_Fish
 
 ptypes = ['gray', 'brown', 'eyebrow']  # just for reference
@@ -43,14 +43,19 @@ class Player(pygame.sprite.Sprite):
         self.inventory = Inventory()
 
         # Player has a Watergun in his inventory
-        watergun = Watergun()
-        self.inventory.add_item(watergun)
-
+        self.watergun = Watergun()
+        self.inventory.add_item(self.watergun)
         # Player has currency
-        self.balance = 0
-
+        self.balance = 100
         # Weapons
-        self.weapon = watergun  # default weapon
+        self.weapon = self.watergun  # default weapon
+        self.snowball = Snowball()
+        self.slingshot = Slingshot()
+        self.fish_bazooka = Fish_bazooka()
+        self.ice_ninja_stars = Ice_Ninja_Stars()
+        self.sardine_shooter = Sardine_Shooter()
+        self.weapon_upgrades = {}
+
 
         # Powerups
         self.powerup = None  # current powerup, default is None
@@ -131,6 +136,8 @@ class Player(pygame.sprite.Sprite):
             self.weapon = Fish_bazooka()
         elif weapon_name == "Ice Ninja Stars":
             self.weapon = Ice_Ninja_Stars()
+        elif weapon_name == "Sardine Shooter":
+            self.weapon = Sardine_Shooter()
 
 
     def add_item(self, item):
@@ -228,3 +235,18 @@ class Player(pygame.sprite.Sprite):
         text = font.render(f'{int(health)}%', True, (255, 255, 255))
         text_rect = text.get_rect(center=(bar_x + bar_width // 2, bar_y + bar_height // 2))
         surface.blit(text, text_rect)
+
+    def get_weapon_by_name(self, weapon_name):
+        # Map of weapon names to weapon objects
+        weapon_map = {
+            "Snowball": self.snowball,
+            "Slingshot": self.slingshot,
+            "Fish Bazooka": self.fish_bazooka,
+            "Ice Ninja Stars": self.ice_ninja_stars,
+            "Sardine Shooter": self.sardine_shooter
+        }
+
+        if weapon_name in weapon_map:
+            return weapon_map[weapon_name]
+        else:
+            return None

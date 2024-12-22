@@ -34,8 +34,8 @@ def weapon_shop(player):
         WeaponSale("Snowball", 10, "images_weapons/snowball.png"),
         WeaponSale("Slingshot", 25, "images_weapons/slingshot.png"),
         WeaponSale("Fish Bazooka", 100, "images_weapons/fish_bazooka.png"),
-        WeaponSale("Ice Ninja Stars", 35, "images_weapons/ice_ninja_stars.png"),
-        WeaponSale("Sardine Shooter", 50, "images_weapons/sardine_shooter.png")
+        WeaponSale("Ice Ninja Stars", 50, "images_weapons/ice_ninja_stars.png"),
+        WeaponSale("Sardine Shooter", 85, "images_weapons/sardine_shooter.png")
     ]
 
     # setting up the  weapon buttons

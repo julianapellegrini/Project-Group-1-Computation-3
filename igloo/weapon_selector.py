@@ -33,15 +33,15 @@ def weapon_selector(player):
     for weapon, count in player.inventory.items['Weapons'].items():
         if count == 1:
             if weapon == "Watergun":
-                weapons.append(Watergun())
+                weapons.append(player.watergun)
             elif weapon == "Snowball":
-                weapons.append(Snowball())
+                weapons.append(player.snowball)
             elif weapon == "Slingshot":
-                weapons.append(Slingshot())
+                weapons.append(player.slingshot)
             elif weapon == "Fish Bazooka":
-                weapons.append(Fish_bazooka())
+                weapons.append(player.fish_bazooka)
             elif weapon == "Ice Ninja Stars":
-                weapons.append(Ice_Ninja_Stars())
+                weapons.append(player.ice_ninja_stars)
 
     # tracker for current weapon
     selector_current = 0

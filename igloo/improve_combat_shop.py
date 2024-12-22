@@ -1,7 +1,7 @@
+
 from utils import *
 from interfaces_menus.button import Button, select_sound
 from player_related.weapons import Snowball, Slingshot, Fish_bazooka, Ice_Ninja_Stars
-
 
 def improve_combat_screen(player):
 
@@ -20,7 +20,14 @@ def improve_combat_screen(player):
                          image="images/Wood-button1.png")
 
     # Weapons list
-    weapons = [Snowball(), Slingshot(), Fish_bazooka(), Ice_Ninja_Stars()]
+    weapons = [player.snowball, player.slingshot, player.fish_bazooka, player.ice_ninja_stars]
+    # Initialize weapon upgrades from the player object
+    weapon_upgrades = player.weapon_upgrades
+
+    # Ensure all weapons are initialized in upgrades
+    for weapon in weapons:
+        if weapon.name not in weapon_upgrades:
+            weapon_upgrades[weapon.name] = 0                   
 
     # Coin image
     coin_image = pygame.image.load("images/snowflake_coin.png")
@@ -90,7 +97,7 @@ def improve_combat_screen(player):
             pygame.draw.rect(screen, (100, 100, 100), (bar_x, bar_y, bar_width, bar_height))  # Background bar
 
             # Filled sections based on upgrade progress
-            progress = weapon_upgrades[weapon.name]
+            progress = player.weapon_upgrades[weapon.name]
             for j in range(progress):
                 segment_width = bar_width // 6
                 pygame.draw.rect(screen, (0, 200, 0), (bar_x + j * segment_width, bar_y, segment_width - 2, bar_height))
@@ -99,7 +106,7 @@ def improve_combat_screen(player):
             upgrade_buttons[i].draw(screen, mouse)
 
             # Coin cost below the button
-            cost_text = font.render("50", True, (255, 255, 255))
+            cost_text = font.render("20", True, (255, 255, 255))
             coin_cost_x, coin_cost_y = upgrade_buttons[i].x + 50, upgrade_buttons[i].y + 65
             screen.blit(coin_image, (coin_cost_x + 35, coin_cost_y))
             screen.blit(cost_text, (coin_cost_x, coin_cost_y))
@@ -116,17 +123,19 @@ def improve_combat_screen(player):
                 return
             for i, upgrade_button in enumerate(upgrade_buttons):
                 if upgrade_button.is_clicked(mouse, ev):
-                    if player.balance >= 50 and weapon_upgrades[weapons[i].name] < 6:
+                    if player.balance >= 20 and weapon_upgrades[weapons[i].name] < 6:
                         select_sound()
-                        player.balance -= 50
+                        player.balance -= 20
                         weapons[i].damage += 0.5
-                        weapon_upgrades[weapons[i].name] += 1
+                        player.weapon_upgrades[weapons[i].name] += 1  # Save progress to the player object
                         print(
                             f"Upgraded {weapons[i].name} to {weapons[i].damage} damage. Balance left: {player.balance}")
                     elif weapon_upgrades[weapons[i].name] >= 6:
                         print(f"{weapons[i].name} is fully upgraded!")
                     else:
                         print("Not enough balance!")
+        
+        
 
         # putting visual effects on buttons
         for button in [back_button] + upgrade_buttons:
