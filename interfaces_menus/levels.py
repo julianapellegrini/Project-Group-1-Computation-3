@@ -2,6 +2,7 @@ import pygame
 from config import *
 from interfaces_menus.button import Button
 
+
 class Level:
     # initializing the Level
     def __init__(self, number, x, y, width, height, color, image):

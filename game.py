@@ -22,7 +22,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     """
     # Setup:
     # setting up the background:
-    background = pygame.image.load("images/ice-background2.png")
+    background = pygame.image.load(f"images/level{level}bg.png")
     background = pygame.transform.scale(background, (width, height))
 
     pygame.mixer.music.load("audio/nocturne-of-ice.mp3")

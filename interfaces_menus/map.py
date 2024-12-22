@@ -42,7 +42,7 @@ def map_layout(player, interface_w_save, interface_no_save):
         Level(2, 225, 175, 100, 100, brown, "images/level-button.png"),
         Level(3, 520, 310, 100, 100, brown, "images/level-button.png"),
         Level(4, 830, 200, 100, 100, brown, "images/level-button.png"),
-        Level(5, 610, 30, 100, 100, brown, "images/level-button.png")
+        Level(5, 610, 30, 100, 100, brown, "images/level-button.png"),
         ]
 
     while True:
