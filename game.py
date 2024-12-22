@@ -210,6 +210,9 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         elif isinstance(player.powerup, Speed_Boost) and player.powerup.active:
             player.powerup.update_position(player)
             screen.blit(player.powerup.image, player.powerup.image_rect.topleft)
+        elif isinstance(player.powerup, DeSpawner) and player.powerup.active:
+            player.powerup.update_position(player)
+            screen.blit(player.powerup.image, player.powerup.image_rect.topleft)
 
         
         # automatically shoot bullets from the player

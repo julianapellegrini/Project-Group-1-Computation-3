@@ -10,6 +10,10 @@ class DeSpawner(PowerUp):
         self.active = False
         self.start_time = None
         self.duration = 5  # Duration for which the power-up is active
+        self.pop_sound =   pygame.mixer.Sound('powerup_sounds/enemy_pop.mp3')
+        self.pop_sound.set_volume(0.5)  
+
+        
 
     def affect_player(self, surface, player):
         pass
@@ -23,6 +27,10 @@ class DeSpawner(PowerUp):
         for enemy in list(enemies):
             if random.random() < 0.5:  # 50% chance to remove each enemy
                 enemies.remove(enemy)
+                self.pop_sound.play()
+
+        # change the player's image
+        player.load_images_pow()
 
         # Reduce the spawn rate of monsters
         for enemy_type in spawn_chances:
@@ -30,9 +38,13 @@ class DeSpawner(PowerUp):
 
         # Position the power-up image around the player
         self.image = pygame.image.load('powerup_images/despawner_image.png')
-        self.image = pygame.transform.scale(self.image, (player.rect.width + 30, player.rect.height + 30))
+        self.image = pygame.transform.scale(self.image, (player.rect.width + 60, player.rect.height + 60))
         self.image_rect = self.image.get_rect(center=player.rect.center)
         surface.blit(self.image, self.image_rect.topleft)
+
+    def update_position(self, player):
+        # Update the position of the invincibility image to follow the player
+        self.image_rect = self.image.get_rect(center=player.rect.center)
 
     def deactivate(self, spawn_chances, player):
         self.active = False
