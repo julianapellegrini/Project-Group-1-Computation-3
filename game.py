@@ -132,7 +132,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         return selected_powerup()
 
     # settings for chests
-    chest_spawn_interval = 3000  # 20% to chance every 20 seconds
+    chest_spawn_interval = 10000  # 10% to chance every 20 seconds
     last_chest_spawn_time = pygame.time.get_ticks()
     chest_group = pygame.sprite.Group()
     chest_spawn_probability = 0.1  # 10% chance to spawn a chest every x seconds
@@ -282,7 +282,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
 
         # drawing the bullet sprites:
         for bullet in bullets:
-            bullet.draw(screen)
+            bullet.draw(screen,player)
 
         # checking for collisions between bullets and enemies
         for bullet in bullets:
