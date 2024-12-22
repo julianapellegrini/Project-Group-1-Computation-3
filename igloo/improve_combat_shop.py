@@ -36,12 +36,6 @@ def improve_combat_screen(player):
     # Font for text
     font = pygame.font.Font("fonts/Grand9KPixel.ttf", 25)
 
-    # Running flag
-    running = True
-
-    # Weapon upgrade progress tracking
-    weapon_upgrades = {weapon.name: 0 for weapon in weapons}  # Tracks upgrades (0 to 6)
-
     # Create upgrade buttons for each weapon
     upgrade_buttons = []
     for i, weapon in enumerate(weapons):
@@ -50,6 +44,7 @@ def improve_combat_screen(player):
                                 "fonts/Grand9KPixel.ttf", 25, True, light_blue, image="images/Wood-button1.png")
         upgrade_buttons.append(upgrade_button)
 
+    running = True
     while running:
         # Set FPS
         clock.tick(fps)

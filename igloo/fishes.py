@@ -60,4 +60,4 @@ class Cod(Fish, pygame.sprite.Sprite):
 
 class ClownFish(Fish, pygame.sprite.Sprite):
     def __init__(self):
-        super().__init__("Tuna", 15, 100, "images/clown_fish.png", 0.2)
+        super().__init__("Tuna", 15, 15, "images/clown_fish.png", 0.2)
