@@ -119,8 +119,8 @@ def fishing_minigame(player):
 
     # instruction text and font
     instruction_font = pygame.font.SysFont("fonts/Grand9KPixel.ttf", 40)
-    instruction_text = instruction_font.render("Catch the fish in the fishing bar!", True, white)
-    instruction_text2 = instruction_font.render("Press ESC to return", True, white)
+    instruction_text = instruction_font.render("Catch the fish in the fishing bar!", True, oxford_blue)
+    instruction_text2 = instruction_font.render("Press ESC to return", True, oxford_blue)
 
     # define the fish types
     fish_types = [Salmon, Cod, ClownFish]
@@ -162,8 +162,8 @@ def fishing_minigame(player):
         screen.blit(background, (0, 0))
 
         # display the instruction text
-        screen.blit(instruction_text, (resolution[0] // 2 - instruction_text.get_width() // 2, 50))
-        screen.blit(instruction_text2, (resolution[0] // 2 - instruction_text2.get_width() // 2, 100))
+        screen.blit(instruction_text, (100, 20))
+        screen.blit(instruction_text2, (185, 70))
 
         # getting the position of the user's mouse
         mouse = pygame.mouse.get_pos()

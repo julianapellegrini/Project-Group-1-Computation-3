@@ -1,5 +1,6 @@
 from interfaces_menus.interface import *
 from interfaces_menus.moving_bg import *
+from interfaces_menus.button import Button, select_sound
 
 
 # function to confirm player choice

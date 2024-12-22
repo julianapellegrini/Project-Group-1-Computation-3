@@ -52,9 +52,10 @@ def improve_combat_screen(player):
 
     # create upgrade buttons for each weapon
     upgrade_buttons = []
+    button_x, button_y = 760, 70
+    button_spacing = 128
     for i, weapon in enumerate(weapons):
-        button_x, button_y = 760, 70 + i * 163
-        upgrade_button = Button(button_x, button_y, 150, 60, "+0.5 DMG", royal_blue,
+        upgrade_button = Button(button_x, button_y + i * button_spacing, 150, 60, "+0.5 DMG", royal_blue,
                                 "fonts/Grand9KPixel.ttf", 25, True, light_blue, image="images/Wood-button1.png")
         upgrade_buttons.append(upgrade_button)
 
