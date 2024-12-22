@@ -189,7 +189,8 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                         powerup.affect_player(screen, player)
                         player.powerup = powerup
                     else:
-                        powerup.affect_game(screen, enemies, spawn_chances, player)
+                        enemies_despawned = powerup.affect_game(screen, enemies, spawn_chances, player)
+                        current_enemies -= enemies_despawned
                         player.powerup = powerup
 
                     # Play the sound effect
