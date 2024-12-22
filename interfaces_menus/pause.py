@@ -6,6 +6,27 @@ from config import *
 # creating the pause game button
 def pause_screen(screen, resolution, player, map_layout, interface_w_save, interface_no_save):
 
+    """
+    Displays the pause screen.
+
+    This function sets up a Pygame window with the pause menu, including buttons for resuming the game, accessing settings, returning to the map, and quitting.
+
+    Parameters:
+    -----------
+    screen : pygame.Surface
+        The Pygame display surface.
+    resolution : tuple
+        The resolution of the game window.
+    player : object
+        The player object.
+    map_layout : function
+        The function to call to display the map layout.
+    interface_w_save : function
+        The function to call if a save file is present.
+    interface_no_save : function
+        The function to call if no save file is present.
+    """
+    
     from interfaces_menus.interface import settings
 
     # load the pause button image

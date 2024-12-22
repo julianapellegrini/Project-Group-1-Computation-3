@@ -5,6 +5,32 @@ from interfaces_menus.moving_bg import *
 # function to confirm player choice
 def confirm():
 
+    """
+    Displays a confirmation screen for the player.
+
+    This function sets up a Pygame window with a confirmation message and two buttons ("Yes" and "No").
+    The player can confirm or cancel their choice.
+
+    Attributes:
+    -----------
+    scroll : float
+        The scroll position for the background.
+    screen : pygame.Surface
+        The Pygame display surface.
+    yes_button : Button
+        The button for confirming the choice.
+    no_button : Button
+        The button for canceling the choice.
+    pixel_font : pygame.font.Font
+        The font used for the confirmation text.
+    text : pygame.Surface
+        The rendered confirmation text.
+    background : pygame.Surface
+        The background image for the confirmation box.
+    background_rect : pygame.Rect
+        The rectangle for positioning the background image.
+    """
+
     scroll = 0
 
     # set screen

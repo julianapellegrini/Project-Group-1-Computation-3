@@ -9,7 +9,34 @@ import numpy as np
 
 # create a chest class
 class Chest(pygame.sprite.Sprite):
+
+    """
+    Represents a chest that can spawn in the game and offer random powerups or upgrades to the player.
+
+    Attributes
+    ----------
+    image : pygame.Surface
+        The visual representation of the chest.
+    rect : pygame.Rect
+        The rectangle defining the chest's position and size.
+    spawned : bool
+        Indicates whether the chest is currently spawned on the surface.
+    possible_items : dict
+        A dictionary mapping item names to their spawn probabilities.
+    options : list of str
+        The selected options to be presented when the chest is opened.
+    upgrades : list of str
+        Items that permanently upgrade player attributes.
+    powerups : list of str
+        Temporary powerups affecting gameplay.
+    """
+
     def __init__(self):
+
+        """
+        Initializes the Chest with an image, position, and possible items.
+        """
+
         super().__init__()
         self.image = pygame.image.load("images/chest_image.png")  # load the image
         self.image = pygame.transform.scale(self.image, (150, 150))  # scale the image
@@ -33,6 +60,16 @@ class Chest(pygame.sprite.Sprite):
         self.powerups = ["Despawner", "Invincibility", "Extra Fish", "Speed Boost"]
 
     def spawn(self, surface):
+
+        """
+        Spawns the chest at a random position within the boundaries of the given surface.
+
+        Parameters
+        ----------
+        surface : pygame.Surface
+            The surface where the chest should be spawned.
+        """
+
         # check if chest is not already spawned and spawn it
         if not self.spawned:
             # define map boundaries
@@ -54,6 +91,11 @@ class Chest(pygame.sprite.Sprite):
         surface.blit(self.image, self.rect.topleft)
 
     def select_options(self):
+
+        """
+        Randomly selects three distinct options from the possible items based on their probabilities.
+        """
+
         # separate the items and probabilities to then choose the items based on their probabilities
         items = list(self.possible_items.keys())
         probabilities = list(self.possible_items.values())
@@ -62,6 +104,22 @@ class Chest(pygame.sprite.Sprite):
         print(f"Selected options: {self.options}")
 
     def display_options(self, surface, enemies, spawn_chances, player):
+        
+        """
+        Displays the selected options on the screen and allows the player to choose one.
+
+        Parameters
+        ----------
+        surface : pygame.Surface
+            The surface where the options will be displayed.
+        enemies : list
+            The list of enemies in the game.
+        spawn_chances : dict
+            The spawn chances of various game elements.
+        player : object
+            The player object to apply upgrades or powerups.
+        """
+
         # pause the game
         paused = True
 
@@ -168,5 +226,21 @@ class Chest(pygame.sprite.Sprite):
 
     # method to use when actually colliding with the chest
     def open(self, surface, enemies, spawn_chances, player):
+
+        """
+        Opens the chest and displays the selection menu for upgrades or powerups.
+
+        Parameters
+        ----------
+        surface : pygame.Surface
+            The surface where the options will be displayed.
+        enemies : list
+            The list of enemies in the game.
+        spawn_chances : dict
+            The spawn chances of various game elements.
+        player : object
+            The player object to apply upgrades or powerups.
+        """
+        
         self.select_options()
         self.display_options(surface, enemies, spawn_chances, player)

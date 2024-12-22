@@ -9,6 +9,21 @@ from interfaces_menus.levels import Level
 
 def map_layout(player, interface_w_save, interface_no_save):
 
+    """
+    Displays the map layout screen.
+
+    This function sets up a Pygame window with the map layout, level buttons, and a back button.
+
+    Parameters:
+    -----------
+    player : object
+        The player object.
+    interface_w_save : function
+        The function to call if a save file is present.
+    interface_no_save : function
+        The function to call if no save file is present.
+    """
+
     # importing music volume so it doesn't reset
     from interfaces_menus.interface import music_volume
     global music_volume

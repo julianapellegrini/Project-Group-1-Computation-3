@@ -12,7 +12,56 @@ ptypes = ['gray', 'brown', 'eyebrow']  # just for reference, not used
 
 # creating the player class and making it a sprite
 class Player(pygame.sprite.Sprite):
+
+    """
+    A class to represent the player in the game.
+
+    Attributes:
+    -----------
+    ptype : str
+        The type of penguin (default is 'gray').
+    image_up : pygame.Surface
+        The image of the player facing up.
+    image_d_stop : pygame.Surface
+        The image of the player facing down and stopped.
+    image_d_1 : pygame.Surface
+        The first image of the player facing down and moving.
+    image_d_2 : pygame.Surface
+        The second image of the player facing down and moving.
+    image_l_1 : pygame.Surface
+        The first image of the player facing left and moving.
+    image_l_2 : pygame.Surface
+        The second image of the player facing left and moving.
+    image_r_1 : pygame.Surface
+        The first image of the player facing right and moving.
+    image_r_2 : pygame.Surface
+        The second image of the player facing right and moving.
+    image : pygame.Surface
+        The current image of the player.
+    rect : pygame.Rect
+        The rectangle representing the player's position and size.
+    speed_cap : int
+        The maximum speed of the player.
+    speed : int
+        The current speed of the player.
+    health_cap : int
+        The maximum health of the player.
+    health : int
+        The current health of the player.
+    bullet_cooldown : int
+        The cooldown time for shooting bullets.
+    level : int
+        The current level of the player.
+    """
+
     def __init__(self):
+
+        """
+        Initializes the Player with default attributes and images.
+
+        This method sets up the player's images, position, speed, health, level, and inventory.
+        """
+        
         # calling the mother class' init
         super().__init__()
 
@@ -90,6 +139,11 @@ class Player(pygame.sprite.Sprite):
 
     # function to load images so the skin change works
     def load_images(self):
+
+        """
+        Loads the images for different directions and states of the player.
+        """
+         
         # load images for different directions and to switch between them
         self.image_up = pygame.image.load(f'images_penguins/{self.ptype}up.png')
         self.image_d_stop = pygame.image.load(f'images_penguins/{self.ptype}downstop.png')
@@ -112,6 +166,13 @@ class Player(pygame.sprite.Sprite):
 
     # images for when powerup is active
     def load_images_pow(self):
+
+        """
+        Loads the images for the player when a powerup is active.
+
+        This method sets up the player's images for different directions and states when a powerup is active, and scales them to the player's size.
+        """
+
         # load images for different directions and to switch between them
         self.image_up = pygame.image.load(f'images_penguins/{self.ptype}uppow.png')
         self.image_d_stop = pygame.image.load(f'images_penguins/{self.ptype}downstoppow.png')
@@ -134,10 +195,32 @@ class Player(pygame.sprite.Sprite):
 
     # adds caught fish to the inventory
     def add_fish(self, fish):
+
+        """
+        Adds caught fish to the inventory.
+
+        Parameters:
+        -----------
+        fish : object
+            The fish object to be added to the inventory.
+        """
+        
         self.inventory.add_item(fish)
 
     # loads the player's data from the save file
     def load_data(self, data):
+
+        """
+        Loads the player's data from the save file.
+
+        This method sets the player's attributes based on the saved data, including inventory, balance, level, type, health, speed, and weapon upgrades.
+
+        Parameters:
+        -----------
+        data : list
+            The list of data loaded from the save file.
+        """
+        
         # load player data from save file
         self.inventory.items = eval(data[0])
         self.balance = int(data[1])
@@ -174,6 +257,16 @@ class Player(pygame.sprite.Sprite):
 
     # adds items to the inventory
     def add_item(self, item):
+
+        """
+        Adds items to the inventory.
+
+        Parameters:
+        -----------
+        item : object
+            The item object to be added to the inventory.
+        """
+        
         # Add the item to the inventory
         self.inventory.add_item(item)
         print(f"Added {item.name} to inventory")
@@ -181,10 +274,31 @@ class Player(pygame.sprite.Sprite):
 
     # changes the player's weapon
     def change_weapon(self, weapon):
+
+        """
+        Changes the player's weapon.
+
+        Parameters:
+        -----------
+        weapon : object
+            The new weapon object to be assigned to the player.
+        """
+        
         self.weapon = weapon
 
     # tracks movement and changes the player's image
     def update(self, surface):
+
+        """
+        Tracks movement and changes the player's image.
+
+        This method updates the player's position and animation based on the keys pressed.
+
+        Parameters:
+        -----------
+        surface : pygame.Surface
+            The Pygame display surface.
+        """
 
         # get the keys that are pressed
         keys = pygame.key.get_pressed()
@@ -220,9 +334,14 @@ class Player(pygame.sprite.Sprite):
 
     # player shoots bullets in 4 directions periodically
     def shoot(self, bullets):
+        
         """
+        Player shoots bullets in 4 directions periodically.
 
-        bullets --> pygame group where I will add bullets
+        Parameters:
+        -----------
+        bullets : pygame.sprite.Group
+            The group to which the bullets will be added.
         """
 
         if self.alive():
@@ -252,6 +371,15 @@ class Player(pygame.sprite.Sprite):
     # draws the player's health bar
     def draw_health_bar(self, surface):
 
+        """
+        Draws the player's health bar.
+
+        Parameters:
+        -----------
+        surface : pygame.Surface
+            The Pygame display surface.
+        """
+
         # define the size and position of the health bar
         bar_width = self.rect.width
         bar_height = 10  # increase the height of the health bar
@@ -277,6 +405,21 @@ class Player(pygame.sprite.Sprite):
         surface.blit(text, text_rect)
 
     def get_weapon_by_name(self, weapon_name):
+
+        """
+        Gets the weapon object by its name.
+
+        Parameters:
+        -----------
+        weapon_name : str
+            The name of the weapon.
+
+        Returns:
+        --------
+        object
+            The weapon object corresponding to the given name, or None if not found.
+        """
+        
         # map of weapon names to weapon objects
         weapon_map = {
             "Snowball": self.snowball,

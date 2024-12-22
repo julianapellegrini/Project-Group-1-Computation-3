@@ -17,12 +17,24 @@ pygame.init()
 
 # main game loop
 def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
+    
     """
     Main game loop that handles gameplay for different levels.
-    :param player: keep same player_related instance throughout the game in order to be able to save the
-    player's progress.
-    :param level: The current level the player_related is playing.
+
+    Parameters:
+    -----------
+    level : int
+        The current level the player is playing.
+    player : object
+        The player object.
+    map_layout : function
+        The function to call to display the map layout.
+    interface_w_save : function
+        The function to call if a save file is present.
+    interface_no_save : function
+        The function to call if no save file is present.
     """
+    
 
     # importing the global variables for music and sound volume
     from interfaces_menus.interface import music_volume, sound_volume
@@ -105,6 +117,16 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
 
     # powerup select function
     def select_powerup():
+
+        """
+        Selects a powerup based on their probabilities.
+
+        Returns:
+        --------
+        object
+            The selected powerup object.
+        """
+        
         # choice function with weights to select a powerup
         selected_powerup = random.choices(powerup_types, [i().probability for i in powerup_types])[0]
         return selected_powerup()

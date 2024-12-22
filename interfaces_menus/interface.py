@@ -23,6 +23,16 @@ sound_slider_value = sound_volume * 100
 
 # start screen so we can redirect the player to the correct interface based on the save file
 def start_screen(player):
+
+    """
+    Displays the start screen and redirects the player to the correct interface based on the save file.
+
+    Parameters:
+    -----------
+    player : object
+        The player object.
+    """
+
     global scroll
 
     # initialize pygame and load music
@@ -78,6 +88,18 @@ def start_screen(player):
 
 # interface if player has no save file
 def interface_no_save(player):
+
+    """
+    Displays the interface when there is no save file.
+
+    This function sets up a Pygame window with the game logo and buttons for playing, viewing rules, options, credits, and quitting.
+
+    Parameters:
+    -----------
+    player : object
+        The player object.
+    """
+
     global scroll
 
     # creating the screen at the set resolution
@@ -181,6 +203,18 @@ def interface_no_save(player):
 
 # interface if player has a save file
 def interface_w_save(player):
+
+    """
+    Displays the interface when there is a save file.
+
+    This function sets up a Pygame window with the game logo and buttons for loading the game, starting a new game, viewing rules, options, credits, and quitting.
+
+    Parameters:
+    -----------
+    player : object
+        The player object.
+    """
+
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
 
@@ -311,6 +345,13 @@ def interface_w_save(player):
 
 # credits screen
 def credits_():
+
+    """
+    Displays the credits screen.
+
+    This function sets up a Pygame window with the credits information and a back button to return to the previous screen.
+    """
+
     # loading the credits screen
     screen = pygame.display.set_mode(resolution)
 
@@ -380,6 +421,18 @@ def credits_():
 
 # rules screen
 def rules_(player):
+
+    """
+    Displays the rules screen.
+
+    This function sets up a Pygame window with the game rules and a back button to return to the previous screen.
+
+    Parameters:
+    -----------
+    player : object
+        The player object.
+    """
+
     global scroll
 
     # loading the rules screen
@@ -460,6 +513,18 @@ def rules_(player):
 
 # powerup description screen
 def power_desc(player):
+
+    """
+    Displays the powerup description screen.
+
+    This function sets up a Pygame window with the powerup descriptions and a back button to return to the previous screen.
+
+    Parameters:
+    -----------
+    player : object
+        The player object.
+    """
+
     global scroll
 
     # loading the powerup screen
@@ -526,6 +591,18 @@ def power_desc(player):
 
 # settings screen
 def settings(player):
+
+    """
+    Displays the settings screen.
+
+    This function sets up a Pygame window with sound settings and a back button to return to the previous screen.
+
+    Parameters:
+    -----------
+    player : object
+        The player object.
+    """
+
     global scroll
     global music_volume
     global sound_volume
@@ -617,6 +694,16 @@ def settings(player):
 
 # set the volume for the music
 def set_sound_volume(volume):
+
+    """
+    Sets the volume for sound effects.
+
+    Parameters:
+    -----------
+    volume : float
+        The volume level to set for sound effects, ranging from 0.0 to 1.0.
+    """
+    
     # this function sets the volume for sound effects
     for sound in pygame.mixer.get_sounds():
         sound.set_volume(volume)

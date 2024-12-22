@@ -5,7 +5,41 @@ from config import *
 
 # create weapon class
 class Weapon(pygame.sprite.Sprite):
+
+    """
+    A class to represent a weapon in the game.
+
+    Attributes:
+    -----------
+    name : str
+        The name of the weapon.
+    cooldown : int
+        The cooldown time for the weapon.
+    damage : int
+        The damage dealt by the weapon.
+    image : pygame.Surface
+        The image of the weapon.
+    rect : pygame.Rect
+        The rectangle representing the weapon's position and size.
+    """
+
     def __init__(self, name, cooldown, damage, image_path):
+
+        """
+        Initializes the Weapon with the given parameters.
+
+        Parameters:
+        -----------
+        name : str
+            The name of the weapon.
+        cooldown : int
+            The cooldown time for the weapon.
+        damage : int
+            The damage dealt by the weapon.
+        image_path : str
+            The path to the weapon's image file.
+        """
+
         super().__init__()
 
         self.name = name
@@ -39,7 +73,17 @@ class Weapon(pygame.sprite.Sprite):
 
 
 class Watergun(Weapon, pygame.sprite.Sprite):
+
+    """
+    A class to represent the Watergun weapon.
+    """
+
     def __init__(self):
+
+        """
+        Initializes the Watergun with default attributes.
+        """
+
         super().__init__("Watergun", fps * 2, 4, "images_weapons/watergun.png")
         self.damage = 4
 
@@ -48,7 +92,17 @@ class Watergun(Weapon, pygame.sprite.Sprite):
 
 
 class Snowball(Weapon, pygame.sprite.Sprite):
+
+    """
+    A class to represent the Snowball weapon.
+    """
+
     def __init__(self):
+
+        """
+        Initializes the Snowball with default attributes.
+        """
+
         super().__init__("Snowball", fps * 2, 5, "images_weapons/snowball.png")
         self.damage = 5
 
@@ -57,7 +111,17 @@ class Snowball(Weapon, pygame.sprite.Sprite):
 
 
 class Slingshot(Weapon, pygame.sprite.Sprite):
+
+    """
+    A class to represent the Slingshot weapon.
+    """
+
     def __init__(self):
+
+        """
+        Initializes the Slingshot with default attributes.
+        """
+
         super().__init__("Slingshot", fps * 1, 3, "images_weapons/slingshot.png")
         self.damage = 3
 
@@ -66,7 +130,17 @@ class Slingshot(Weapon, pygame.sprite.Sprite):
 
 
 class Fish_bazooka(Weapon, pygame.sprite.Sprite):
+
+    """
+    A class to represent the Fish Bazooka weapon.
+    """
+
     def __init__(self):
+
+        """
+        Initializes the Fish Bazooka with default attributes.
+        """
+
         super().__init__("Fish Bazooka", fps * 3, 10, "images_weapons/fish_bazooka.png")
         self.damage = 10
 
@@ -75,7 +149,17 @@ class Fish_bazooka(Weapon, pygame.sprite.Sprite):
 
 
 class Ice_Ninja_Stars(Weapon, pygame.sprite.Sprite):
+
+    """
+    A class to represent the Ice Ninja Stars weapon.
+    """
+
     def __init__(self):
+
+        """
+        Initializes the Ice Ninja Stars with default attributes.
+        """
+
         super().__init__("Ice Ninja Stars", fps * 0.5, 2, "images_weapons/ice_ninja_stars.png")
         self.damage = 2
 
@@ -84,7 +168,17 @@ class Ice_Ninja_Stars(Weapon, pygame.sprite.Sprite):
 
 
 class Sardine_Shooter(Weapon, pygame.sprite.Sprite):
+
+    """
+    A class to represent the Sardine Shooter weapon.
+    """
+
     def __init__(self):
+
+        """
+        Initializes the Sardine Shooter with default attributes.
+        """
+        
         super().__init__("Sardine Shooter", fps * 1, 6, "images_weapons/sardine_shooter.png")
         self.damage = 6
 

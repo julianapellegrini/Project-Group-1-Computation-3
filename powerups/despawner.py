@@ -5,7 +5,28 @@ from powerups.powerup import PowerUp
 
 # despawner power-up
 class DeSpawner(PowerUp):
+
+    """
+    A class to represent the DeSpawner power-up.
+
+    Attributes:
+    -----------
+    reduction_factor : float
+        The factor by which the spawn rate of enemies is reduced.
+    active : bool
+        Whether the power-up is currently active.
+    start_time : int
+        The time at which the power-up was activated.
+    duration : int
+        The duration for which the power-up is active.
+    """
+
     def __init__(self):
+
+        """
+        Initializes the DeSpawner power-up with default attributes.
+        """
+
         super().__init__('powerup_images/despawner_icon.png',
                          'powerup_images/despawner_image.png', 0.6)
         self.reduction_factor = 0.5
@@ -14,9 +35,42 @@ class DeSpawner(PowerUp):
         self.duration = 5  # Duration for which the power-up is active
 
     def affect_player(self, surface, player):
+
+        """
+        No effect on the player.
+
+        Parameters:
+        -----------
+        surface : pygame.Surface
+            The Pygame display surface.
+        player : object
+            The player object.
+        """
+         
         pass  # no effect on the player
 
     def affect_game(self, surface, enemies, spawn_chances, player):
+        
+        """
+        Activates the power-up and affects the game by reducing the spawn rate of enemies.
+
+        Parameters:
+        -----------
+        surface : pygame.Surface
+            The Pygame display surface.
+        enemies : list
+            The list of enemies in the game.
+        spawn_chances : dict
+            The dictionary of spawn chances for each enemy type.
+        player : object
+            The player object.
+
+        Returns:
+        --------
+        int
+            The number of enemies removed.
+        """
+         
         # Activate the power-up
         self.active = True
         self.start_time = pygame.time.get_ticks()
@@ -51,10 +105,32 @@ class DeSpawner(PowerUp):
         return enemies_removed
 
     def update_position(self, player):
+
+        """
+        Updates the position of the power-up image to follow the player.
+
+        Parameters:
+        -----------
+        player : object
+            The player object.
+        """
+
         # update the position of the invincibility image to follow the player
         self.image_rect = self.image.get_rect(center=player.rect.center)
 
     def deactivate(self, spawn_chances, player):
+
+        """
+        Deactivates the power-up and restores the original spawn rates.
+
+        Parameters:
+        -----------
+        spawn_chances : dict
+            The dictionary of spawn chances for each enemy type.
+        player : object
+            The player object.
+        """
+
         self.active = False
         # restore the original spawn rates
         for enemy_type in spawn_chances:
@@ -64,6 +140,6 @@ class DeSpawner(PowerUp):
         player.load_images()
         print("DeSpawner deactivated")
 
-    # for open chest method and save game
+    
     def __repr__(self):
         return "DeSpawner"

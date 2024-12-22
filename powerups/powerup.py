@@ -4,7 +4,45 @@ import random
 
 
 class PowerUp(ABC, pygame.sprite.Sprite):
+    
+    """
+    An abstract base class to represent a power-up in the game.
+
+    Attributes:
+    -----------
+    probability : float
+        The probability of the power-up appearing.
+    active : bool
+        Whether the power-up is currently active.
+    spawned : bool
+        Whether the power-up has been spawned.
+    icon : pygame.Surface
+        The icon image of the power-up.
+    icon_rect : pygame.Rect
+        The rectangle representing the icon's position and size.
+    image : pygame.Surface
+        The image of the power-up.
+    image_rect : pygame.Rect
+        The rectangle representing the image's position and size.
+    rect : pygame.Rect
+        The rectangle representing the power-up's position and size.
+    """
+
     def __init__(self, icon_path, image_path, probability):
+
+        """
+        Initializes the PowerUp with the given parameters.
+
+        Parameters:
+        -----------
+        icon_path : str
+            The path to the power-up's icon image file.
+        image_path : str
+            The path to the power-up's image file.
+        probability : float
+            The probability of the power-up appearing.
+        """
+
         super().__init__()
         # probability of powerup appearing
         self.probability = probability
@@ -26,13 +64,33 @@ class PowerUp(ABC, pygame.sprite.Sprite):
 
     @abstractmethod
     def affect_game(self):
+
+        """
+        Abstract method to define the effect of the power-up on the game.
+        """
+
         pass
 
     @abstractmethod
     def deactivate(self):
+
+        """
+        Abstract method to define the deactivation of the power-up.
+        """
+
         pass
 
     def spawn(self, surface):
+
+        """
+        Spawns the power-up at a random position on the surface.
+
+        Parameters:
+        -----------
+        surface : pygame.Surface
+            The Pygame display surface.
+        """
+        
         # check if power-up is not already spawned and spawn it
         # if its already spawned it will be drawn again at the position it was spawned
         if not self.spawned:

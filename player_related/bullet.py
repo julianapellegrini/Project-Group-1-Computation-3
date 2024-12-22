@@ -5,8 +5,40 @@ import math
 
 # bullet class
 class Bullet(pygame.sprite.Sprite):
+    
+    
+    """
+    A class to represent a bullet in the game.
+
+    Attributes:
+    -----------
+    direction : float
+        The direction in which the bullet is moving.
+    radius : int
+        The radius of the bullet.
+    color : tuple
+        The color of the bullet.
+    rect : pygame.Rect
+        The rectangle representing the bullet's position and size.
+    speed : int
+        The speed of the bullet.
+    """
 
     def __init__(self, x, y, direction):
+
+        """
+        Initializes the Bullet with the given parameters.
+
+        Parameters:
+        -----------
+        x : int
+            The x-coordinate of the bullet's starting position.
+        y : int
+            The y-coordinate of the bullet's starting position.
+        direction : float
+            The direction in which the bullet is moving.
+        """
+
         super().__init__()
 
         self.direction = direction
@@ -17,6 +49,13 @@ class Bullet(pygame.sprite.Sprite):
         self.speed = 8
 
     def update(self):
+
+        """
+        Updates the bullet's position based on its speed and direction.
+
+        This method also checks if the bullet is out of the screen and removes it if it is.
+        """
+
 
         #   updating the bullet's position based on the speed and direction
         #   (x,y) --> (cos, sin)
@@ -29,5 +68,15 @@ class Bullet(pygame.sprite.Sprite):
 
     #  drawing the bullet on screen
     def draw(self, screen):
+
+        """
+        Draws the bullet on the screen.
+
+        Parameters:
+        -----------
+        screen : pygame.Surface
+            The Pygame display surface.
+        """
+
         # drawing the bullet on screen
         pygame.draw.circle(screen, self.color, self.rect.center, self.radius)

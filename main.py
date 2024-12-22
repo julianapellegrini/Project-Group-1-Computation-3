@@ -5,6 +5,12 @@ from player_related.weapons import Watergun
 
 def main():
 
+    """
+    Main function to start the game.
+
+    This function initializes the player instance and passes it to the start screen.
+    """
+
     # start player instance here so save works for the whole game
     player = Player()
 
