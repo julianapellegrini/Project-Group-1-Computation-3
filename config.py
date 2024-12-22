@@ -1,13 +1,13 @@
-import pygame
+import pygame  # CAREFUL don't remove this import because it is used in other files even if it's not used here
 
 # Config file used to set global variables and other settings
 
 # COLORS
-dark_red = (138, 0, 0)  # Dark red for buttons
-deep_black = (19, 20, 20)  # Almost black for background
-grey = (59, 60, 60)  # Dark grey for alternate buttons
-white = (254, 255, 255)  # White for readable text
-glowing_light_red = (239, 128, 128)  # Light red for brighter text
+dark_red = (138, 0, 0)  # dark red
+deep_black = (19, 20, 20)  # almost black
+grey = (59, 60, 60)  # dark grey
+white = (254, 255, 255)  # white
+glowing_light_red = (239, 128, 128)  # light red
 blue = (0, 0, 255)
 green = (34, 139, 34)
 yellow = (255, 255, 0)

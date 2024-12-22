@@ -1,5 +1,7 @@
 import pygame
 
+
+# class to handle music
 class Music:
     def __init__(self, file):
         self.sound = file

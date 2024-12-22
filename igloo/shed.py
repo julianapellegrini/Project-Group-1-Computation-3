@@ -95,7 +95,7 @@ def shed(player):
 
             # clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
-            screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
+            screen.blit(background, previous_rect, previous_rect)  # clear the previous area
 
             # update and draw the button
             if back_button.is_hovered(mouse):

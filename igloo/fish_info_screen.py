@@ -1,7 +1,5 @@
-from utils import *
 from config import *
 from interfaces_menus.button import Button, select_sound
-from igloo.fishes import Salmon, Cod, ClownFish
 
 
 def fish_info_screen(player):
@@ -108,6 +106,7 @@ def fish_info_screen(player):
             if back_button.is_clicked(mouse, ev):
                 select_sound()
                 return
+            # selling fish
             if sell_cod_button.is_clicked(mouse, ev):
                 if player.inventory.items['Fishes']['Cod'] >= 5:
                     player.inventory.items['Fishes']['Cod'] -= 5

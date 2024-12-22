@@ -10,20 +10,20 @@ class Weapon(pygame.sprite.Sprite):
 
         self.name = name
 
-        # Load the weapon image
+        # load the weapon image
         weapon_image = pygame.image.load(image_path)
         weapon_image = pygame.transform.scale(weapon_image, (26, 26))
 
-        # Create a background surface
-        background_size = (30, 30)  # Slightly larger than the weapon image
+        # create a background surface for the weapon image
+        background_size = (30, 30)  # slightly larger than the weapon image
         self.image = pygame.Surface(background_size, pygame.SRCALPHA)
-        self.image.fill((255, 255, 255, 0))  # Transparent background
+        self.image.fill((255, 255, 255, 0))  # transparent background
 
-        # Draw a rectangle as the background
+        # draw a rectangle as the background
         pygame.draw.rect(self.image, (0, 0, 0), self.image.get_rect(),
-                         border_radius=5)  # Black background with rounded corners
+                         border_radius=5)  # black background with rounded corners
 
-        # Blit the weapon image onto the background
+        # blit the weapon image onto the background
         weapon_rect = weapon_image.get_rect(center=self.image.get_rect().center)
         self.image.blit(weapon_image, weapon_rect.topleft)
 
@@ -33,6 +33,9 @@ class Weapon(pygame.sprite.Sprite):
         # gameplay variables
         self.cooldown = cooldown
         self.damage = damage
+
+
+# create the different weapons
 
 
 class Watergun(Weapon, pygame.sprite.Sprite):

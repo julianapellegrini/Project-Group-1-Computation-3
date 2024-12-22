@@ -33,7 +33,7 @@ def skin_selector(player):
     # penguin images
     penguin_images = [pygame.image.load(f'images_penguins/{ptype}up.png') for ptype in ptypes]
 
-    # tracker for current weapon
+    # tracker for current type
     selector_current = 0
 
     # set running
@@ -62,6 +62,8 @@ def skin_selector(player):
                 player.ptype = ptypes[selector_current]
                 player.load_images()
                 print(player.ptype)
+
+            # arrows to change penguin type displayed
 
             if arrow_left.is_clicked(mouse, ev):
                 select_sound()

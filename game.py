@@ -15,6 +15,7 @@ from interfaces_menus.game_over import game_over
 pygame.init()
 
 
+# main game loop
 def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     """
     Main game loop that handles gameplay for different levels.
@@ -23,6 +24,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     :param level: The current level the player_related is playing.
     """
 
+    # importing the global variables for music and sound volume
     from interfaces_menus.interface import music_volume, sound_volume
     global music_volume
     global sound_volume
@@ -31,6 +33,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     background = pygame.image.load(f"images/level{level}bg.png")
     background = pygame.transform.scale(background, (width, height))
 
+    # loading the music and setting the volume
     pygame.mixer.music.load("audio/battle-music.mp3")
     pygame.mixer.music.set_volume(music_volume)
     pygame.mixer.music.play(loops=-1)
@@ -46,7 +49,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     player_group = pygame.sprite.Group()
     player_group.add(player)
 
-    # creating an empty bullet group that will be given as input to the player_related.shoot() method
+    # creating an empty bullet group that will be given as input to the player's shoot method
     bullets = pygame.sprite.Group()
 
     # creating an enemy group
@@ -61,57 +64,56 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         Polar_bear: 0.1 if level >= 4 else 0.0,  # 10% chance starting from level 3
     }
 
-    # Initialize mini-boss cooldown
-    mini_boss_cooldown = fps * 30  # Mini-boss spawns every 30 seconds
+    # initialize mini-boss cooldown
+    mini_boss_cooldown = fps * 30  # mini-boss spawns every 30 seconds
 
-    # Load the pause button image
+    # load the pause button image
     pause_button_image = pygame.image.load('images/pause_button.png')
     pause_button_image = pygame.transform.scale(pause_button_image, (70, 70))
     pause_button_position = (resolution[0] - pause_button_image.get_width() - 10, 10)
 
     # load the image of coin
     coin_image = pygame.image.load("images/snowflake_coin.png")
-    coin_image = pygame.transform.scale(coin_image,(25, 25))
+    coin_image = pygame.transform.scale(coin_image, (25, 25))
 
-    # Game variables
+    # GAME VARIABLES
 
-    # Timer variables
+    # timer variables
     minutes = 0
     seconds = 0
 
-    # Enemies defeated
+    # enemies defeated
     enemies_defeated = 0
 
-    # Coins earned
+    # coins earned
     coins_earned = 0
 
-    # Current enemies on screen to establish a limit
+    # current enemies on screen to establish a limit
     current_enemies = 0
 
-    # Fonts
+    # fonts
     pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 50)
     pixel_font_small = pygame.font.Font("fonts/Grand9KPixel.ttf", 20)
 
-    # Settings for powerups
+    # settings for powerups
     powerup_spawn_interval = 10000  # every 10 seconds
     last_powerup_spawn_time = pygame.time.get_ticks()
     powerup_group = pygame.sprite.Group()
-    #powerup_duration = 5000  # 5 seconds
 
     # powerups
     powerup_types = [DeSpawner, Speed_Boost, Extra_Fish, Invincibility]
 
-    # powerup spawn function
+    # powerup select function
     def select_powerup():
         # choice function with weights to select a powerup
         selected_powerup = random.choices(powerup_types, [i().probability for i in powerup_types])[0]
         return selected_powerup()
 
-    # Settings for chests
+    # settings for chests
     chest_spawn_interval = 3000  # 20% to chance every 20 seconds
     last_chest_spawn_time = pygame.time.get_ticks()
     chest_group = pygame.sprite.Group()
-    chest_spawn_probability = 0.1 # 10% chance to spawn a chest every x seconds
+    chest_spawn_probability = 0.1  # 10% chance to spawn a chest every x seconds
 
     # MAIN GAME LOOP
     running = True
@@ -148,24 +150,24 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                             1] + pause_button_image.get_height()):
                     pause_screen(screen, resolution, player, map_layout, interface_w_save, interface_no_save)
 
-        # Check if it's time to spawn a new chest
+        # check if it's time to spawn a new chest
         current_time_chest = pygame.time.get_ticks()
         if current_time_chest - last_chest_spawn_time > chest_spawn_interval:
-            if random.random() < chest_spawn_probability:  # Check if chest should spawn based on probability
-                chest_group.empty()  # Clear the chest group so only one chest is on screen at a time
-                chest = Chest()  # Create a new Chest object
-                chest.spawn(screen)  # Set its position and draw it
-                chest_group.add(chest)  # Add it to the chest group
-            last_chest_spawn_time = current_time_chest  # Update the last chest spawn time
+            if random.random() < chest_spawn_probability:  # check if chest should spawn based on probability
+                chest_group.empty()  # clear the chest group so only one chest is on screen at a time
+                chest = Chest()  # create a new Chest object
+                chest.spawn(screen)  # set its position and draw it
+                chest_group.add(chest)  # add it to the chest group
+            last_chest_spawn_time = current_time_chest  # update the last time a chest was spawned
 
-        # Draw all chests
+        # draw all chests
         for chest in chest_group:
             chest.spawn(screen)
             if chest.rect.colliderect(player.rect):
                 chest.open(screen, enemies, spawn_chances, player)
                 chest_group.remove(chest)
 
-        # Check if it's time to spawn a powerup
+        # check if it's time to spawn a powerup
         current_time_powerup_icon = pygame.time.get_ticks()
         if current_time_powerup_icon - last_powerup_spawn_time >= powerup_spawn_interval:
             # use select_powerup() to get a powerup
@@ -194,7 +196,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                         current_enemies -= enemies_despawned
                         player.powerup = powerup
 
-                    # Play the sound effect
+                    # play the sound effect
                     powerup_sound = pygame.mixer.Sound('audio/power-up.mp3')
                     powerup_sound.set_volume(sound_volume)
                     powerup_sound.play()
@@ -214,11 +216,11 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                     player.powerup.deactivate(player)
                 player.powerup = None
         
-        # Draw the invincibility image if the player is invincible
+        # draw the invincibility image if the player is invincible
         if isinstance(player.powerup, Invincibility) and player.powerup.active:
             player.powerup.update_position(player)
             screen.blit(player.powerup.image, player.powerup.image_rect.topleft)
-        # Draw the speed boost image if the player has speed boost
+        # draw the speed boost image if the player has speed boost
         elif isinstance(player.powerup, Speed_Boost) and player.powerup.active:
             player.powerup.update_position(player)
             screen.blit(player.powerup.image, player.powerup.image_rect.topleft)
@@ -226,7 +228,6 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
             player.powerup.update_position(player)
             screen.blit(player.powerup.image, player.powerup.image_rect.topleft)
 
-        
         # automatically shoot bullets from the player
         player.shoot(bullets)
 
@@ -236,15 +237,15 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
             enemy = enemy_type()
             enemies.add(enemy)
             current_enemies += 1
-            enemy_cooldown = fps * 2  # Spawn every 2 seconds
+            enemy_cooldown = fps * 2  # spawn every 2 seconds
 
-        # Spawn a mini-boss
+        # spawn a mini-boss
         if mini_boss_cooldown <= 0 and level >= 4:
             mini_boss = Orca()
             enemies.add(mini_boss)
             mini_boss_cooldown = fps * 30  # Reset cooldown
 
-        # Update cooldowns
+        # update cooldowns
         enemy_cooldown -= 1
         mini_boss_cooldown -= 1
 
@@ -269,23 +270,25 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                 bullet.kill()
                 if enemy.health <= 0:
 
-                    # Play the sound effect
+                    # play the sound effect for killing an enemy
                     powerup_sound = pygame.mixer.Sound('audio/kill-noise.mp3')
                     powerup_sound.set_volume(sound_volume)
                     powerup_sound.play()
 
+                    # remove the enemy then add to game and player variables
                     enemy.kill()
                     coins_earned += 5
                     enemies_defeated += 1
                     current_enemies -= 1
 
-        # checking for collisions between player_related and enemies
+        # checking for collisions between player and enemies
         for enemy in enemies:
             if pygame.sprite.collide_rect(player, enemy):
-                # If the player_related is not invincible, reduce health
+                # if the player is not invincible, reduce health
                 if not isinstance(player.powerup, Invincibility):
                     player.health -= 0.3
                 if player.health <= 0:
+                    # when player loses restore health and call game over screen
                     player.health = player.health_cap
                     game_over(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level, player, interface_w_save, interface_no_save)
                     return
@@ -298,7 +301,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         # draw the pause button
         screen.blit(pause_button_image, pause_button_position)
 
-        # Update timer
+        # update timer
         if seconds == 59:
             minutes += 1
             seconds = 0
@@ -313,7 +316,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
             player.health = player.health_cap
             player.speed = player.speed_cap
 
-            # Call the victory screen
+            # call the victory screen
             victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level, player, interface_w_save, interface_no_save)
 
             return

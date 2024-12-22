@@ -2,7 +2,8 @@ from utils import *
 from config import *
 import random
 
-# measurements for the centered rectangle for fish movement
+# rectangle measurements
+
 height_centered = 30
 
 rect_width = resolution[0] * 2 // 3
@@ -11,7 +12,7 @@ rect_height = height_centered
 rect_x = (resolution[0] - rect_width) // 2
 rect_y = (resolution[1] - rect_height) // 2
 
-# boundaries of the centered rectangle
+# boundaries of the centered rectangle so that things don't go out of it
 x_start = rect_x
 x_end = rect_x + rect_width
 
@@ -46,7 +47,7 @@ class Fish(pygame.sprite.Sprite):
         return f"{self.name} costs {self.price}"
 
 
-# creating the fish
+# defining the types of fish
 
 class Salmon(Fish, pygame.sprite.Sprite):
     def __init__(self):

@@ -1,8 +1,7 @@
 from config import *
 
 
-
-# Function to draw a stick figure with a construction hat
+# function to draw a stick figure with a construction hat
 def draw_stick_figure_with_hat(screen, x, y):
     # head
     pygame.draw.circle(screen, (255, 255, 255), (x, y), 20, 2)  # White head outline
@@ -26,7 +25,7 @@ def draw_stick_figure_with_hat(screen, x, y):
     pygame.draw.rect(screen, hat_color, [x - 20, y - 40, 40, 20])  # Hat's dome
 
 
-# Function to draw a normal stick figure (without a hat)
+# function to draw a normal stick figure (without a hat)
 def draw_normal_stick_figure(screen, x, y):
     # head
     pygame.draw.circle(screen, (255, 255, 255), (x, y), 20, 2)  # White head outline
@@ -106,6 +105,7 @@ def draw_chasing_rectangle(screen, mouse_pos, height_centered, width_chasing, ce
     return chasing_rect
 
 
+# under construction screen
 def under_construction():
     # creating the screen at 720x720 pixels
     screen = pygame.display.set_mode(resolution)

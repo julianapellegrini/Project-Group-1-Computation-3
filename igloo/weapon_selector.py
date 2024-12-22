@@ -72,6 +72,8 @@ def weapon_selector(player):
                 player.change_weapon(weapons[selector_current])
                 print(player.weapon)
 
+            # arrows to navigate through weapons
+
             if arrow_left.is_clicked(mouse, ev) and weapons:
                 select_sound()
                 if selector_current > 0:

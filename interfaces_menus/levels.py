@@ -1,5 +1,3 @@
-import pygame
-from config import *
 from interfaces_menus.button import Button
 
 
@@ -22,7 +20,7 @@ class Level:
     def is_hovered(self, mouse):
         return self.button.is_hovered(mouse)
 
-    # Scale up and down buttons
+    # scale up and down buttons
     def scale_up(self):
         self.button.scale_up()
 

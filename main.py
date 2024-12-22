@@ -8,7 +8,7 @@ def main():
     # start player instance here so save works for the whole game
     player = Player()
 
-    # pass player_related instance to the start screen
+    # pass player instance to the start screen (we'll be passing it around so we don't lose the player data)
     start_screen(player)
 
 

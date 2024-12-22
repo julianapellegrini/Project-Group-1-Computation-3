@@ -7,13 +7,17 @@ from powerups.speed_boost import Speed_Boost
 import numpy as np
 
 
+# create a chest class
 class Chest(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("images/chest_image.png")  # load the image
         self.image = pygame.transform.scale(self.image, (150, 150))  # scale the image
         self.rect = self.image.get_rect()
+
         self.spawned = False
+
+        # dictionary of possible items and their probabilities
         self.possible_items = {
             "Despawner": 0.25,
             "Invincibility": 0.2,
@@ -22,6 +26,8 @@ class Chest(pygame.sprite.Sprite):
             "Permanent Speed Boost": 0.2,
             "Permanent Health Boost": 0.1
         }
+
+        # list of options and their types
         self.options = []
         self.upgrades = ["Permanent Health Boost", "Permanent Speed Boost"]
         self.powerups = ["Despawner", "Invincibility", "Extra Fish", "Speed Boost"]
@@ -48,7 +54,7 @@ class Chest(pygame.sprite.Sprite):
         surface.blit(self.image, self.rect.topleft)
 
     def select_options(self):
-        # Separate the items and probabilities to then choose the items based on their probabilities
+        # separate the items and probabilities to then choose the items based on their probabilities
         items = list(self.possible_items.keys())
         probabilities = list(self.possible_items.values())
         # using numpy random choice to choose the items based on their probabilities and also to be all different
@@ -56,17 +62,24 @@ class Chest(pygame.sprite.Sprite):
         print(f"Selected options: {self.options}")
 
     def display_options(self, surface, enemies, spawn_chances, player):
-        # Pause the game
+        # pause the game
         paused = True
 
-        # Create a semi-transparent overlay
+        # create a semi-transparent overlay
         overlay = pygame.Surface(surface.get_size(), pygame.SRCALPHA)
         overlay.fill((0, 0, 0, 128))  # Black with 50% opacity
 
-        # Display the overlay
+        # display the overlay
         surface.blit(overlay, (0, 0))
 
-        # Define dimensions for images and their positions
+        # instructions for the player to skip
+        pixel_font_small = pygame.font.Font("fonts/Grand9KPixel.ttf", 30)
+        instruction_text = pixel_font_small.render("Press ENTER to skip", True, (255, 255, 255))
+
+        # display the instructions in the top right corner
+        surface.blit(instruction_text, (surface.get_width() - 400, 20))
+
+        # define dimensions for options images and their positions
         option_width = 150
         option_height = 150
         padding = 100  # Increased padding for better spacing
@@ -74,49 +87,51 @@ class Chest(pygame.sprite.Sprite):
         start_x = (surface.get_width() - total_width) // 2
         y_position = (surface.get_height() - option_height) // 2 - 50  # Offset upward for names
 
-        # Load and display the options as images
+        # load and display the options as images
         option_images = []
         for option in self.options:
-            image_path = f"chest_option_images/{option.lower().replace(' ', '_')}.png"  # Example image naming convention
+            image_path = f"chest_option_images/{option.lower().replace(' ', '_')}.png"  # example image naming convention
             option_image = pygame.image.load(image_path).convert_alpha()
             option_image = pygame.transform.scale(option_image, (option_width, option_height))
             option_images.append(option_image)
 
+        # get option rects and display the options
         option_rects = []
         font = pygame.font.Font(None, 36)
         for i, (option_image, option) in enumerate(zip(option_images, self.options)):
-            # Calculate x position for this option
+            # calculate x position for this option
             x_position = start_x + i * (option_width + padding)
 
-            # Draw the option image
+            # draw the option image
             surface.blit(option_image, (x_position, y_position))
 
-            # Draw the option name below the image
+            # draw the option name below the image
             text = font.render(option, True, (255, 255, 255))
             text_rect = text.get_rect(center=(x_position + option_width // 2, y_position + option_height + 20))
             surface.blit(text, text_rect)
 
-            # Save the clickable area (the image)
+            # save the clickable area (the image)
             option_rects.append(pygame.Rect(x_position, y_position, option_width, option_height))
 
-        # Update the display
+        # update the display
         pygame.display.flip()
 
-        # Wait for the player to select an item
+        # wait for the player to select an item
         while paused:
+            # handle events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:  # Press Enter to continue without selecting
+                    if event.key == pygame.K_RETURN:  # press Enter to continue without selecting
                         paused = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:  # Left mouse button
+                    if event.button == 1:  # left mouse button
                         mouse_pos = event.pos
                         for rect, option in zip(option_rects, self.options):
                             if rect.collidepoint(mouse_pos):
-                                # If user selects a weapon, change the player's weapon
+                                # if user selects an upgrade, apply the upgrade
                                 if option in self.upgrades:
                                     if option == "Permanent Health Boost":
                                         player.health_cap += 20
@@ -124,8 +139,8 @@ class Chest(pygame.sprite.Sprite):
                                     elif option == "Permanent Speed Boost":
                                         player.speed_cap += 0.5
                                         player.speed = player.speed_cap
-                                    print(f"Player weapon changed to {option}")
-                                # If user selects a powerup, apply the powerup
+                                    print(f"Player upgrade {option}")
+                                # if user selects a powerup, apply the powerup
                                 elif option in self.powerups:
                                     if option == "Despawner":
                                         powerup = DeSpawner()
@@ -143,18 +158,15 @@ class Chest(pygame.sprite.Sprite):
                                         powerup = Speed_Boost()
                                         powerup.affect_player(surface, player)
                                         player.powerup = powerup
-                                    # Set the start time for the powerup
+                                    # set the start time for the powerup
                                     player.powerup_start = pygame.time.get_ticks()
                                     print(f"Applied powerup: {option}")
-                                paused = False  # Exit the loop after selecting an item
+                                paused = False  # exit the loop after selecting an item
                                 break
                         if not paused:
-                            break  # Exit the outer loop as well
+                            break  # exit the outer loop as well
 
-
-
-
-    # Method to use when actually colliding with the chest
+    # method to use when actually colliding with the chest
     def open(self, surface, enemies, spawn_chances, player):
         self.select_options()
         self.display_options(surface, enemies, spawn_chances, player)

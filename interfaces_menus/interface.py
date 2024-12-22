@@ -1,4 +1,3 @@
-from utils import *  # no need to import pygame because the import is in utils
 from config import *  # importing colors and the like
 from interfaces_menus.map import map_layout
 from interfaces_menus.button import Button, select_sound
@@ -21,27 +20,29 @@ sound_volume = 0.2
 music_slider_value = music_volume * 100
 sound_slider_value = sound_volume * 100
 
+
+# start screen so we can redirect the player to the correct interface based on the save file
 def start_screen(player):
     global scroll
 
-    # Initialize pygame and load music
+    # initialize pygame and load music
     pygame.init()
 
     background_music = Music("audio/start-screen.mp3")
     background_music.play()
     background_music.volchange(music_volume)
 
-    # Check if the music is playing
+    # check if the music is playing
     is_playing = background_music.isplaying()
 
-    # Set screen and other UI elements
+    # set screen and other UI elements
     screen = pygame.display.set_mode(resolution)
     pygame.display.set_caption("Penguin Rodeo")
     pygame_icon = pygame.image.load('images/game_icon.jpg')
     pygame.display.set_icon(pygame_icon)
     load_backgrounds()
 
-    # Load font and text
+    # load font and text
     press_text = pygame.image.load('images/press2p.png')
     press_text = pygame.transform.scale(press_text, (600, 50))
     press_rect = press_text.get_rect(center=(resolution[0] // 2, resolution[1] * 0.75))
@@ -53,35 +54,36 @@ def start_screen(player):
     clock = pygame.time.Clock()
     running = True
     while running:
-        clock.tick(fps)  # Cap FPS
+        clock.tick(fps)  # cap FPS
 
-        # Draw background and update scroll
+        # draw background and update scroll
         draw_bg(screen, scroll)
         scroll += 0.5
 
-        # Display text
+        # display text
         screen.blit(press_text, press_rect)
         screen.blit(icon, icon_rect)
 
-        # Event handling
+        # event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 choose_interface(player, interface_w_save=interface_w_save, interface_no_save=interface_no_save)
-                # Transition to next screen
+                # transition to next screen
 
         pygame.display.update()
 
 
+# interface if player has no save file
 def interface_no_save(player):
     global scroll
 
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
 
-    # Loading the same image for the buttons
+    # loading the same image for the buttons
     button_sprite = "images/Wood-button1.png"
     #  wood_banner = "images/wood-banner.png"
 
@@ -90,10 +92,10 @@ def interface_no_save(player):
     icon = pygame.transform.scale(icon, (256, 230))
     icon_rect = icon.get_rect(center=(resolution[0] // 2, 140))
 
-    # Calculate the center x-coordinate
+    # calculate the center x-coordinate
     center_x = resolution[0] // 2
 
-    # Initialize buttons with the correct parameters
+    # initialize buttons with the correct parameters
     play_button = Button(center_x - 130, 230, 250, 100, "Play", brown, "fonts/Grand9KPixel.ttf", 40, True, light_brown,
                          image=button_sprite)
     rules_button = Button(center_x - 75, 350, 140, 60, "Rules", brown, "fonts/Grand9KPixel.ttf", 25, True, light_brown,
@@ -113,12 +115,12 @@ def interface_no_save(player):
         draw_bg(screen, scroll)
         scroll += 0.5
 
-        # Get mouse position
+        # get mouse position
         mouse = pygame.mouse.get_pos()
 
         screen.blit(icon, icon_rect)
 
-        # Event handling
+        # event handling
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
@@ -173,21 +175,21 @@ def interface_no_save(player):
         quit_button.draw(screen, mouse)
         credits_button.draw(screen, mouse)
 
-        # Update the display
+        # update the display
         pygame.display.update()
 
 
+# interface if player has a save file
 def interface_w_save(player):
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(resolution)
 
     global scroll
 
-    # Loading the same image for the buttons
+    # loading the same image for the buttons
     button_sprite = "images/Wood-button1.png"
-    #  wood_banner = "images/wood-banner.png"
 
-    # Calculate the center x-coordinate
+    # calculate the center x-coordinate
     center_x = resolution[0] // 2
 
     # game logo
@@ -224,10 +226,10 @@ def interface_w_save(player):
 
         screen.blit(icon, icon_rect)  # game logo
 
-        # Get mouse position
+        # get mouse position
         mouse = pygame.mouse.get_pos()
 
-        # Event handling
+        # event handling
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
@@ -303,13 +305,13 @@ def interface_w_save(player):
         quit_button.draw(screen, mouse)
         credits_button.draw(screen, mouse)
 
-        # Update the display
+        # update the display
         pygame.display.update()
 
 
-# Under construction screen
+# credits screen
 def credits_():
-    # loading the rules screen
+    # loading the credits screen
     screen = pygame.display.set_mode(resolution)
 
     global scroll
@@ -352,7 +354,7 @@ def credits_():
                 select_sound()
                 return
 
-            # Update and draw the button
+            # update and draw the button
             if back_button.is_hovered(mouse):
                 back_button.scale_up()
             else:
@@ -376,6 +378,7 @@ def credits_():
         pygame.display.update()
 
 
+# rules screen
 def rules_(player):
     global scroll
 
@@ -429,7 +432,7 @@ def rules_(player):
             screen.blit(rules, rules_rect)
             screen.blit(text, text_rect)
 
-            # Update and draw the button
+            # update and draw the button
             if back_button.is_hovered(mouse):
                 back_button.scale_up()
             else:
@@ -455,6 +458,7 @@ def rules_(player):
         pygame.display.update()
 
 
+# powerup description screen
 def power_desc(player):
     global scroll
 
@@ -501,7 +505,7 @@ def power_desc(player):
             screen.blit(power, power_rect)
             screen.blit(text, text_rect)
 
-            # Update and draw the button
+            # update and draw the button
             if back_button.is_hovered(mouse):
                 back_button.scale_up()
             else:
@@ -520,6 +524,7 @@ def power_desc(player):
         pygame.display.update()
 
 
+# settings screen
 def settings(player):
     global scroll
     global music_volume
@@ -552,11 +557,11 @@ def settings(player):
     back_button = Button(1000, 650, 150, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
                          image="images/Wood-button1.png")
 
-    # Initialize sliders for volume control
+    # initialize sliders for volume control
     music_slider = Slider(500, 300, 200, 20, 0, 100, music_slider_value)
     sound_slider = Slider(500, 500, 200, 20, 0, 100, sound_slider_value)
 
-    # Create an instance of the Music class
+    # create an instance of the Music class
     background_music = Music("audio/start-screen.mp3")
 
     while True:
@@ -567,7 +572,7 @@ def settings(player):
         # getting the position of the user's mouse
         mouse = pygame.mouse.get_pos()
 
-        # Event handling for Pygame
+        # event handling for Pygame
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
@@ -582,11 +587,11 @@ def settings(player):
             else:
                 back_button.scale_down()
 
-            # Handle slider events
+            # handle slider events
             music_slider.handle_event(ev)
             sound_slider.handle_event(ev)
 
-        # Update volume based on slider values
+        # update volume based on slider values
         music_volume = music_slider.value / 100
         sound_volume = sound_slider.value / 100
         background_music.volchange(music_volume)
@@ -609,7 +614,9 @@ def settings(player):
 
         pygame.display.update()
 
+
+# set the volume for the music
 def set_sound_volume(volume):
-    # Implement this function to set the volume for sound effects
+    # this function sets the volume for sound effects
     for sound in pygame.mixer.get_sounds():
         sound.set_volume(volume)

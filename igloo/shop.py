@@ -47,11 +47,11 @@ def shop_layout(player):
         # draw the coin image
         screen.blit(coin_image, (505, 310))
 
-        # Showing the text of total coins
+        # showing the text of total coins
         total_coins_text = pixel_font.render(f"{player.balance}", True, oxford_blue)
         screen.blit(total_coins_text, (630, 312))
 
-        # get player_related's mouse position
+        # get player's mouse position
         mouse = pygame.mouse.get_pos()
 
         for ev in pygame.event.get():

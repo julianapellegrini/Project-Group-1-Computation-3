@@ -3,6 +3,8 @@ from config import resolution
 
 bg_images = []
 
+
+# load the background images
 def load_backgrounds():
     global bg_images
     for i in range(1, 6):
@@ -11,6 +13,7 @@ def load_backgrounds():
         bg_images.append(bg_image)
 
 
+# draw the moving background
 def draw_bg(screen, scroll):
     global bg_images
 

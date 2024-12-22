@@ -7,10 +7,10 @@ from player_related.inventory import Inventory
 from player_related.weapons import Snowball, Slingshot, Watergun, Fish_bazooka, Ice_Ninja_Stars, Sardine_Shooter
 from powerups.extra_fish import Extra_Fish
 
-ptypes = ['gray', 'brown', 'eyebrow']  # just for reference
+ptypes = ['gray', 'brown', 'eyebrow']  # just for reference, not used
 
 
-# making Player a child of the Sprite class
+# creating the player class and making it a sprite
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         # calling the mother class' init
@@ -38,12 +38,11 @@ class Player(pygame.sprite.Sprite):
         self.image_r_1 = pygame.transform.scale(self.image_r_1, player_size)
         self.image_r_2 = pygame.transform.scale(self.image_r_2, player_size)
 
-        # Set the default image
+        # set the default image for before the player moves
         self.image = self.image_d_stop
         self.image = pygame.transform.scale(self.image, (player_size[0], player_size[1]))
 
-        # drawing the image of the player_related
-
+        # player rectangle
         self.rect = self.image.get_rect()
         self.rect.center = (width // 2, height // 2)
 
@@ -54,31 +53,36 @@ class Player(pygame.sprite.Sprite):
         self.health = 100
         self.bullet_cooldown = 0
 
-        # Level
+        # what level the player is on
+        self.level = 1  # default level is 1
 
-        self.level = 1
-
-        # Player has an inventory
+        # giving the player an inventory
         self.inventory = Inventory()
 
-        # Player has a Watergun in his inventory
+        # player starts with a watergun in their inventory
         self.watergun = Watergun()
         self.inventory.add_item(self.watergun)
-        # Player has currency
-        self.balance = 100
-        # Weapons
+
+        # player has currency
+        self.balance = 100  # starts with 100 coins as a little gift for the testers
+
+        # weapons
         self.weapon = self.watergun  # default weapon
+
+        # creates instances of all weapons so we can keep upgrades throughout the game
         self.snowball = Snowball()
         self.slingshot = Slingshot()
         self.fish_bazooka = Fish_bazooka()
         self.ice_ninja_stars = Ice_Ninja_Stars()
         self.sardine_shooter = Sardine_Shooter()
+
+        # weapon upgrades keeps track of the upgrades for each weapon
         self.weapon_upgrades = {}
 
-        # Powerups
+        # powerups
         self.powerup = None  # current powerup, default is None
 
-        # Powerup timer
+        # powerup timer
         self.powerup_start = None
 
         # counter so we can cycle through the images for movement
@@ -106,6 +110,7 @@ class Player(pygame.sprite.Sprite):
         self.image_r_1 = pygame.transform.scale(self.image_r_1, player_size)
         self.image_r_2 = pygame.transform.scale(self.image_r_2, player_size)
 
+    # images for when powerup is active
     def load_images_pow(self):
         # load images for different directions and to switch between them
         self.image_up = pygame.image.load(f'images_penguins/{self.ptype}uppow.png')
@@ -127,11 +132,11 @@ class Player(pygame.sprite.Sprite):
         self.image_r_1 = pygame.transform.scale(self.image_r_1, player_size)
         self.image_r_2 = pygame.transform.scale(self.image_r_2, player_size)
 
-    # Inventory of fish caught
+    # adds caught fish to the inventory
     def add_fish(self, fish):
         self.inventory.add_item(fish)
 
-    # Inventory methods
+    # loads the player's data from the save file
     def load_data(self, data):
         # load player data from save file
         self.inventory.items = eval(data[0])
@@ -142,7 +147,7 @@ class Player(pygame.sprite.Sprite):
         self.health_cap = int(data[5])
         self.speed_cap = int(data[6])
 
-        # Load the weapon
+        # load the weapon
         weapon_name = data[2].split("(")[0]
         if weapon_name == "Snowball":
             self.weapon = Snowball()
@@ -157,7 +162,7 @@ class Player(pygame.sprite.Sprite):
         elif weapon_name == "Sardine Shooter":
             self.weapon = Sardine_Shooter()
 
-        # load damage for each weapon that can be upgraded
+        # load damage for each weapon (so it doesn't lose upgrades)
         self.snowball.damage = float(data[7])
         self.slingshot.damage = float(data[8])
         self.fish_bazooka.damage = float(data[9])
@@ -167,23 +172,27 @@ class Player(pygame.sprite.Sprite):
         # load weapon upgrades
         self.weapon_upgrades = eval(data[12])
 
+    # adds items to the inventory
     def add_item(self, item):
         # Add the item to the inventory
         self.inventory.add_item(item)
         print(f"Added {item.name} to inventory")
         print(self.inventory.items)
 
-    # Weapon methods
-
+    # changes the player's weapon
     def change_weapon(self, weapon):
         self.weapon = weapon
 
+    # tracks movement and changes the player's image
     def update(self, surface):
+
+        # get the keys that are pressed
         keys = pygame.key.get_pressed()
 
         # add to animation counter
         self.animation_counter += 1
 
+        # change the player's image based on the keys pressed
         if keys[pygame.K_w] and self.rect.top > 0:
             self.rect.y -= self.speed
             if self.animation_counter % 20 < 10:
@@ -209,6 +218,7 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.image = self.image_r_2
 
+    # player shoots bullets in 4 directions periodically
     def shoot(self, bullets):
         """
 
@@ -222,7 +232,7 @@ class Player(pygame.sprite.Sprite):
                 # these 4 directions are, in order, right, left, up, down
                 angles = [0, math.pi, math.pi / 2, 3 * math.pi / 2]
 
-                # If the extra fish powerup is active, add the diagonal angles
+                # ff the extra fish powerup is active, add the diagonal angles
                 if isinstance(self.powerup, Extra_Fish):
                     # Add angles for the corners
                     # in order: top right diagonal, top left diagonal, bottom left diagonal, bottom right diagonal
@@ -236,35 +246,38 @@ class Player(pygame.sprite.Sprite):
                 # resetting the cooldown according to the weapon's cooldown
                 self.bullet_cooldown = self.weapon.cooldown
 
+            # updates the cooldown
             self.bullet_cooldown -= 1
 
+    # draws the player's health bar
     def draw_health_bar(self, surface):
-        # Define the size and position of the health bar
-        bar_width = self.rect.width
-        bar_height = 10  # Increase the height of the health bar
-        bar_x = self.rect.x
-        bar_y = self.rect.y - bar_height - 5  # Adjust the position
 
-        # Ensure health does not go below 0
+        # define the size and position of the health bar
+        bar_width = self.rect.width
+        bar_height = 10  # increase the height of the health bar
+        bar_x = self.rect.x
+        bar_y = self.rect.y - bar_height - 5  # adjust the position
+
+        # ensure health does not go below 0 (into the negatives)
         health = max(self.health, 0)
 
-        # Calculate the health ratio
+        # calculate the health ratio
         health_ratio = health / 100
 
-        # Draw the background of the health bar
+        # draw the background of the health bar
         pygame.draw.rect(surface, (255, 0, 0), (bar_x, bar_y, bar_width, bar_height), border_radius=5)
 
-        # Draw the foreground of the health bar
+        # draw the foreground of the health bar (the green part)
         pygame.draw.rect(surface, (0, 255, 0), (bar_x, bar_y, bar_width * health_ratio, bar_height), border_radius=5)
 
-        # Add the health ratio text in the middle of the health bar
+        # add the health ratio text in the middle of the health bar
         font = pygame.font.Font(None, 18)
         text = font.render(f'{int(health)}%', True, (255, 255, 255))
         text_rect = text.get_rect(center=(bar_x + bar_width // 2, bar_y + bar_height // 2))
         surface.blit(text, text_rect)
 
     def get_weapon_by_name(self, weapon_name):
-        # Map of weapon names to weapon objects
+        # map of weapon names to weapon objects
         weapon_map = {
             "Snowball": self.snowball,
             "Slingshot": self.slingshot,

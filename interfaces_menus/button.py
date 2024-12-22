@@ -18,11 +18,11 @@ class Button:
         self.width = width
         self.height = height
         self.text = text
-        self.color = color if color else (255, 255, 255)  # Default to white if no color is passed
+        self.color = color if color else (255, 255, 255)  # default to white if no color is passed
         self.font = font
         self.font_size = font_size
         self.image = image
-        self.scaled_font = pygame.font.Font(self.font, self.font_size)  # Use the font passed as an argument
+        self.scaled_font = pygame.font.Font(self.font, self.font_size)  # use the font passed as an argument
         self.outline = outline
         self.outline_color = outline_color
         self.is_scaled = False
@@ -39,17 +39,20 @@ class Button:
             for i in list1:
                 screen.blit(i[0], i[1])
 
-        # Draw the text with the scaled font
+        # draw the text with the scaled font
         text_surface = self.scaled_font.render(self.text, True, self.color)
         text_rect = text_surface.get_rect(center=(self.x + self.width // 2, self.y + self.height // 2))
         screen.blit(text_surface, text_rect)
 
+    # check if the button is hovered
     def is_hovered(self, mouse_pos):
         return self.x <= mouse_pos[0] <= self.x + self.width and self.y <= mouse_pos[1] <= self.y + self.height
 
+    # check if the button is clicked
     def is_clicked(self, mouse_pos, event):
         return self.is_hovered(mouse_pos) and event.type == pygame.MOUSEBUTTONDOWN
 
+    # add an outline to the text
     def outline_(self):
         text_surface1 = self.scaled_font.render(self.text, True, self.outline_color)
         text_rect1 = text_surface1.get_rect(center=((self.x + self.width // 2) - 1, self.y + self.height // 2))
@@ -67,6 +70,7 @@ class Button:
                  (text_surface4, text_rect4)]
         return list1
 
+    # increase the size of the button when hovered
     def scale_up(self):
         if not self.is_scaled:
             # increase in size

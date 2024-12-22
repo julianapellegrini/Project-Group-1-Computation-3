@@ -9,6 +9,7 @@ from interfaces_menus.levels import Level
 
 def map_layout(player, interface_w_save, interface_no_save):
 
+    # importing music volume so it doesn't reset
     from interfaces_menus.interface import music_volume
     global music_volume
 

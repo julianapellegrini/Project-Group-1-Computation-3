@@ -18,7 +18,6 @@ class PowerUp(ABC, pygame.sprite.Sprite):
         self.icon = pygame.transform.scale(self.icon, (80, 80))
         self.icon_rect = self.icon.get_rect()
         # load the image
-        # TO CHANGE
         self.image = pygame.image.load(image_path)
         self.image = pygame.transform.scale(self.image, (150, 150))  # scale the image
         self.image_rect = self.image.get_rect()

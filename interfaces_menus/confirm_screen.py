@@ -1,6 +1,3 @@
-from interfaces_menus.button import Button, select_sound
-from config import *
-from utils import *
 from interfaces_menus.interface import *
 from interfaces_menus.moving_bg import *
 

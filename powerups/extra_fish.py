@@ -2,13 +2,15 @@ from powerups.powerup import PowerUp
 from config import *
 import pygame
 
+
+# extra fish power-up
 class Extra_Fish(PowerUp):
     def __init__(self):
         super().__init__('powerup_images/extra_fish_icon.png',
                          'powerup_images/despawner_image.png', 0.12)
         self.active = False
         self.start_time = None
-        self.duration = 5  # Duration for which the power-up is active
+        self.duration = 5  # duration for which the power-up is active
 
     def affect_player(self, surface, player):
         # activate the power-up
@@ -25,14 +27,15 @@ class Extra_Fish(PowerUp):
         surface.blit(self.image, self.image_rect.topleft)
 
     def affect_game(self):
-        pass  # No change to game
+        pass  # no change to game
 
     def deactivate(self, player):
+        # deactivate the power-up and update player image
         self.active = False
         player.load_images()
         player.powerup = None
         print("Extra Fish deactivated")
 
-    # For open chest method
+    # for open chest method and save game
     def __repr__(self):
         return "Extra Fish"
