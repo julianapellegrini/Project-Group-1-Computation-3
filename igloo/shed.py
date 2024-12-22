@@ -1,12 +1,12 @@
 from config import *
 from utils import *
 from interfaces_menus.button import Button, select_sound
-from utils import under_construction
 from igloo.shop import shop_layout
 from igloo.fishing import fishing
 from save_system.SaveLoadGame import SaveManager
 from igloo.weapon_selector import weapon_selector
 from igloo.skin_selector import skin_selector
+from igloo.player_screen import player_info_screen
 
 
 def shed(player):
@@ -33,7 +33,7 @@ def shed(player):
                          image="images/Wood-button1.png")
 
     skin_button = Button(50, 310, 150, 60, "Skins", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
-                          image="images/Wood-button1.png")
+                         image="images/Wood-button1.png")
 
     fish_button = Button(830, 250, 150, 60, "Fishing Hole", brown, "fonts/Grand9KPixel.ttf", 18, True, light_brown,
                          image="images/Wood-button1.png")
@@ -43,6 +43,9 @@ def shed(player):
 
     save_game_button = Button(270, 190, 150, 60, "Save Game", brown, "fonts/Grand9KPixel.ttf", 18, True, light_brown,
                               image="images/Wood-button1.png")
+
+    player_info_button = Button(270, 120, 150, 60, "Player Info", brown, "fonts/Grand9KPixel.ttf", 18, True,
+                                light_brown, image="images/Wood-button1.png")
 
     running = True
 
@@ -86,6 +89,10 @@ def shed(player):
                 save_manager.save_game(player)
                 print(player.inventory.items, player.balance, player.weapon, player.level)
 
+            if player_info_button.is_clicked(mouse, ev):
+                select_sound()
+                player_info_screen(player)
+
             # clear the button's previous position
             previous_rect = pygame.Rect(back_button.x, back_button.y, back_button.width, back_button.height)
             screen.blit(background, previous_rect, previous_rect)  # Clear the previous area
@@ -121,6 +128,11 @@ def shed(player):
             else:
                 save_game_button.scale_down()
 
+            if player_info_button.is_hovered(mouse):
+                player_info_button.scale_up()
+            else:
+                player_info_button.scale_down()
+
             # draw the buttons after updating
             back_button.draw(screen, mouse)
             skin_button.draw(screen, mouse)
@@ -128,6 +140,7 @@ def shed(player):
             fish_button.draw(screen, mouse)
             weapons_button.draw(screen, mouse)
             save_game_button.draw(screen, mouse)
+            player_info_button.draw(screen, mouse)
 
         # drawing the buttons
         back_button.draw(screen, mouse)
@@ -136,6 +149,7 @@ def shed(player):
         fish_button.draw(screen, mouse)
         weapons_button.draw(screen, mouse)
         save_game_button.draw(screen, mouse)
+        player_info_button.draw(screen, mouse)
 
         # updating the display
         pygame.display.update()

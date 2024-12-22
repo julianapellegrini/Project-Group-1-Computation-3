@@ -53,8 +53,7 @@ def village(player, map_layout):
         if player.rect.bottom <= 300:
             player.rect.bottom = 300
 
-        mouse = pygame.mouse.get_pos()
-        print(mouse)
+        print(player.weapon)
 
         if special_area.colliderect(player.rect):
             shed(player)
