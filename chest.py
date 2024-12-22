@@ -121,7 +121,7 @@ class Chest(pygame.sprite.Sprite):
                                         player.health_cap += 20
                                         player.health = player.health_cap
                                     elif option == "Permanant Speed Boost":
-                                        player.speed_cap += 2
+                                        player.speed_cap += 0.5
                                         player.speed = player.speed_cap
                                     print(f"Player weapon changed to {option}")
                                 # If user selects a powerup, apply the powerup

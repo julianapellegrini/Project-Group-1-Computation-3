@@ -37,7 +37,7 @@ class Weapon(pygame.sprite.Sprite):
 
 class Watergun(Weapon, pygame.sprite.Sprite):
     def __init__(self):
-        super().__init__("Watergun", fps * 1.5, 4, "images_weapons/watergun.png")
+        super().__init__("Watergun", fps * 2, 4, "images_weapons/watergun.png")
         self.damage = 4
 
     def __repr__(self):
