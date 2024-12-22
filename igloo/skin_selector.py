@@ -4,6 +4,19 @@ from interfaces_menus.button import Button, select_sound
 
 
 def skin_selector(player):
+    """
+    Display the skin selector screen where the player can select the penguin type they want to play with.
+
+    Parameters
+    ----------
+    player : object
+        The player object that contains the player's penguin type.
+
+    Returns
+    -------
+    None
+        The function does not return anything. It updates the player's penguin type based on the on-screen actions.
+    """
 
     # set background
     background = pygame.image.load("images/chest_background.png")

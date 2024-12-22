@@ -4,9 +4,32 @@ from config import *
 
 
 def area(player, map_layout, interface_w_save, interface_no_save):
-    # Setup
-    current_state = "main"  # Start in the main area
+    """
+    Area where the player can interact with the igloo special area and the map.
+    The function changes the state of the game based on the player's location.
 
+    Parameters
+    ----------
+    player : object
+        The player object that interacts with the igloo/shed and the map.
+
+    map_layout : function
+        The function that displays the map layout screen.
+
+    interface_w_save : function
+        The function that displays the interface if the player has a save.
+
+    interface_no_save : function
+        The function that displays the interface if the player does not have a save.
+
+    Returns
+    -------
+    None
+        The function does not return anything. It updates the player's location and the state of the game.
+    """
+    current_state = "main"  # start in the main area
+
+    # change the state of the game based on the player's location
     while True:
         if current_state == "main":
             current_state = village(player, map_layout)
@@ -17,6 +40,22 @@ def area(player, map_layout, interface_w_save, interface_no_save):
 
 
 def village(player, map_layout):
+    """
+    Display the village area where the player can interact with the special area of the igloo/shed.
+
+    Parameters
+    ----------
+    player : object
+        The player object that interacts with the village area.
+
+    map_layout : function
+        The function that displays the map layout screen.
+
+    Returns
+    -------
+    str
+        The string that represents the next state of the game like the map or the shed.
+    """
 
     # set the background
     background = pygame.image.load("images/village.png")

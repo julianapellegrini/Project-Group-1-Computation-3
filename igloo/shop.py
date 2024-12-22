@@ -6,6 +6,21 @@ from interfaces_menus.button import Button, select_sound
 
 
 def shop_layout(player):
+    """
+    Display the shop layout screen where the player can access different screens to buy weapons, improve weapons, and
+    sell fish for coins. Coin balance is displayed on the screen.
+
+    Parameters
+    ----------
+    player : object
+        The player object that contains the player's balance, weapons, update progress, and inventory.
+
+    Returns
+    -------
+    None
+        The function does not return anything. It exits on ESC key press or back button click and responds to the
+        on-screen actions.
+    """
 
     # initializing pygame
     pygame.init()
