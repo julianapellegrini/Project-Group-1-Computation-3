@@ -49,9 +49,11 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x += self.speed * math.cos(direction)
         self.rect.y += self.speed * math.sin(direction)
 
-        # for now its not animated :')
-        self.image = self.image1
-
+        # image changes periodically
+        if pygame.time.get_ticks() % 500 < 250:
+            self.image = self.image1
+        else:
+            self.image = self.image2
 
     def draw_health_bar(self, surface):
         # Define the size and position of the health bar
@@ -85,22 +87,34 @@ class Seal(Enemy):
         super().__init__(enemy_type='cinza', max_health=8)
         self.speed = 3
 
+
 class Seal2(Enemy):
     def __init__(self):
         super().__init__(enemy_type='marrom', max_health=13)
         self.speed = 3
+
 
 class Seal_with_a_hat(Enemy):
     def __init__(self):
         super().__init__(enemy_type='pirata', max_health=20)
         self.speed = random.randint(1, 2)
 
+
 class Polar_bear(Enemy):
     def __init__(self):
-        super().__init__(enemy_type='polar_bear', max_health=25)
+        super().__init__(enemy_type='urso', max_health=25)
         self.speed = random.randint(1, 2)
+
+        # should be bigger than the seals
+        self.image1 = pygame.transform.scale(self.image1, (enemy_size[0] * 2, enemy_size[1] * 2))
+        self.image2 = pygame.transform.scale(self.image2, (enemy_size[0] * 2, enemy_size[1] * 2))
+
 
 class Orca(Enemy):
     def __init__(self):
         super().__init__(enemy_type='orca', max_health=50)
         self.speed = 1
+
+        # bigger than the seals
+        self.image1 = pygame.transform.scale(self.image1, (enemy_size[0] * 2, enemy_size[1] * 2))
+        self.image2 = pygame.transform.scale(self.image2, (enemy_size[0] * 2, enemy_size[1] * 2))
