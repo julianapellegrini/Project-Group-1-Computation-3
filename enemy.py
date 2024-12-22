@@ -92,7 +92,7 @@ class Seal2(Enemy):
 
 class Seal_with_a_hat(Enemy):
     def __init__(self):
-        super().__init__(enemy_type='seal3', max_health=20)
+        super().__init__(enemy_type='pirata', max_health=20)
         self.speed = random.randint(1, 2)
 
 class Polar_bear(Enemy):

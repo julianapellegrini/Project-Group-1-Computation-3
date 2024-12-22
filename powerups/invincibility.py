@@ -16,7 +16,8 @@ class Invincibility(PowerUp):
         self.active = True
         self.start_time = pygame.time.get_ticks()
 
-        
+        # change the player's image
+        player.load_images_pow()
 
         # Position the power-up image around the player
         # Load and scale the invincibility image
@@ -34,7 +35,7 @@ class Invincibility(PowerUp):
 
     def deactivate(self, player):
         self.active = False
-        player.image = player_image_normal
+        player.load_images()
         player.invincible = False
         player.powerup = None
         print("Invincibility deactivated")

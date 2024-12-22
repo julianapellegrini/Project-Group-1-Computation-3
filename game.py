@@ -22,7 +22,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
     """
     # Setup:
     # setting up the background:
-    background = pygame.image.load("images/ice-background2.png")
+    background = pygame.image.load(f"images/level{level}bg.png")
     background = pygame.transform.scale(background, (width, height))
 
     pygame.mixer.music.load("audio/nocturne-of-ice.mp3")
@@ -206,10 +206,12 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
         if isinstance(player.powerup, Invincibility) and player.powerup.active:
             player.powerup.update_position(player)
             screen.blit(player.powerup.image, player.powerup.image_rect.topleft)
+        # Draw the speed boost image if the player has speed boost
+        elif isinstance(player.powerup, Speed_Boost) and player.powerup.active:
+            player.powerup.update_position(player)
+            screen.blit(player.powerup.image, player.powerup.image_rect.topleft)
 
         
-       
-
         # automatically shoot bullets from the player
         player.shoot(bullets)
 

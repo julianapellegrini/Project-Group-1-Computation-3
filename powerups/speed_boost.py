@@ -16,13 +16,22 @@ class Speed_Boost(PowerUp):
         self.active = True
         self.start_time = pygame.time.get_ticks()
         player.speed *= 2
-        player.image = player_image_powered
+
+        # change the player's image
+        player.load_images_pow()
 
         # Position the power-up image around the player
-        self.image = pygame.image.load('powerup_images/despawner_image.png')
-        self.image = pygame.transform.scale(self.image, (player.rect.width + 30, player.rect.height + 30))
-        self.image_rect = self.image.get_rect(center=player.rect.center)
-        surface.blit(self.image, self.image_rect.topleft)
+        # Load and scale the invincibility image
+        self.image = pygame.image.load('powerup_images/speed_boost_image.png')
+        self.image = pygame.transform.scale(self.image, (player.rect.width + 200, player.rect.height + 50))
+
+    def update_position(self, player):
+    # Update the position of the speed boost image to keep the player in the bottom middle
+        self.image_rect = self.image.get_rect()  # Get the bounding rectangle for the image
+        self.image_rect.centerx = player.rect.centerx  # Align the horizontal centers
+        self.image_rect.bottom = player.rect.bottom + (self.image_rect.height - player.rect.height) // 2
+
+
 
     def affect_game(self):
         pass  # No change to game
@@ -30,7 +39,7 @@ class Speed_Boost(PowerUp):
     def deactivate(self, player):
         self.active = False
         player.speed = player.speed_cap
-        player.image = player_image_normal
+        player.load_images()
         player.powerup = None
         print("Speed Boost deactivated")
 
