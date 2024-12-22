@@ -139,6 +139,15 @@ class Player(pygame.sprite.Sprite):
         elif weapon_name == "Sardine Shooter":
             self.weapon = Sardine_Shooter()
 
+        # load damage for each weapon that can be upgraded
+        self.snowball.damage = float(data[7])
+        self.slingshot.damage = float(data[8])
+        self.fish_bazooka.damage = float(data[9])
+        self.ice_ninja_stars.damage = float(data[10])
+        self.sardine_shooter.damage = float(data[11])
+
+        # load weapon upgrades
+        self.weapon_upgrades = eval(data[12])
 
     def add_item(self, item):
         # Add the item to the inventory

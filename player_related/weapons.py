@@ -79,6 +79,7 @@ class Ice_Ninja_Stars(Weapon, pygame.sprite.Sprite):
     def __repr__(self):
         return "Ice Ninja Stars"
 
+
 class Sardine_Shooter(Weapon, pygame.sprite.Sprite):
     def __init__(self):
         super().__init__("Sardine Shooter", fps * 1, 6, "images_weapons/sardine_shooter.png")
