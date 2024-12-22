@@ -2,9 +2,11 @@ from utils import *
 from config import *
 from interfaces_menus.button import Button, select_sound
 
-def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level):
+
+
+def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level, player, interface_w_save, interface_no_save):
+
     # Load the victory background image
-    # setting up the background:
     background1 = pygame.image.load(f"images/level{level}bg.png")
     background1 = pygame.transform.scale(background1, (width, height))
 
@@ -12,9 +14,14 @@ def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_d
     background = pygame.transform.scale(background, (600, 600))
     background_rect = background.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
 
+    # Play the sound effect
+    powerup_sound = pygame.mixer.Sound('audio/level-completed.mp3')
+    powerup_sound.set_volume(Button.sound_volume)
+    powerup_sound.play()
+
     # Load the buttons images
-    play_button = Button(resolution[0] // 2 - 70, resolution[1] // 1.5, 140, 140, "", None, None, 0, False, None,
-                         'images/play_button.png')
+    back_button = Button(resolution[0] // 2 - 70, 550, 140, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 27, True, light_brown, image='images/Wood-button1.png')
+    next_level_button = Button(resolution[0] // 2 - 70, 450, 140, 60, "Next Level", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown, image='images/Wood-button1.png')
 
     # Set font
     pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 45)
@@ -42,9 +49,20 @@ def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_d
                 return
             elif ev.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                if play_button.is_clicked(mouse_pos, ev):
+
+                if back_button.is_clicked(mouse_pos, ev):
                     select_sound()
+                    from interfaces_menus.map import map_layout
                     victory = False
+                    map_layout(player, interface_w_save, interface_no_save)
+                    return
+                elif next_level_button.is_clicked(mouse_pos, ev):
+                    select_sound()
+                    from interfaces_menus.map import map_layout
+                    from game import game_loop
+                    victory = False
+                    game_loop(level + 1, player, map_layout, interface_w_save, interface_no_save)
+                    return
 
         # Render the victory screen
         screen.blit(background1, (0, 0))
@@ -53,12 +71,17 @@ def victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_d
         screen.blit(coins_text, coins_text_rect)
         screen.blit(time_text, time_text_rect)
         screen.blit(enemies_text, enemies_text_rect)
-        play_button.draw(screen, pygame.mouse.get_pos())
+        back_button.draw(screen, pygame.mouse.get_pos())
+        next_level_button.draw(screen, pygame.mouse.get_pos())
 
-        # Putting visual effects on buttons
-        if play_button.is_hovered(pygame.mouse.get_pos()):
-            play_button.scale_up()
+        if back_button.is_hovered(pygame.mouse.get_pos()):
+            back_button.scale_up()
         else:
-            play_button.scale_down()
+            back_button.scale_down()
+
+        if next_level_button.is_hovered(pygame.mouse.get_pos()):
+            next_level_button.scale_up()
+        else:
+            next_level_button.scale_down()
 
         pygame.display.update()

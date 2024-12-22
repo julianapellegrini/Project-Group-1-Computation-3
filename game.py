@@ -266,6 +266,12 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                 enemy.health -= player.weapon.damage
                 bullet.kill()
                 if enemy.health <= 0:
+
+                    # Play the sound effect
+                    powerup_sound = pygame.mixer.Sound('audio/kill-noise.mp3')
+                    powerup_sound.set_volume(sound_volume)
+                    powerup_sound.play()
+
                     enemy.kill()
                     coins_earned += 5
                     enemies_defeated += 1
@@ -305,7 +311,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
             player.speed = player.speed_cap
 
             # Call the victory screen
-            victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level)
+            victory_screen(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level, player, interface_w_save, interface_no_save)
 
             map_layout(player, interface_w_save, interface_no_save)
             return
