@@ -9,6 +9,7 @@ from powerups.invincibility import Invincibility
 from interfaces_menus.pause import pause_screen
 from chest import Chest
 from interfaces_menus.victory_screen import victory_screen
+from interfaces_menus.game_over import game_over
 
 # initializing pygame
 pygame.init()
@@ -286,7 +287,7 @@ def game_loop(level, player, map_layout, interface_w_save, interface_no_save):
                     player.health -= 0.3
                 if player.health <= 0:
                     player.health = player.health_cap
-                    map_layout(player, interface_w_save, interface_no_save)
+                    game_over(screen, resolution, coins_earned, minutes, seconds, enemies_defeated, level, player, interface_w_save, interface_no_save)
                     return
 
         # draw health bars
