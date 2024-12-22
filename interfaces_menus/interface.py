@@ -455,6 +455,10 @@ def rules_(player):
                          image="images/Wood-button1.png")
     power_button = Button(1000, 550, 150, 60, "Powerups", pink, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
                           image="images/Wood-button1.png")
+    weapons_button = Button(1000, 450, 150, 60, "Weapons", light_blue, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+                            image="images/Wood-button1.png")
+    chest_button = Button(1000, 350, 150, 60, "Chests", yellow, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+                          image="images/Wood-button1.png")
 
     while True:
 
@@ -480,6 +484,14 @@ def rules_(player):
                 select_sound()
                 power_desc(player)
 
+            if weapons_button.is_clicked(mouse, ev):
+                select_sound()
+                weapon_desc(player)
+
+            if chest_button.is_clicked(mouse, ev):
+                select_sound()
+                chest_desc(player)
+
             # draw bg, rules and title text
             screen.blit(textbg, textbg_rect)
             screen.blit(rules, rules_rect)
@@ -496,8 +508,20 @@ def rules_(player):
             else:
                 power_button.scale_down()
 
+            if weapons_button.is_hovered(mouse):
+                weapons_button.scale_up()
+            else:
+                weapons_button.scale_down()
+
+            if chest_button.is_hovered(mouse):
+                chest_button.scale_up()
+            else:
+                chest_button.scale_down()
+
             back_button.draw(screen, mouse)
             power_button.draw(screen, mouse)
+            weapons_button.draw(screen, mouse)
+            chest_button.draw(screen, mouse)
 
         screen.blit(textbg, textbg_rect)
         screen.blit(rules, rules_rect)
@@ -506,6 +530,8 @@ def rules_(player):
         # drawing the back button
         back_button.draw(screen, mouse)
         power_button.draw(screen, mouse)
+        weapons_button.draw(screen, mouse)
+        chest_button.draw(screen, mouse)
 
         # updating the display
         pygame.display.update()
@@ -580,6 +606,162 @@ def power_desc(player):
 
         screen.blit(textbg, textbg_rect)
         screen.blit(power, power_rect)
+        screen.blit(text, text_rect)
+
+        # drawing the back button
+        back_button.draw(screen, mouse)
+
+        # updating the display
+        pygame.display.update()
+
+
+# weapon description screen
+def weapon_desc(player):
+
+    """
+    Displays the weapon description screen.
+
+    This function sets up a Pygame window with the powerup descriptions and a back button to return to the previous screen.
+
+    Parameters:
+    -----------
+    player : object
+        The player object.
+    """
+
+    global scroll
+
+    # loading the powerup screen
+    screen = pygame.display.set_mode(resolution)
+    textbg = pygame.image.load('images/textbg.png')
+    textbg = pygame.transform.scale(textbg, (520, 620))
+    textbg_rect = textbg.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
+
+    # set font
+    pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 50)
+    text = pixel_font.render("WEAPONS", True, brown)
+    text_rect = text.get_rect(center=(600, 100))
+
+    weapomscr = pygame.image.load('images/powers.png')
+    weaponscr = pygame.transform.scale(weapomscr, (500, 600))
+    weaponscr_rect = weaponscr.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
+
+    # setting up the back button
+    back_button = Button(1000, 650, 150, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+                         image="images/Wood-button1.png")
+
+    while True:
+
+        # display background
+        draw_bg(screen, scroll)
+        scroll += 0.5
+
+        # getting the position of the user's mouse
+        mouse = pygame.mouse.get_pos()
+
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
+
+            if back_button.is_clicked(mouse, ev):
+                select_sound()
+                return
+
+            screen.blit(textbg, textbg_rect)
+            screen.blit(weapomscr, weaponscr_rect)
+            screen.blit(text, text_rect)
+
+            # update and draw the button
+            if back_button.is_hovered(mouse):
+                back_button.scale_up()
+            else:
+                back_button.scale_down()
+
+            back_button.draw(screen, mouse)
+
+        screen.blit(textbg, textbg_rect)
+        screen.blit(weapomscr, weaponscr_rect)
+        screen.blit(text, text_rect)
+
+        # drawing the back button
+        back_button.draw(screen, mouse)
+
+        # updating the display
+        pygame.display.update()
+
+
+# chest description screen
+def chest_desc(player):
+
+    """
+    Displays the treasure chest description screen.
+
+    This function sets up a Pygame window with the powerup descriptions and a back button to return to the previous screen.
+
+    Parameters:
+    -----------
+    player : object
+        The player object.
+    """
+
+    global scroll
+
+    # loading the powerup screen
+    screen = pygame.display.set_mode(resolution)
+    textbg = pygame.image.load('images/textbg.png')
+    textbg = pygame.transform.scale(textbg, (520, 620))
+    textbg_rect = textbg.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
+
+    # set font
+    pixel_font = pygame.font.Font("fonts/Grand9KPixel.ttf", 50)
+    text = pixel_font.render("CHESTS", True, brown)
+    text_rect = text.get_rect(center=(600, 100))
+
+    chestscr = pygame.image.load('images/powers.png')
+    chestscr = pygame.transform.scale(chestscr, (500, 600))
+    chestscr_rect = chestscr.get_rect(center=(resolution[0] // 2, resolution[1] // 2))
+
+    # setting up the back button
+    back_button = Button(1000, 650, 150, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+                         image="images/Wood-button1.png")
+
+    while True:
+
+        # display background
+        draw_bg(screen, scroll)
+        scroll += 0.5
+
+        # getting the position of the user's mouse
+        mouse = pygame.mouse.get_pos()
+
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+
+            if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+                return
+
+            if back_button.is_clicked(mouse, ev):
+                select_sound()
+                return
+
+            screen.blit(textbg, textbg_rect)
+            screen.blit(chestscr, chestscr_rect)
+            screen.blit(text, text_rect)
+
+            # update and draw the button
+            if back_button.is_hovered(mouse):
+                back_button.scale_up()
+            else:
+                back_button.scale_down()
+
+            back_button.draw(screen, mouse)
+
+        screen.blit(textbg, textbg_rect)
+        screen.blit(chestscr, chestscr_rect)
         screen.blit(text, text_rect)
 
         # drawing the back button
