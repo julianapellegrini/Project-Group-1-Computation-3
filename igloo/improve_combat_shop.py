@@ -20,7 +20,7 @@ def improve_combat_screen(player):
                          image="images/Wood-button1.png")
 
     # Weapons list
-    weapons = [player.snowball, player.slingshot, player.fish_bazooka, player.ice_ninja_stars]
+    weapons = [player.snowball, player.slingshot, player.fish_bazooka, player.ice_ninja_stars, player.sardine_shooter]
     # Initialize weapon upgrades from the player object
     weapon_upgrades = player.weapon_upgrades
 

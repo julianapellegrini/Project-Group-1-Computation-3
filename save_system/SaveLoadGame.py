@@ -6,7 +6,7 @@ class SaveManager:
     def save_game(self, player):
         # clear previous player_related data and add current player_related data
         self.player_data = [player.inventory.items, player.balance, player.weapon, player.level, player.ptype,
-                            player.health_cap, player.speed_cap, player.weapon_upgrades]
+                            player.health_cap, player.speed_cap,player.snowball,player.slingshot,player.fish_bazooka,player.ice_ninja_stars,player.sardine_shooter, player.weapon_upgrades]
         # save player_related inventory
         with open(self.save_file, "w") as file:
             for data in self.player_data:
