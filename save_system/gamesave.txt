@@ -1,0 +1,13 @@
+{'Fishes': {'Salmon': 0, 'Cod': 0, 'ClownFish': 0}, 'Weapons': {'Watergun': 1, 'Snowball': 0, 'Slingshot': 0, 'Fish Bazooka': 0, 'Ice Ninja Stars': 0}}
+60
+Watergun
+5
+brown
+100
+6
+6.0
+3.0
+10.0
+2.0
+6.0
+{'Snowball': 2, 'Slingshot': 0, 'Fish Bazooka': 0, 'Ice Ninja Stars': 0, 'Sardine Shooter': 0}
