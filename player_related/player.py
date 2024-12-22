@@ -17,7 +17,26 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
 
         self.ptype = 'gray'  # default penguin type
-        self.load_images()  # actually loading the images
+
+        # load images for different directions and to switch between them
+        self.image_up = pygame.image.load(f'images_penguins/{self.ptype}up.png')
+        self.image_d_stop = pygame.image.load(f'images_penguins/{self.ptype}downstop.png')
+        self.image_d_1 = pygame.image.load(f'images_penguins/{self.ptype}down1.png')
+        self.image_d_2 = pygame.image.load(f'images_penguins/{self.ptype}down2.png')
+        self.image_l_1 = pygame.image.load(f'images_penguins/{self.ptype}left1.png')
+        self.image_l_2 = pygame.image.load(f'images_penguins/{self.ptype}left2.png')
+        self.image_r_1 = pygame.image.load(f'images_penguins/{self.ptype}right1.png')
+        self.image_r_2 = pygame.image.load(f'images_penguins/{self.ptype}right2.png')
+
+        # scaling the images
+        self.image_up = pygame.transform.scale(self.image_up, player_size)
+        self.image_d_stop = pygame.transform.scale(self.image_d_stop, player_size)
+        self.image_d_1 = pygame.transform.scale(self.image_d_1, player_size)
+        self.image_d_2 = pygame.transform.scale(self.image_d_2, player_size)
+        self.image_l_1 = pygame.transform.scale(self.image_l_1, player_size)
+        self.image_l_2 = pygame.transform.scale(self.image_l_2, player_size)
+        self.image_r_1 = pygame.transform.scale(self.image_r_1, player_size)
+        self.image_r_2 = pygame.transform.scale(self.image_r_2, player_size)
 
         # Set the default image
         self.image = self.image_d_stop
@@ -55,7 +74,6 @@ class Player(pygame.sprite.Sprite):
         self.ice_ninja_stars = Ice_Ninja_Stars()
         self.sardine_shooter = Sardine_Shooter()
         self.weapon_upgrades = {}
-
 
         # Powerups
         self.powerup = None  # current powerup, default is None
@@ -209,7 +227,7 @@ class Player(pygame.sprite.Sprite):
                     # Add angles for the corners
                     # in order: top right diagonal, top left diagonal, bottom left diagonal, bottom right diagonal
                     angles.extend([math.pi / 4, 3 * math.pi / 4, 5 * math.pi / 4, 7 * math.pi / 4])
-                
+
                 for angle in angles:
                     # creating a bullet for each angle
                     bullet = Bullet(self.rect.centerx, self.rect.centery, angle)
