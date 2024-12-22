@@ -32,7 +32,7 @@ def village(player, map_layout):
     player.rect.left = 5
 
     # set the special area
-    special_area = pygame.Rect(753, 522, 140, 140)
+    special_area = pygame.Rect(822, 0, 80, 310)
 
     running = True
     while running:
@@ -48,7 +48,14 @@ def village(player, map_layout):
                 
         # update the player's position
         player.update(screen)
-        player.rect.y = 522
+        player.rect.y >= 300
+
+        # don't let the player go off the screen
+
+
+
+        mouse = pygame.mouse.get_pos()
+        print(mouse)
 
         if special_area.colliderect(player.rect):
             shed(player)
