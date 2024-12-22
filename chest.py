@@ -4,7 +4,8 @@ from powerups.despawner import DeSpawner
 from powerups.invincibility import Invincibility
 from powerups.extra_fish import Extra_Fish
 from powerups.speed_boost import Speed_Boost
-from player_related.weapons import Snowball, Slingshot, Fish_bazooka, Ice_Ninja_Stars
+import numpy as np
+
 
 class Chest(pygame.sprite.Sprite):
     def __init__(self):
@@ -18,11 +19,11 @@ class Chest(pygame.sprite.Sprite):
             "Invincibility": 0.2,
             "Extra Fish": 0.10,
             "Speed Boost": 0.15,
-            "Permanant Speed Boost": 0.2,
-            "Permanant Health Boost": 0.1
+            "Permanent Speed Boost": 0.2,
+            "Permanent Health Boost": 0.1
         }
         self.options = []
-        self.upgrades = ["Permanant Health Boost", "Permanant Speed Boost"]
+        self.upgrades = ["Permanent Health Boost", "Permanent Speed Boost"]
         self.powerups = ["Despawner", "Invincibility", "Extra Fish", "Speed Boost"]
 
     def spawn(self, surface):
@@ -50,8 +51,8 @@ class Chest(pygame.sprite.Sprite):
         # Separate the items and probabilities to then choose the items based on their probabilities
         items = list(self.possible_items.keys())
         probabilities = list(self.possible_items.values())
-        # Select 3 random items based on their probabilities
-        self.options = random.choices(items, probabilities, k=3)
+        # using numpy random choice to choose the items based on their probabilities and also to be all different
+        self.options = list(np.random.choice(items, size=3, replace=False, p=probabilities))
         print(f"Selected options: {self.options}")
 
     def display_options(self, surface, enemies, spawn_chances, player):
@@ -117,10 +118,10 @@ class Chest(pygame.sprite.Sprite):
                             if rect.collidepoint(mouse_pos):
                                 # If user selects a weapon, change the player's weapon
                                 if option in self.upgrades:
-                                    if option == "Permanant Health Boost":
+                                    if option == "Permanent Health Boost":
                                         player.health_cap += 20
                                         player.health = player.health_cap
-                                    elif option == "Permanant Speed Boost":
+                                    elif option == "Permanent Speed Boost":
                                         player.speed_cap += 0.5
                                         player.speed = player.speed_cap
                                     print(f"Player weapon changed to {option}")
