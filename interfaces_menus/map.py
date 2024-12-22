@@ -28,20 +28,20 @@ def map_layout(player, interface_w_save, interface_no_save):
     igloo_sprite = "images/igloo_button.png"
 
     # setting up the back button
-    back_button = Button(950, 600, 150, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
+    back_button = Button(1000, 650, 150, 60, "Back", brown, "fonts/Grand9KPixel.ttf", 20, True, light_brown,
                          image=button_sprite)
 
     # setting up the igloo button
-    igloo_button = Button(990, 10, 170, 170, None, None, None, 35, False, None,
+    igloo_button = Button(315, 330, 150, 150, None, None, None, 35, False, None,
                           image=igloo_sprite)
 
     # creating level buttons
     level_buttons = [
-        Level(1, 50, 250, 100, 100, brown, "images/level-button.png"),
-        Level(2, 225, 175, 100, 100, brown, "images/level-button.png"),
-        Level(3, 520, 310, 100, 100, brown, "images/level-button.png"),
-        Level(4, 830, 200, 100, 100, brown, "images/level-button.png"),
-        Level(5, 610, 30, 100, 100, brown, "images/level-button.png"),
+        Level(1, 40, 350, 80, 80, brown, "images/level-button.png"),
+        Level(2, 250, 240, 80, 80, brown, "images/level-button.png"),
+        Level(3, 520, 330, 80, 80, brown, "images/level-button.png"),
+        Level(4, 830, 350, 80, 80, brown, "images/level-button.png"),
+        Level(5, 1100, 30, 80, 80, brown, "images/level-button.png"),
         ]
 
     while True:
