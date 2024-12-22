@@ -40,10 +40,13 @@ class Watergun(Weapon, pygame.sprite.Sprite):
         super().__init__("Watergun", fps * 1.5, 4, "images_weapons/watergun.png")
         self.damage = 4
 
+    def __repr__(self):
+        return "Watergun"
+
 
 class Snowball(Weapon, pygame.sprite.Sprite):
     def __init__(self):
-        super().__init__("Snowball", fps * 2, 5, "images/snowball.png")
+        super().__init__("Snowball", fps * 2, 5, "images_weapons/snowball.png")
         self.damage = 5
 
     def __repr__(self):
@@ -52,7 +55,7 @@ class Snowball(Weapon, pygame.sprite.Sprite):
 
 class Slingshot(Weapon, pygame.sprite.Sprite):
     def __init__(self):
-        super().__init__("Slingshot", fps * 1, 3, "images/slingshot.png")
+        super().__init__("Slingshot", fps * 1, 3, "images_weapons/slingshot.png")
         self.damage = 3
 
     def __repr__(self):

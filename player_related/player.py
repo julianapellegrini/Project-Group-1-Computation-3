@@ -4,7 +4,7 @@ from config import *
 import math
 from player_related.bullet import Bullet
 from player_related.inventory import Inventory
-from player_related.weapons import Snowball, Slingshot, Watergun
+from player_related.weapons import Snowball, Slingshot, Watergun, Fish_bazooka, Ice_Ninja_Stars
 from powerups.extra_fish import Extra_Fish
 
 ptypes = ['gray', 'brown', 'eyebrow']  # just for reference
@@ -123,8 +123,15 @@ class Player(pygame.sprite.Sprite):
         weapon_name = data[2].split("(")[0]
         if weapon_name == "Snowball":
             self.weapon = Snowball()
-        else:
+        elif weapon_name == "Slingshot":
             self.weapon = Slingshot()
+        elif weapon_name == "Watergun":
+            self.weapon = Watergun()
+        elif weapon_name == "Fish bazooka":
+            self.weapon = Fish_bazooka()
+        elif weapon_name == "Ice Ninja Stars":
+            self.weapon = Ice_Ninja_Stars()
+
 
     def add_item(self, item):
         # Add the item to the inventory

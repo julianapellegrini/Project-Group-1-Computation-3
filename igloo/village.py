@@ -53,8 +53,6 @@ def village(player, map_layout):
         if player.rect.bottom <= 300:
             player.rect.bottom = 300
 
-        print(player.weapon)
-
         if special_area.colliderect(player.rect):
             shed(player)
             player.rect.top = 200
