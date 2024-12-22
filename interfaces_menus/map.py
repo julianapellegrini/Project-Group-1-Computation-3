@@ -7,8 +7,6 @@ from config import *
 from interfaces_menus.levels import Level
 
 
-
-
 def map_layout(player, interface_w_save, interface_no_save):
 
     from interfaces_menus.interface import music_volume

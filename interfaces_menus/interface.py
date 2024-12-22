@@ -190,6 +190,11 @@ def interface_w_save(player):
     # Calculate the center x-coordinate
     center_x = resolution[0] // 2
 
+    # game logo
+    icon = pygame.image.load('images/game-logo.png')
+    icon = pygame.transform.scale(icon, (256, 230))
+    icon_rect = icon.get_rect(center=(resolution[0] // 2, 160))
+
     # initialize buttons
     load_game_button = Button(center_x - 155, 270, 150, 70, "Load Game", brown, "fonts/Grand9KPixel.ttf", 19, True,
                               light_brown,
@@ -216,6 +221,8 @@ def interface_w_save(player):
         # display background
         draw_bg(screen, scroll)
         scroll += 0.5
+
+        screen.blit(icon, icon_rect)  # game logo
 
         # Get mouse position
         mouse = pygame.mouse.get_pos()
