@@ -16,7 +16,9 @@ class Speed_Boost(PowerUp):
         self.active = True
         self.start_time = pygame.time.get_ticks()
         player.speed *= 2
-        player.image = player_image_powered
+
+        # change the player's image
+        player.load_images_pow()
 
         # Position the power-up image around the player
         self.image = pygame.image.load('powerup_images/despawner_image.png')
@@ -30,7 +32,7 @@ class Speed_Boost(PowerUp):
     def deactivate(self, player):
         self.active = False
         player.speed = player.speed_cap
-        player.image = player_image_normal
+        player.load_images()
         player.powerup = None
         print("Speed Boost deactivated")
 

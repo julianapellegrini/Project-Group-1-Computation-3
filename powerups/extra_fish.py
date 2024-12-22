@@ -11,12 +11,14 @@ class Extra_Fish(PowerUp):
         self.duration = 5  # Duration for which the power-up is active
 
     def affect_player(self, surface, player):
-        # Activate the power-up
+        # activate the power-up
         self.active = True
         self.start_time = pygame.time.get_ticks()
-        player.image = player_image_powered
 
-        # Position the power-up image around the player
+        # change the player's image
+        player.load_images_pow()
+
+        # position the power-up image around the player
         self.image = pygame.image.load('powerup_images/despawner_image.png')
         self.image = pygame.transform.scale(self.image, (player.rect.width + 30, player.rect.height + 30))
         self.image_rect = self.image.get_rect(center=player.rect.center)
@@ -27,7 +29,7 @@ class Extra_Fish(PowerUp):
 
     def deactivate(self, player):
         self.active = False
-        player.image = player_image_normal
+        player.load_images()
         player.powerup = None
         print("Extra Fish deactivated")
 

@@ -83,6 +83,27 @@ class Player(pygame.sprite.Sprite):
         self.image_r_1 = pygame.transform.scale(self.image_r_1, player_size)
         self.image_r_2 = pygame.transform.scale(self.image_r_2, player_size)
 
+    def load_images_pow(self):
+        # load images for different directions and to switch between them
+        self.image_up = pygame.image.load(f'images_penguins/{self.ptype}uppow.png')
+        self.image_d_stop = pygame.image.load(f'images_penguins/{self.ptype}downstoppow.png')
+        self.image_d_1 = pygame.image.load(f'images_penguins/{self.ptype}down1pow.png')
+        self.image_d_2 = pygame.image.load(f'images_penguins/{self.ptype}down2pow.png')
+        self.image_l_1 = pygame.image.load(f'images_penguins/{self.ptype}left1pow.png')
+        self.image_l_2 = pygame.image.load(f'images_penguins/{self.ptype}left2pow.png')
+        self.image_r_1 = pygame.image.load(f'images_penguins/{self.ptype}right1pow.png')
+        self.image_r_2 = pygame.image.load(f'images_penguins/{self.ptype}right2pow.png')
+
+        # scaling the images
+        self.image_up = pygame.transform.scale(self.image_up, player_size)
+        self.image_d_stop = pygame.transform.scale(self.image_d_stop, player_size)
+        self.image_d_1 = pygame.transform.scale(self.image_d_1, player_size)
+        self.image_d_2 = pygame.transform.scale(self.image_d_2, player_size)
+        self.image_l_1 = pygame.transform.scale(self.image_l_1, player_size)
+        self.image_l_2 = pygame.transform.scale(self.image_l_2, player_size)
+        self.image_r_1 = pygame.transform.scale(self.image_r_1, player_size)
+        self.image_r_2 = pygame.transform.scale(self.image_r_2, player_size)
+
     # Inventory of fish caught
     def add_fish(self, fish):
         self.inventory.add_item(fish)
