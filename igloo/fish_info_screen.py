@@ -3,6 +3,21 @@ from interfaces_menus.button import Button, select_sound
 
 
 def fish_info_screen(player):
+    """
+    Display the fish information screen where the player can sell fish from their inventory for coins
+
+    Parameters
+    ----------
+    player : object
+        The player object that contains the player's inventory and balance
+
+    Returns
+    -------
+    None
+        The function does not return anything. It updates the player's inventory and balance based on the
+        on-screen actions
+    """
+
     pygame.init()
     screen = pygame.display.set_mode(resolution)
     clock = pygame.time.Clock()

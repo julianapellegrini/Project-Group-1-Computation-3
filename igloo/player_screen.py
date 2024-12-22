@@ -4,6 +4,28 @@ from interfaces_menus.button import Button, select_sound
 
 
 def player_info_screen(player):
+    """
+    Display the player information screen where the player can see their stats and balance
+
+    It renders a screen with:
+    - Player's penguin image (depending on the player's penguin type) and text
+    - Player's weapon image and text
+    - Player's balance and coin image
+    - Player's health cap and heart image
+    - Player's speed cap and speed image
+    - A back button to return to the main
+
+    Parameters
+    ----------
+    player : object
+        The player object that contains the player's balance and stats
+
+    Returns
+    -------
+    None
+        The function does not return anything. It exits on ESC key press or back button click.
+    """
+
     pygame.init()
     screen = pygame.display.set_mode(resolution)
     clock = pygame.time.Clock()

@@ -5,6 +5,19 @@ from player_related.weapons import Snowball, Slingshot, Fish_bazooka, Ice_Ninja_
 
 
 def weapon_selector(player):
+    """
+    Display the weapon selector screen where the player can select the weapon they want to play with.
+
+    Parameters
+    ----------
+    player : object
+        The player object that contains the player's weapons and current weapon.
+
+    Returns
+    -------
+    None
+        The function does not return anything. It updates the player's current weapon based on the player's selection.
+    """
 
     # set background
     background = pygame.image.load("images/chest_background.png")

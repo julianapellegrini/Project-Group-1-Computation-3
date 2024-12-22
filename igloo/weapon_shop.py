@@ -4,6 +4,25 @@ from interfaces_menus.button import Button, select_sound
 
 
 class WeaponSale(pygame.sprite.Sprite):
+    """
+    A class to represent a weapon for sale in the weapon shop.
+
+    Attributes
+    ----------
+    name : str
+        The name of the weapon.
+    price : int
+        The price of the weapon.
+    image : pygame image
+        The image of the weapon.
+    rect : pygame rect
+        The rectangle of the weapon, used for positioning and collision detection.
+
+    Methods
+    -------
+    __init__(name, price, image_path)
+        Initializes the weapon object with the given attributes.
+    """
     def __init__(self, name, price, image_path):
         super().__init__()
         self.name = name
@@ -14,6 +33,20 @@ class WeaponSale(pygame.sprite.Sprite):
 
 
 def weapon_shop(player):
+    """
+    Display the weapon shop screen where the player can buy weapons.
+
+    Parameters
+    ----------
+    player : object
+        The player object that interacts with the weapon shop screen. It contains the player's balance and inventory.
+
+    Returns
+    -------
+    None
+        The function does not return anything. It exits on ESC key press or back button click. It updates the player's
+        balance and inventory based on the player's actions on the screen.
+    """
     pygame.init()
     screen = pygame.display.set_mode(resolution)
 

@@ -10,6 +10,21 @@ from igloo.player_screen import player_info_screen
 
 
 def shed(player):
+    """
+    Display the shed screen where the player can access different features of the game like the shop, skins, weapons,
+    fishing hole, save game, and player info.
+
+    Parameters
+    ----------
+    player : object
+        The player object that interacts with the shed screen and the features it provides.
+
+    Returns
+    -------
+    None
+        The function does not return anything. It exits on ESC key press or back button click and responds to the
+        on-screen actions.
+    """
     # setting up the background and the screen
     background = pygame.image.load("images/igloo_bar.png")
 

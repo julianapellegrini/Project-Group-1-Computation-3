@@ -6,6 +6,20 @@ import random
 
 
 def fishing(player):
+    """
+    Display the fishing screen where the player can fish for different types of fish.
+
+    Parameters
+    ----------
+    player : object
+        The player object that interacts with the fishing minigame and updates the player's inventory.
+
+    Returns
+    -------
+    None
+        The function does not return anything. It exits on ESC key press or back button click.
+    """
+
     # setting up the background
     background = pygame.image.load("images/fishing_background.png")
 
@@ -74,6 +88,19 @@ def fishing(player):
 
 
 def fishing_minigame(player):
+    """
+    Display the fishing minigame where the player can catch fish by moving a fishing bar.
+
+    Parameters
+    ----------
+    player : object
+        The player object that interacts with the fishing minigame catching fish and adding them to the inventory.
+
+    Returns
+    -------
+    None
+        The function does not return anything. It exits on ESC key press.
+    """
 
     # setting up the background
     background = pygame.image.load("images/fishing_background.png")
@@ -109,6 +136,14 @@ def fishing_minigame(player):
 
     # function to spawn a fish based on their probabilities
     def spawn_fish():
+        """
+        Spawns a fish based on their probabilities.
+
+        Returns
+        -------
+        fish : object
+            The fish object that is spawned.
+        """
         fish_selected = random.choices(fish_types, [little_guy().probability for little_guy in fish_types])[0]
         return fish_selected()
 

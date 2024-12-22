@@ -4,6 +4,20 @@ from interfaces_menus.button import Button, select_sound
 from player_related.weapons import Snowball, Slingshot, Fish_bazooka, Ice_Ninja_Stars
 
 def improve_combat_screen(player):
+    """
+    Display the combat improvement screen where the player can upgrade their weapons for better damage using coins
+
+    Parameters
+    ----------
+    player : object
+        The player object that contains the player's balance and weapons
+
+    Returns
+    -------
+    None
+        The function does not return anything. It updates the player's weapons and balance based on the
+        on-screen actions
+    """
 
     # setting up the background
     background = pygame.image.load('images/textbg.png')
